@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">OBESENEC</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="play_buttoon">HRAJ</string>
+    <string name="skore_button">SKÓRE</string>
+    <string name="top10">TOP 10 HRÁČOV</string>
+    <string name="historia"> HISTÓRIA SKÓRE</string>
+    <string name="umiestnenie"> Um.</string>
+    <string name="meno"> Meno</string>
+    <string name="skore"> Skóre</string>
+    <string name="zadaj_meno"> Zadaj svoje meno</string>
+    <string name="obtiaznosti"> VYBER SI OBTIAŽNOSŤ</string>
+    <string name="lahka_button"> Ľahká</string>
+    <string name="str_button"> Stredná</string>
+    <string name="tazka_button"> Ťažká</string>
+    <string name="menu_button"> Menu</string>
+    <string name="koniec_text">TVOJE VÝSLEDNÉ SKÓRE BOLO:</string>
+
+
+
+</resources>
