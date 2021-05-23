@@ -11,6 +11,8 @@ import sk.uniza.fri.slivovsky.semestralnapraca.R
 
 /**
  * Prvy fragment aplikacie
+ *
+ *
  */
 class TitulkaFragment : Fragment() {
 
