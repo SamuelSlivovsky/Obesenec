@@ -24,7 +24,7 @@ class MenuFragment : Fragment() {
     private val slovaViewModel : SlovaViewModel by activityViewModels()
 
     /**
-     *
+     *Funkcia ktora vytvori fragment menu
      *
      * @param inflater
      * @param container
@@ -76,7 +76,7 @@ class MenuFragment : Fragment() {
      * Funkcia ktora skontroluje ci hrac zadal svoje meno.
      * Ak nezadal tak ho nepusti hrat a vypise warning.
      *
-     * @return
+     * @return ak nie je zadane meno tak vrati false, inac true
      */
     fun skontrolujInput(): Boolean {
 

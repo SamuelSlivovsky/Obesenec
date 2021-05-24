@@ -6,7 +6,7 @@ import androidx.room.Query
 
 
 @Dao
-interface SkoreDatabazaDao {
+interface  SkoreDatabazaDao {
 
     @Insert
     fun insert(skore: Skore) // vlozi udaje do databazy

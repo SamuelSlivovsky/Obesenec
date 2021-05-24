@@ -118,8 +118,8 @@ class HraFragment : Fragment() {
                 if (powerUpUkaz == 0) {
                     powerUpPismenoTextView.visibility = View.INVISIBLE
                 }
-            } else {
             }
+
             if (pocetPowerUpov == 0) {
                 pocet_powerUp_Text_View.visibility = View.INVISIBLE
             }
@@ -143,9 +143,8 @@ class HraFragment : Fragment() {
                 if (powerUpDajCas == 0) {
                     powerUpCasTextView.visibility = View.INVISIBLE
                 }
-            } else {
-
             }
+
             if (pocetPowerUpov == 0) {
                 pocet_powerUp_Text_View.visibility = View.INVISIBLE
             }
@@ -162,12 +161,12 @@ class HraFragment : Fragment() {
                 if (powerUpDajZivot == 0) {
                     powerUpZivotyTextView2.visibility = View.INVISIBLE
                 }
-            } else {
             }
+
             if (pocetPowerUpov == 0) {
                 pocet_powerUp_Text_View.visibility = View.INVISIBLE
             }
-            updateImg()
+            updateObr()
             aktPocetPUPtext()
         }
 
@@ -241,7 +240,7 @@ class HraFragment : Fragment() {
      *
      */
 
-    private fun updateImg() {
+    private fun updateObr() {
         if (zivoty >= 6) {
 
             ObesenecObr.setImageResource(R.drawable.obesenec_6)
@@ -257,7 +256,7 @@ class HraFragment : Fragment() {
 
     /**
      * funkcia pre start novej hry, inicializuje atributy na startovne hodnoty
-     * @param slova
+     * @param slova Mutable list ktory je naplneny slovami
      */
 
     fun novaHra(slova: MutableList<String>) {
@@ -297,6 +296,8 @@ class HraFragment : Fragment() {
 
     /**
      * funkcia pre inicializaciu textu resp. nacitanie jednotlivych pismen do char array
+     *
+     * @return vrati zoznam pismen
      */
     fun textInicalizacia(): String {
         val builder = StringBuilder()
@@ -349,7 +350,7 @@ class HraFragment : Fragment() {
                 //pokial sa pismeno nenachadza v slove a nie je to medzera tak uberie zivot
             } else if (p != " ") {
                 this.zivoty--
-                updateImg()
+                updateObr()
             }
         //prida pismeno do zoznamu pouzitych pismen
             pouzitePismena.add(p)

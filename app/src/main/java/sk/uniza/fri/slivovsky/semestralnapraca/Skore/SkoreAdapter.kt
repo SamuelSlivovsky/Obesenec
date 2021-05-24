@@ -25,11 +25,10 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
 
     /**
      *
-     *
+     *View holder v sebe drzi atributy list_itemu2
      * @constructor
      *
-     *
-     * @param itemView
+     * @param itemView view do ktoreho posielam list_item
      */
     class SkoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
 
@@ -47,12 +46,12 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
          * Tato funkcia zabezpeci presun na fragment historie hraca ak hrac podrzi
          * v skoreFragment na meno hraca.
          *
-         * @param v
+         * @param v View
          * @return
          */
         override fun onLongClick(v: View?): Boolean {
 
-            var bundle = bundleOf("hrac" to menoHraca.text.toString().trim())
+            val bundle = bundleOf("hrac" to menoHraca.text.toString().trim())
 
             v!!.findNavController().navigate(R.id.action_skoreFragment_to_fragmentHistoriaHraca,bundle)
             return true
@@ -61,8 +60,8 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
         /**
          * Funkica ktora nastavi textView itemov na hodnoty ziskane z databazy
          *
-         * @param skore
-         * @param poradoveCislo
+         * @param skore Databaza
+         * @param poradoveCislo poradove cislo v zozname
          */
         fun nastavHodnoty(skore: Skore, poradoveCislo: Int) {
             menoHraca.text = skore.menoHraca
@@ -72,6 +71,13 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
         }
     }
 
+    /**
+     * Funkcia ktora vyberie item layout do ktoreho sa budu nasledne ukladat data
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkoreViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
 
@@ -87,7 +93,7 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
     /**
      * Vrati velkost zoznamu
      *
-     * @return
+     * @return vrati velkost zoznamu
      */
     override fun getItemCount(): Int = najHraci.size
 }

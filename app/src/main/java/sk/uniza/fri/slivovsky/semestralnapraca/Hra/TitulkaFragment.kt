@@ -18,7 +18,7 @@ class TitulkaFragment : Fragment() {
 
     /**
      *
-     *
+     *Funkcia ktora vytvori fragment
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -33,7 +33,7 @@ class TitulkaFragment : Fragment() {
     }
 
     /**
-     *
+     *Po vytvoreni fragmentu sa nastavia onClickListenery pre buttony
      *
      * @param view
      * @param savedInstanceState

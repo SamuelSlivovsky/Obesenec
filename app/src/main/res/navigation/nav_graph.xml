@@ -22,9 +22,6 @@
         <action
             android:id="@+id/action_FirstFragment_to_skoreFragment2"
             app:destination="@id/skoreFragment" />
-        <action
-            android:id="@+id/action_TitulkaFragment_to_fragmentTutorial"
-            app:destination="@id/fragmentTutorial" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHra"
@@ -82,8 +79,4 @@
             app:destination="@id/skoreFragment"
             app:popUpTo="@id/TitulkaFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/fragmentTutorial"
-        android:name="sk.uniza.fri.slivovsky.semestralnapraca.Hra.FragmentTutorial"
-        android:label="FragmentTutorial" />
 </navigation>

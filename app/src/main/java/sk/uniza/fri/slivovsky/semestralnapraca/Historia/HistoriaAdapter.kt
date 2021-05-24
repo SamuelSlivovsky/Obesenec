@@ -23,12 +23,10 @@ import sk.uniza.fri.slivovsky.semestralnapraca.R
 class HistoriaAdapter(private val context: Context,private val historiaHraca: List<Skore>, private var poradoveCislo: Int = 0) : RecyclerView.Adapter<HistoriaAdapter.HistoriaViewHolder>() {
 
     /**
-     *
-     *
+     * View holder v sebe drzi atributy list_itemu2
      * @constructor
      *
-     *
-     * @param itemView
+     * @param itemView view do ktoreho posielam list_item2
      */
     class HistoriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
