@@ -47,6 +47,7 @@ class HraFragment : Fragment() {
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
      * zabezpecuje vytvorenie fragmentu
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
