@@ -451,34 +451,170 @@ class HraFragment : Fragment() {
      * funkcia pre nastavenie listenerov vsetkych zadavacich buttonov
      */
     fun nastavButtony() {
-        zadajAbutton.setOnClickListener { zadaj("A") }
+        zadajAbutton.setOnClickListener {
+            if (hladaneSlovo!!.contains("A")) {
+                zadaj("A")
+            }
+            if (hladaneSlovo!!.contains("Á")) {
+                zadaj("Á")
+            }
+            if (hladaneSlovo!!.contains("Ä")) {
+                zadaj("Ä")
+            }
+
+            if (!hladaneSlovo!!.contains("A") && !hladaneSlovo!!.contains("Á") && !hladaneSlovo!!.contains("Ä")){
+                zadaj("A")
+            }
+        }
         zadajBbutton.setOnClickListener { zadaj("B") }
-        zadajCbutton.setOnClickListener { zadaj("C") }
-        zadajDbutton.setOnClickListener { zadaj("D") }
-        zadajEbutton.setOnClickListener { zadaj("E") }
+        zadajCbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("C")) {
+                zadaj("C")
+
+            }
+
+            if (hladaneSlovo!!.contains("Č")) {
+                zadaj("Č")
+
+            }
+        }
+        zadajDbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("D")) {
+                zadaj("D")
+
+            }
+            if (hladaneSlovo!!.contains("Ď")) {
+                zadaj("Ď")
+
+            }
+        }
+        zadajEbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("E")) {
+                zadaj("E")
+
+            }
+            if (hladaneSlovo!!.contains("É")) {
+                zadaj("É")
+
+            }
+        }
         zadajFbutton.setOnClickListener { zadaj("F") }
         zadajGbutton.setOnClickListener { zadaj("G") }
         zadajHbutton.setOnClickListener { zadaj("H") }
-        zadajIbutton.setOnClickListener { zadaj("I") }
+        zadajIbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("I")) {
+                zadaj("I")
+
+            }
+            if (hladaneSlovo!!.contains("Í")) {
+                zadaj("Í")
+
+            }
+        }
         zadajJbutton.setOnClickListener { zadaj("J") }
         zadajKbutton.setOnClickListener { zadaj("K") }
-        zadajLbutton.setOnClickListener { zadaj("L") }
+        zadajLbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("L")) {
+                zadaj("L")
+
+            }
+            if (hladaneSlovo!!.contains("Ĺ")) {
+                zadaj("Ĺ")
+
+            } else if (hladaneSlovo!!.contains("Ľ")) {
+                zadaj("Ľ")
+
+            }
+        }
         zadajMbutton.setOnClickListener { zadaj("M") }
-        zadajNbutton.setOnClickListener { zadaj("N") }
-        zadajObutton.setOnClickListener { zadaj("O") }
+        zadajNbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("N")) {
+                zadaj("N")
+
+            }
+            if (hladaneSlovo!!.contains("Ň")) {
+                zadaj("Ň")
+
+            }
+        }
+        zadajObutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("O")) {
+                zadaj("O")
+
+            }
+            if (hladaneSlovo!!.contains("Ó")) {
+                zadaj("Ó")
+
+            } else if (hladaneSlovo!!.contains("Ô")) {
+                zadaj("Ô")
+
+            }
+        }
         zadajPbutton.setOnClickListener { zadaj("P") }
         zadajQbutton.setOnClickListener { zadaj("Q") }
         zadajRbutton.setOnClickListener { zadaj("R") }
-        zadajSbutton.setOnClickListener { zadaj("S") }
-        zadajTbutton.setOnClickListener { zadaj("T") }
-        zadajUbutton.setOnClickListener { zadaj("U") }
+        zadajSbutton.setOnClickListener {
+
+            if (hladaneSlovo!!.contains("S")) {
+                zadaj("S")
+
+            }
+            if (hladaneSlovo!!.contains("Š")) {
+                zadaj("Š")
+
+            }
+        }
+        zadajTbutton.setOnClickListener {
+            if (hladaneSlovo!!.contains("Y")) {
+                zadaj("Y")
+
+            }
+            if (hladaneSlovo!!.contains("Ť")) {
+                zadaj("Ť")
+
+            }
+        }
+        zadajUbutton.setOnClickListener {
+            if (hladaneSlovo!!.contains("U")) {
+                zadaj("U")
+
+            }
+            if (hladaneSlovo!!.contains("Ú")) {
+                zadaj("Ú")
+
+            }
+        }
         zadajVbutton.setOnClickListener { zadaj("V") }
         zadajWbutton.setOnClickListener { zadaj("W") }
         zadajXbutton.setOnClickListener { zadaj("X") }
-        zadajYbutton.setOnClickListener { zadaj("Y") }
-        zadajZbutton.setOnClickListener { zadaj("Z") }
-    }
+        zadajYbutton.setOnClickListener {
+            if (hladaneSlovo!!.contains("Y")) {
+                zadaj("Y")
 
+            }
+            if (hladaneSlovo!!.contains("Ý")) {
+                zadaj("Ý")
+
+            }
+        }
+        zadajZbutton.setOnClickListener {
+            if (hladaneSlovo!!.contains("Z")) {
+                zadaj("Z")
+
+            }
+            if (hladaneSlovo!!.contains("Ž")) {
+                zadaj("Ž")
+
+            }
+        }
+    }
     /**
      * funkcia pre schovanie jedlotlivych buttonov podla zadaneho pismena
      * @param p
@@ -487,7 +623,7 @@ class HraFragment : Fragment() {
     fun schovajButtony(p: String, schovaj: Boolean) {
         if (schovaj) {
             when (p) {
-                "A" -> zadajAbutton.visibility = View.INVISIBLE
+                "A", "Á" -> zadajAbutton.visibility = View.INVISIBLE
                 "B" -> zadajBbutton.visibility = View.INVISIBLE
                 "C" -> zadajCbutton.visibility = View.INVISIBLE
                 "D" -> zadajDbutton.visibility = View.INVISIBLE
