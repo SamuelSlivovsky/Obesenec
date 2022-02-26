@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 
@@ -45,7 +46,7 @@ class TitulkaFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_menuFragment)
         }
 
-        view.findViewById<Button>(R.id.menuDoSkoreButton).setOnClickListener {
+        view.findViewById<ImageView>(R.id.scoreIcon).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_skoreFragment2)
         }
 
