@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916747119881",
+    "project_id": "obesenec-9d372",
+    "storage_bucket": "obesenec-9d372.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916747119881:android:cae483f71929c90aef37d8",
+        "android_client_info": {
+          "package_name": "sk.uniza.fri.slivovsky.semestralnapraca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916747119881-oa1n1nrejsr5pktd6vlopk5ko64070ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgV8aUf4VXNl9WCzS05f0BgXm_RCWOfsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916747119881-oa1n1nrejsr5pktd6vlopk5ko64070ag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
