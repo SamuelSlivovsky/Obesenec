@@ -52,7 +52,6 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
 
             val bundle = bundleOf("hrac" to menoHraca.text.toString().trim())
 
-            v!!.findNavController().navigate(R.id.action_skoreFragment_to_fragmentHistoriaHraca,bundle)
             return true
         }
 

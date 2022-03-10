@@ -93,7 +93,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajAbutton"
+                            android:id="@+id/submitAbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -104,7 +104,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajBbutton"
+                            android:id="@+id/submitBbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -115,7 +115,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajCbutton"
+                            android:id="@+id/submitCbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -126,7 +126,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajDbutton"
+                            android:id="@+id/submitDbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -137,7 +137,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajEbutton"
+                            android:id="@+id/submitEbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -148,7 +148,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajFbutton"
+                            android:id="@+id/submitFbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -159,7 +159,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajGbutton"
+                            android:id="@+id/submitGbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -170,7 +170,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajHbutton"
+                            android:id="@+id/submitHbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -181,7 +181,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajIbutton"
+                            android:id="@+id/submitIbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -200,7 +200,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajJbutton"
+                            android:id="@+id/submitJbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -211,7 +211,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajKbutton"
+                            android:id="@+id/submitKbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -222,7 +222,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajLbutton"
+                            android:id="@+id/submitLbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -233,7 +233,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajMbutton"
+                            android:id="@+id/submitMbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -244,7 +244,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajNbutton"
+                            android:id="@+id/submitNbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -255,7 +255,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajObutton"
+                            android:id="@+id/submitObutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -266,7 +266,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajPbutton"
+                            android:id="@+id/submitPbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -277,7 +277,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajQbutton"
+                            android:id="@+id/submitQbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -288,7 +288,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajRbutton"
+                            android:id="@+id/submitRbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -307,7 +307,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajSbutton"
+                            android:id="@+id/submitSbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -318,7 +318,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajTbutton"
+                            android:id="@+id/submitTbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -329,7 +329,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajUbutton"
+                            android:id="@+id/submitUbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -340,7 +340,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajVbutton"
+                            android:id="@+id/submitVbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -351,7 +351,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajWbutton"
+                            android:id="@+id/submitWbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -362,7 +362,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajXbutton"
+                            android:id="@+id/submitXbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -373,7 +373,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajYbutton"
+                            android:id="@+id/submitYbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
@@ -384,7 +384,7 @@
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/zadajZbutton"
+                            android:id="@+id/submitZbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"

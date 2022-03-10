@@ -49,7 +49,6 @@ class SkoreFragment:Fragment() {
         binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(),najHraci!!)
 
         view.findViewById<Button>(R.id.buttonVratDoMenuZoSkore).setOnClickListener {
-            findNavController().navigate(R.id.action_skoreFragment_to_FirstFragment2)
         }
 
     }

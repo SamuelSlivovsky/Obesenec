@@ -53,10 +53,10 @@ class KoniecFragment: Fragment(){
         var body = requireArguments().getInt("body")
         binding.koniecTextView.text = viewModel.menoHraca + " " +binding.koniecTextView.text.toString() + " " + body
         view.findViewById<Button>(R.id.vratDoMenuButton).setOnClickListener {
-            findNavController().navigate(R.id.action_koniecFragment_to_FirstFragment)
+
         }
         view.findViewById<Button>(R.id.DoSkoreButon).setOnClickListener {
-            findNavController().navigate(R.id.action_koniecFragment_to_skoreFragment)
+
         }
     }
 

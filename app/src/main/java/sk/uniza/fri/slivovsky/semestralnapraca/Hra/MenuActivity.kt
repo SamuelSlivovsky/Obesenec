@@ -43,10 +43,10 @@ class MenuActivity : AppCompatActivity() {
             startActivity(Intent(this@MenuActivity,HraActivity::class.java))
             }
         binding.stredneTazkaButton.setOnClickListener {
-                view.findNavController().navigate(R.id.action_menuFragment_to_fragmentHra)
+
             }
         binding.tazkaButton.setOnClickListener {
-                view.findNavController().navigate(R.id.action_menuFragment_to_fragmentHra)
+
 
         }
 

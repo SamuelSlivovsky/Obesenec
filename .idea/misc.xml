@@ -6,15 +6,20 @@
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_hra.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_menu.xml" value="0.2203125" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/activity_score.xml" value="0.333786231884058" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_signin.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_titulka.xml" value="0.2526041666666667" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/activity_tutorial.xml" value="0.29270833333333335" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_historia_hraca.xml" value="0.23958333333333334" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_hra.xml" value="0.31145833333333334" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_koniec.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_menu.xml" value="0.24947916666666667" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_titulka.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/list_item2.xml" value="0.36666666666666664" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/test.xml" value="0.2989583333333333" />
+        <entry key="..\:/bakalarka/app/src/main/res/menu/menu_main.xml" value="0.2989583333333333" />
         <entry key="..\:/bc/Obesenec/app/src/main/res/layout/fragment_menu.xml" value="0.32864583333333336" />
         <entry key="..\:/bc/Obesenec/app/src/main/res/layout/fragment_titulka.xml" value="0.5" />
       </map>

@@ -4,6 +4,7 @@ package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import sk.uniza.fri.slivovsky.semestralnapraca.Skore.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityTitulkaBinding
 
 
@@ -19,6 +20,9 @@ class TitulkaActivity : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             startActivity(Intent(this@TitulkaActivity,MenuActivity::class.java))
+        }
+        binding.menuDoSkoreButton.setOnClickListener {
+            startActivity(Intent(this@TitulkaActivity,TutorialActivity::class.java))
         }
     }
 }

@@ -56,7 +56,7 @@ class FragmentHistoriaHraca : Fragment() {
         binding.historiaRecylcerView.adapter = HistoriaAdapter(requireContext(),historiaHraca!!)
 
         view.findViewById<Button>(R.id.buttonSpatZHistorie).setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentHistoriaHraca_to_skoreFragment)
+
         }
     }
 

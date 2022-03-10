@@ -3,6 +3,7 @@ package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -12,11 +13,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.SlovaViewModel
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.UdajeViewModel
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityHraBinding
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -25,23 +28,23 @@ import java.util.*
  */
 class HraActivity : AppCompatActivity() {
 
-    private var slova = mutableListOf<String>()
-    private var hladaneSlovo: String? = null
-    private var zoznamPismien: CharArray = charArrayOf()
-    private var pomocnePismeno: CharArray = charArrayOf()
-    private val pouzitePismena = ArrayList<String>()
-    private var zivoty = 0
+    private var words = mutableListOf<String>()
+    private var wordToFind: String? = null
+    private var lettersArray: CharArray = charArrayOf()
+    private var helpingLetter: CharArray = charArrayOf()
+    private val usedLetters = ArrayList<String>()
+    private var lives = 0
     private val Random = Random()
-    private var body = 0
-    private var powerUpUkaz = 0
-    private var powerUpDajCas = 0
-    private var powerUpDajZivot = 0
+    private var points = 0
+    private var powerUpShow = 0
+    private var powerUpTime = 0
+    private var powerUpLife = 0
     private var powerUpOtvorene = false
     private var pocetPowerUpov = 0
-    private var menoHraca = ""
+    private var userName = ""
     private lateinit var viewModel: UdajeViewModel
-    private lateinit var slovaViewModel: SlovaViewModel
-    private var pokracuj = false
+    private lateinit var wordsViewModel: SlovaViewModel
+    private var nextGame = false
     private lateinit var binding: ActivityHraBinding
 
     /**
@@ -62,15 +65,16 @@ class HraActivity : AppCompatActivity() {
         val view = binding.root
 
         val user = Firebase.auth.currentUser
-        menoHraca = user?.displayName.toString()
+
+        userName = user?.displayName.toString()
         setContentView(view)
         viewModel = ViewModelProviders.of(this).get(UdajeViewModel::class.java)
-        slovaViewModel = ViewModelProviders.of(this).get(SlovaViewModel::class.java)
+        wordsViewModel = ViewModelProviders.of(this).get(SlovaViewModel::class.java)
 
-        slova = slovaViewModel.slovaLahke
+        words = wordsViewModel.slovaLahke
 
 
-        novaHra(slova)
+        newGame(words)
 
         binding.casovac2TextView.setOnChronometerTickListener {
             if (binding.casovac2TextView.text == "00:00") {
@@ -83,7 +87,7 @@ class HraActivity : AppCompatActivity() {
 
         binding.casovacTextView.setOnChronometerTickListener {
             if (binding.casovacTextView.text == "00:00") {
-                prehra()
+                loss()
                 binding.casovacTextView.stop()
             }
         }
@@ -102,11 +106,11 @@ class HraActivity : AppCompatActivity() {
 
         val powerUpPismeno: FloatingActionButton = view.findViewById(R.id.pismenoPowerUpButton)
         powerUpPismeno.setOnClickListener {
-            if (powerUpUkaz > 0) {
-                powerUpUkaz--
+            if (powerUpShow > 0) {
+                powerUpShow--
                 pocetPowerUpov--
-                doplnPismeno()
-                if (powerUpUkaz == 0) {
+                fillInLetter()
+                if (powerUpShow == 0) {
                     binding.powerUpPismenoTextView.visibility = View.INVISIBLE
                 }
             }
@@ -114,13 +118,13 @@ class HraActivity : AppCompatActivity() {
             if (pocetPowerUpov == 0) {
                 binding.pocetPowerUpTextView.visibility = View.INVISIBLE
             }
-            aktPocetPUPtext()
+            howManyPowerUps()
         }
 
         val powerUpCas: FloatingActionButton = view.findViewById(R.id.powerUpCasButton)
         powerUpCas.setOnClickListener {
-            if (powerUpDajCas > 0) {
-                powerUpDajCas--
+            if (powerUpTime > 0) {
+                powerUpTime--
                 pocetPowerUpov--
                 binding.casovac2TextView.visibility = View.VISIBLE
                 binding.casovacTextView.visibility = View.INVISIBLE
@@ -131,7 +135,7 @@ class HraActivity : AppCompatActivity() {
                 binding.casovac2TextView.base = SystemClock.elapsedRealtime() + 10000
                 binding.casovac2TextView.start()
 
-                if (powerUpDajCas == 0) {
+                if (powerUpTime == 0) {
                     binding.powerUpCasTextView.visibility = View.INVISIBLE
                 }
             }
@@ -139,17 +143,17 @@ class HraActivity : AppCompatActivity() {
             if (pocetPowerUpov == 0) {
                 binding.pocetPowerUpTextView.visibility = View.INVISIBLE
             }
-            aktPocetPUPtext()
+            howManyPowerUps()
         }
 
 
-        val powerUpZivoty: FloatingActionButton = view.findViewById(R.id.zivotyPowerUpButton)
-        powerUpZivoty.setOnClickListener {
-            if (powerUpDajZivot > 0) {
-                powerUpDajZivot--
+        val powerUplives: FloatingActionButton = view.findViewById(R.id.zivotyPowerUpButton)
+        powerUplives.setOnClickListener {
+            if (powerUpLife > 0) {
+                powerUpLife--
                 pocetPowerUpov--
-                this.zivoty++
-                if (powerUpDajZivot == 0) {
+                this.lives++
+                if (powerUpLife == 0) {
                     binding.powerUpZivotyTextView2.visibility = View.INVISIBLE
                 }
             }
@@ -157,8 +161,8 @@ class HraActivity : AppCompatActivity() {
             if (pocetPowerUpov == 0) {
                 binding.pocetPowerUpTextView.visibility = View.INVISIBLE
             }
-            updateObr()
-            aktPocetPUPtext()
+            updateImage()
+            howManyPowerUps()
         }
 
 
@@ -183,25 +187,25 @@ class HraActivity : AppCompatActivity() {
         //listener pre button na pokracovanie
         val pokracovat: Button = view.findViewById(R.id.pokracovatButton)
         pokracovat.setOnClickListener {
-            if (slova.isNotEmpty()) {
-                pokracuj = true
-                novaHra(slova)
-                odkryVsetkyButtony()
+            if (words.isNotEmpty()) {
+                nextGame = true
+                newGame(words)
+                showAllButtons()
                 binding.pauzaLayout.visibility = View.INVISIBLE
                 binding.powerUpButton.isEnabled = true
             } else {
-                prehra()
+                loss()
                 binding.prezradeneSlovoText.text =
                     "Gratulujem, uhádol si všetky slová. Za uhádnutie všetkých slov dostaneš " + pocetPowerUpov + " bonusových bodov"
-                body += pocetPowerUpov
-                updateSkore()
+                points += pocetPowerUpov
+                updateScore()
             }
         }
 
         /*   //listener pre button na ukoncenie
            val koniec: Button = view.findViewById(R.id.koniecButton)
            koniec.setOnClickListener {
-               val bundle = bundleOf("body" to body)
+               val bundle = bundleOf("points" to points)
                findNavController().navigate(R.id.action_fragmentHra_to_koniecFragment, bundle)
            }*/
     }
@@ -210,19 +214,19 @@ class HraActivity : AppCompatActivity() {
     /**
      * Funkcia pre update resp. zvysenie skóre
      */
-    fun updateSkore() {
-        binding.skoreTextView.text = "Skóre: " + body
+    fun updateScore() {
+        binding.skoreTextView.text = "Skóre: " + points
     }
 
     /**
-     * Funkcia pre vybranie nahodne slova zo zoznamu, pouzite slovo sa zo zoznamu vyhodi
+     * Funkcia pre vybranie nahodne words zo zoznamu, pouzite slovo sa zo zoznamu vyhodi
      * @return slovo vrati vybrane slovo
      */
 
-    fun slovoNaNajdenie(slova: MutableList<String>): String {
-        var cislo = Random.nextInt(slova.size)
-        var slovo = slova[cislo]
-        slova.removeAt(cislo)
+    fun wordToFind(words: MutableList<String>): String {
+        var cislo = Random.nextInt(words.size)
+        var slovo = words[cislo]
+        words.removeAt(cislo)
         return slovo
     }
 
@@ -232,41 +236,41 @@ class HraActivity : AppCompatActivity() {
      */
 
     @SuppressLint("RestrictedApi")
-    private fun updateObr() {
-        if (zivoty >= 6) {
+    private fun updateImage() {
+        if (lives >= 6) {
 
             binding.ObesenecObr.setImageResource(R.drawable.obesenec_6)
         } else {
             val resImg = resources.getIdentifier(
-                "obesenec_$zivoty", "drawable",
+                "obesenec_$lives", "drawable",
                 getActivity(this@HraActivity)?.getPackageName()
             )
             binding.ObesenecObr.setImageResource(resImg)
         }
-        binding.zivotyTextView.text = "" + zivoty
+        binding.zivotyTextView.text = "" + lives
     }
 
     /**
      * funkcia pre start novej hry, inicializuje atributy na startovne hodnoty
-     * @param slova Mutable list ktory je naplneny slovami
+     * @param words Mutable list ktory je naplneny wordsmi
      */
 
-    fun novaHra(slova: MutableList<String>) {
+    fun newGame(words: MutableList<String>) {
 
-        if (!pokracuj) {
-            this.zivoty = 6
-            body = 0
+        if (!nextGame) {
+            this.lives = 6
+            points = 0
         }
-        pouzitePismena.clear()
-        hladaneSlovo = slovoNaNajdenie(slova)
-        zoznamPismien = CharArray(hladaneSlovo!!.length)
-        for (i in zoznamPismien.indices) {
-            zoznamPismien[i] = '_'
+        usedLetters.clear()
+        wordToFind = wordToFind(words)
+        lettersArray = CharArray(wordToFind!!.length)
+        for (i in lettersArray.indices) {
+            lettersArray[i] = '_'
         }
         binding.casovac2TextView.visibility = View.INVISIBLE
 
         var cas = 0
-        /*   when (slovaViewModel.druhSlova) {
+        /*   when (wordsViewModel.druhwords) {
                "lahke" -> cas = 60000
                "stredneTazke" -> cas = 40000
                "tazke" -> cas = 20000
@@ -279,10 +283,10 @@ class HraActivity : AppCompatActivity() {
         binding.casovacTextView.base = SystemClock.elapsedRealtime() + cas
         binding.casovacTextView.start()
 
-        binding.hladaneSlovoText.text = textInicalizacia()
+        binding.hladaneSlovoText.text = textInit()
         binding.prezradeneSlovoText.visibility = View.GONE
         binding.prezradeneSlovoText.text = ""
-        zadaj(" ")
+        submit(" ")
 
     }
 
@@ -291,11 +295,11 @@ class HraActivity : AppCompatActivity() {
      *
      * @return vrati zoznam pismen
      */
-    fun textInicalizacia(): String {
+    fun textInit(): String {
         val builder = StringBuilder()
-        for (i in zoznamPismien.indices) {
-            builder.append(zoznamPismien[i])
-            if (i < zoznamPismien.size - 1) {
+        for (i in lettersArray.indices) {
+            builder.append(lettersArray[i])
+            if (i < lettersArray.size - 1) {
                 builder.append(" ")
             }
         }
@@ -307,18 +311,18 @@ class HraActivity : AppCompatActivity() {
      * funkcia pre doplnenie pismena pomocou powerUpu
      *
      */
-    fun doplnPismeno() {
+    fun fillInLetter() {
         //nacitam hladane slovo do charArray
-        pomocnePismeno = hladaneSlovo!!.toCharArray()
+        helpingLetter = wordToFind!!.toCharArray()
 
-        var index = Random.nextInt(pomocnePismeno.size)
-        var pismeno = pomocnePismeno[index]
+        var index = Random.nextInt(helpingLetter.size)
+        var pismeno = helpingLetter[index]
         //podmienka ktora pozera ci sa nevratila medzera alebo pismeno ktore uz bolo najdene
-        if (pismeno == ' ' || pouzitePismena.contains(pismeno)) {
-            doplnPismeno()
+        if (pismeno == ' ' || usedLetters.contains(pismeno)) {
+            fillInLetter()
         }
-        //zavola metodu zadaj
-        zadaj(pismeno.toString())
+        //zavola metodu submit
+        submit(pismeno.toString())
     }
 
     /**
@@ -327,33 +331,33 @@ class HraActivity : AppCompatActivity() {
      *  @param p - pismeno zadane pomocou buttonu
      */
 
-    fun zadaj(p: String) {
+    fun submit(p: String) {
 
         //schovam button
-        schovajButtony(p, true)
+        hideButtons(p, true)
         //podmienka ktora pozera ci sa pismeno nachadza v slove
-        if (hladaneSlovo!!.contains(p)) {
-            var index = hladaneSlovo!!.indexOf(p)
+        if (wordToFind!!.contains(p)) {
+            var index = wordToFind!!.indexOf(p)
             while (index >= 0) {
-                zoznamPismien[index] = p[0]
-                index = hladaneSlovo!!.indexOf(p, index + 1)
+                lettersArray[index] = p[0]
+                index = wordToFind!!.indexOf(p, index + 1)
             }
-            binding.hladaneSlovoText.text = zoznamPismien.joinToString(" ")
+            binding.hladaneSlovoText.text = lettersArray.joinToString(" ")
             //pokial sa pismeno nenachadza v slove a nie je to medzera tak uberie zivot
         } else if (p != " ") {
-            this.zivoty--
-            updateObr()
+            this.lives--
+            updateImage()
         }
         //prida pismeno do zoznamu pouzitych pismen
-        pouzitePismena.add(p)
+        usedLetters.add(p)
 
-        //podmienka ak bolo slovo uhadnute, prida body a zastavi hru, hrac sa rozhodne ci pokracuje alebo konci
-        if (boloNajdene()) {
-            body++
-            updateSkore()
+        //podmienka ak bolo slovo uhadnute, prida points a zastavi hru, hrac sa rozhodne ci nextGamee alebo konci
+        if (found()) {
+            points++
+            updateScore()
             powerUp()
-            schovajButtony("", false)
-            schovajVsetkyButtony()
+            hideButtons("", false)
+            hideAllButtonns()
             binding.casovacTextView.stop()
             binding.casovac2TextView.stop()
             binding.pauzaLayout.visibility = View.VISIBLE
@@ -361,10 +365,10 @@ class HraActivity : AppCompatActivity() {
         }
 
         //podmienka pre prehru
-        if (this.zivoty == 0) {
-            prehra()
+        if (this.lives == 0) {
+            loss()
             binding.casovacTextView.stop()
-            schovajVsetkyButtony()
+            hideAllButtonns()
         }
     }
 
@@ -373,40 +377,40 @@ class HraActivity : AppCompatActivity() {
      */
     fun powerUp() {
         var hodnota = 1
-        /*when (slovaViewModel.druhSlova) {
+        /*when (wordsViewModel.druhwords) {
             "lahke" -> hodnota = 1
             "stredneTazke" -> hodnota = 2
             "tazke" -> hodnota = 3
         }*/
-        if (body % hodnota == 0) {
+        if (points % hodnota == 0) {
             var nahCislo = Random().nextInt(3)
             when (nahCislo) {
-                0 -> powerUpUkaz++
-                1 -> powerUpDajCas++
-                2 -> powerUpDajZivot++
+                0 -> powerUpShow++
+                1 -> powerUpTime++
+                2 -> powerUpLife++
             }
             binding.pismenoPowerUpButton.isClickable = true
         }
 
 
-        pocetPowerUpov = powerUpUkaz + powerUpDajCas + powerUpDajZivot
+        pocetPowerUpov = powerUpShow + powerUpTime + powerUpLife
 
         //podmienky pre zobrazenie textu u buttonov, text ukazuje kolko ma hrac jednotlivych pouziti daneho powerUpu
-        if (powerUpUkaz > 0) {
+        if (powerUpShow > 0) {
             binding.powerUpPismenoTextView.visibility = View.VISIBLE
 
         } else {
             binding.powerUpPismenoTextView.visibility = View.INVISIBLE
         }
 
-        if (powerUpDajCas > 0) {
+        if (powerUpTime > 0) {
             binding.powerUpCasTextView.visibility = View.VISIBLE
 
         } else {
             binding.powerUpCasTextView.visibility = View.INVISIBLE
         }
 
-        if (powerUpDajZivot > 0) {
+        if (powerUpLife > 0) {
             binding.powerUpZivotyTextView2.visibility = View.VISIBLE
 
         } else {
@@ -420,241 +424,241 @@ class HraActivity : AppCompatActivity() {
             binding.pocetPowerUpTextView.visibility = View.INVISIBLE
         }
 
-        aktPocetPUPtext()
+        howManyPowerUps()
     }
 
     /**
      * jednoducha boolean funkcia pre rozhodnutie ci hrac nasiel slovo
      */
-    fun boloNajdene(): Boolean {
+    fun found(): Boolean {
 
-        return hladaneSlovo?.contentEquals(String(zoznamPismien)) == true
+        return wordToFind?.contentEquals(String(lettersArray)) == true
     }
 
-    fun aktPocetPUPtext() {
+    fun howManyPowerUps() {
         binding.pocetPowerUpTextView.text = pocetPowerUpov.toString()
-        binding.powerUpZivotyTextView2.text = "" + powerUpDajZivot
-        binding.powerUpCasTextView.text = "" + powerUpDajCas
-        binding.powerUpPismenoTextView.text = "" + powerUpUkaz
+        binding.powerUpZivotyTextView2.text = "" + powerUpLife
+        binding.powerUpCasTextView.text = "" + powerUpTime
+        binding.powerUpPismenoTextView.text = "" + powerUpShow
     }
 
     /**
      * funkcia pre nastavenie listenerov vsetkych zadavacich buttonov
      */
     fun nastavButtony() {
-        binding.zadajAbutton.setOnClickListener {
-            if (hladaneSlovo!!.contains("A")) {
-                zadaj("A")
+        binding.submitAbutton.setOnClickListener {
+            if (wordToFind!!.contains("A")) {
+                submit("A")
             }
-            if (hladaneSlovo!!.contains("Á")) {
-                zadaj("Á")
+            if (wordToFind!!.contains("Á")) {
+                submit("Á")
             }
-            if (hladaneSlovo!!.contains("Ä")) {
-                zadaj("Ä")
+            if (wordToFind!!.contains("Ä")) {
+                submit("Ä")
             }
 
-            if (!hladaneSlovo!!.contains("A") && !hladaneSlovo!!.contains("Á") && !hladaneSlovo!!.contains(
+            if (!wordToFind!!.contains("A") && !wordToFind!!.contains("Á") && !wordToFind!!.contains(
                     "Ä"
                 )
             ) {
-                zadaj("A")
+                submit("A")
             }
         }
-        binding.zadajBbutton.setOnClickListener { zadaj("B") }
-        binding.zadajCbutton.setOnClickListener {
+        binding.submitBbutton.setOnClickListener { submit("B") }
+        binding.submitCbutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("C")) {
-                zadaj("C")
-
-            }
-
-            if (hladaneSlovo!!.contains("Č")) {
-                zadaj("Č")
+            if (wordToFind!!.contains("C")) {
+                submit("C")
 
             }
-            if (!hladaneSlovo!!.contains("Č") && !hladaneSlovo!!.contains("C")) {
-                zadaj("C")
-            }
-        }
-        binding.zadajDbutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("D")) {
-                zadaj("D")
+            if (wordToFind!!.contains("Č")) {
+                submit("Č")
 
             }
-            if (hladaneSlovo!!.contains("Ď")) {
-                zadaj("Ď")
-
-            }
-            if (!hladaneSlovo!!.contains("D") && !hladaneSlovo!!.contains("Ď")) {
-                zadaj("D")
+            if (!wordToFind!!.contains("Č") && !wordToFind!!.contains("C")) {
+                submit("C")
             }
         }
-        binding.zadajEbutton.setOnClickListener {
+        binding.submitDbutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("E")) {
-                zadaj("E")
-
-            }
-            if (hladaneSlovo!!.contains("É")) {
-                zadaj("É")
+            if (wordToFind!!.contains("D")) {
+                submit("D")
 
             }
-            if (!hladaneSlovo!!.contains("E") && !hladaneSlovo!!.contains("É")) {
-                zadaj("E")
-            }
-        }
-        binding.zadajFbutton.setOnClickListener { zadaj("F") }
-        binding.zadajGbutton.setOnClickListener { zadaj("G") }
-        binding.zadajHbutton.setOnClickListener { zadaj("H") }
-        binding.zadajIbutton.setOnClickListener {
-
-            if (hladaneSlovo!!.contains("I")) {
-                zadaj("I")
+            if (wordToFind!!.contains("Ď")) {
+                submit("Ď")
 
             }
-            if (hladaneSlovo!!.contains("Í")) {
-                zadaj("Í")
-
-            }
-            if (!hladaneSlovo!!.contains("I") && !hladaneSlovo!!.contains("Í")) {
-                zadaj("I")
+            if (!wordToFind!!.contains("D") && !wordToFind!!.contains("Ď")) {
+                submit("D")
             }
         }
-        binding.zadajJbutton.setOnClickListener { zadaj("J") }
-        binding.zadajKbutton.setOnClickListener { zadaj("K") }
-        binding.zadajLbutton.setOnClickListener {
+        binding.submitEbutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("L")) {
-                zadaj("L")
+            if (wordToFind!!.contains("E")) {
+                submit("E")
 
             }
-            if (hladaneSlovo!!.contains("Ĺ")) {
-                zadaj("Ĺ")
+            if (wordToFind!!.contains("É")) {
+                submit("É")
 
-            } else if (hladaneSlovo!!.contains("Ľ")) {
-                zadaj("Ľ")
+            }
+            if (!wordToFind!!.contains("E") && !wordToFind!!.contains("É")) {
+                submit("E")
+            }
+        }
+        binding.submitFbutton.setOnClickListener { submit("F") }
+        binding.submitGbutton.setOnClickListener { submit("G") }
+        binding.submitHbutton.setOnClickListener { submit("H") }
+        binding.submitIbutton.setOnClickListener {
+
+            if (wordToFind!!.contains("I")) {
+                submit("I")
+
+            }
+            if (wordToFind!!.contains("Í")) {
+                submit("Í")
+
+            }
+            if (!wordToFind!!.contains("I") && !wordToFind!!.contains("Í")) {
+                submit("I")
+            }
+        }
+        binding.submitJbutton.setOnClickListener { submit("J") }
+        binding.submitKbutton.setOnClickListener { submit("K") }
+        binding.submitLbutton.setOnClickListener {
+
+            if (wordToFind!!.contains("L")) {
+                submit("L")
+
+            }
+            if (wordToFind!!.contains("Ĺ")) {
+                submit("Ĺ")
+
+            } else if (wordToFind!!.contains("Ľ")) {
+                submit("Ľ")
 
             }
 
-            if (!hladaneSlovo!!.contains("L") && !hladaneSlovo!!.contains("Ľ") && !hladaneSlovo!!.contains(
+            if (!wordToFind!!.contains("L") && !wordToFind!!.contains("Ľ") && !wordToFind!!.contains(
                     "Ĺ"
                 )
             ) {
-                zadaj("L")
+                submit("L")
             }
         }
 
-        binding.zadajMbutton.setOnClickListener { zadaj("M") }
-        binding.zadajNbutton.setOnClickListener {
+        binding.submitMbutton.setOnClickListener { submit("M") }
+        binding.submitNbutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("N")) {
-                zadaj("N")
-
-            }
-            if (hladaneSlovo!!.contains("Ň")) {
-                zadaj("Ň")
+            if (wordToFind!!.contains("N")) {
+                submit("N")
 
             }
+            if (wordToFind!!.contains("Ň")) {
+                submit("Ň")
 
-            if (!hladaneSlovo!!.contains("N") && !hladaneSlovo!!.contains("Ň")) {
-                zadaj("N")
+            }
+
+            if (!wordToFind!!.contains("N") && !wordToFind!!.contains("Ň")) {
+                submit("N")
             }
         }
-        binding.zadajObutton.setOnClickListener {
+        binding.submitObutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("O")) {
-                zadaj("O")
-
-            }
-            if (hladaneSlovo!!.contains("Ó")) {
-                zadaj("Ó")
-
-            } else if (hladaneSlovo!!.contains("Ô")) {
-                zadaj("Ô")
+            if (wordToFind!!.contains("O")) {
+                submit("O")
 
             }
+            if (wordToFind!!.contains("Ó")) {
+                submit("Ó")
 
-            if (!hladaneSlovo!!.contains("O") && !hladaneSlovo!!.contains("Ó") && !hladaneSlovo!!.contains(
+            } else if (wordToFind!!.contains("Ô")) {
+                submit("Ô")
+
+            }
+
+            if (!wordToFind!!.contains("O") && !wordToFind!!.contains("Ó") && !wordToFind!!.contains(
                     "Ô"
                 )
             ) {
-                zadaj("O")
+                submit("O")
             }
         }
-        binding.zadajPbutton.setOnClickListener { zadaj("P") }
-        binding.zadajQbutton.setOnClickListener { zadaj("Q") }
-        binding.zadajRbutton.setOnClickListener { zadaj("R") }
-        binding.zadajSbutton.setOnClickListener {
+        binding.submitPbutton.setOnClickListener { submit("P") }
+        binding.submitQbutton.setOnClickListener { submit("Q") }
+        binding.submitRbutton.setOnClickListener { submit("R") }
+        binding.submitSbutton.setOnClickListener {
 
-            if (hladaneSlovo!!.contains("S")) {
-                zadaj("S")
-
-            }
-            if (hladaneSlovo!!.contains("Š")) {
-                zadaj("Š")
+            if (wordToFind!!.contains("S")) {
+                submit("S")
 
             }
-            if (!hladaneSlovo!!.contains("S") && !hladaneSlovo!!.contains("Ś")) {
-                zadaj("S")
-            }
-        }
-        binding.zadajTbutton.setOnClickListener {
-            if (hladaneSlovo!!.contains("T")) {
-                zadaj("T")
+            if (wordToFind!!.contains("Š")) {
+                submit("Š")
 
             }
-            if (hladaneSlovo!!.contains("Ť")) {
-                zadaj("Ť")
-
-            }
-            if (!hladaneSlovo!!.contains("T") && !hladaneSlovo!!.contains("Ť")) {
-                zadaj("T")
+            if (!wordToFind!!.contains("S") && !wordToFind!!.contains("Ś")) {
+                submit("S")
             }
         }
-        binding.zadajUbutton.setOnClickListener {
-            if (hladaneSlovo!!.contains("U")) {
-                zadaj("U")
+        binding.submitTbutton.setOnClickListener {
+            if (wordToFind!!.contains("T")) {
+                submit("T")
 
             }
-            if (hladaneSlovo!!.contains("Ú")) {
-                zadaj("Ú")
+            if (wordToFind!!.contains("Ť")) {
+                submit("Ť")
 
             }
-            if (!hladaneSlovo!!.contains("Ú") && !hladaneSlovo!!.contains("U")) {
-                zadaj("U")
+            if (!wordToFind!!.contains("T") && !wordToFind!!.contains("Ť")) {
+                submit("T")
+            }
+        }
+        binding.submitUbutton.setOnClickListener {
+            if (wordToFind!!.contains("U")) {
+                submit("U")
+
+            }
+            if (wordToFind!!.contains("Ú")) {
+                submit("Ú")
+
+            }
+            if (!wordToFind!!.contains("Ú") && !wordToFind!!.contains("U")) {
+                submit("U")
             }
 
         }
-        binding.zadajVbutton.setOnClickListener { zadaj("V") }
-        binding.zadajWbutton.setOnClickListener { zadaj("W") }
-        binding.zadajXbutton.setOnClickListener { zadaj("X") }
-        binding.zadajYbutton.setOnClickListener {
-            if (hladaneSlovo!!.contains("Y")) {
-                zadaj("Y")
+        binding.submitVbutton.setOnClickListener { submit("V") }
+        binding.submitWbutton.setOnClickListener { submit("W") }
+        binding.submitXbutton.setOnClickListener { submit("X") }
+        binding.submitYbutton.setOnClickListener {
+            if (wordToFind!!.contains("Y")) {
+                submit("Y")
 
             }
-            if (hladaneSlovo!!.contains("Ý")) {
-                zadaj("Ý")
+            if (wordToFind!!.contains("Ý")) {
+                submit("Ý")
 
             }
 
-            if (!hladaneSlovo!!.contains("Y") && !hladaneSlovo!!.contains("Ý")) {
-                zadaj("Y")
+            if (!wordToFind!!.contains("Y") && !wordToFind!!.contains("Ý")) {
+                submit("Y")
             }
         }
-        binding.zadajZbutton.setOnClickListener {
-            if (hladaneSlovo!!.contains("Z")) {
-                zadaj("Z")
+        binding.submitZbutton.setOnClickListener {
+            if (wordToFind!!.contains("Z")) {
+                submit("Z")
 
             }
-            if (hladaneSlovo!!.contains("Ž")) {
-                zadaj("Ž")
+            if (wordToFind!!.contains("Ž")) {
+                submit("Ž")
 
             }
 
-            if (!hladaneSlovo!!.contains("Z") && !hladaneSlovo!!.contains("Ž")) {
-                zadaj("Z")
+            if (!wordToFind!!.contains("Z") && !wordToFind!!.contains("Ž")) {
+                submit("Z")
             }
         }
     }
@@ -664,77 +668,77 @@ class HraActivity : AppCompatActivity() {
      * @param p
      * @param schovaj
      */
-    fun schovajButtony(p: String, schovaj: Boolean) {
+    fun hideButtons(p: String, schovaj: Boolean) {
         if (schovaj) {
             when (p) {
-                "A", "Á" -> binding.zadajAbutton.visibility = View.INVISIBLE
-                "B" -> binding.zadajBbutton.visibility = View.INVISIBLE
-                "C", "Č" -> binding.zadajCbutton.visibility = View.INVISIBLE
-                "D", "Ď" -> binding.zadajDbutton.visibility = View.INVISIBLE
-                "E", "É" -> binding.zadajEbutton.visibility = View.INVISIBLE
-                "F" -> binding.zadajFbutton.visibility = View.INVISIBLE
-                "G" -> binding.zadajGbutton.visibility = View.INVISIBLE
-                "H" -> binding.zadajHbutton.visibility = View.INVISIBLE
-                "I", "Í" -> binding.zadajIbutton.visibility = View.INVISIBLE
-                "J" -> binding.zadajJbutton.visibility = View.INVISIBLE
-                "K" -> binding.zadajKbutton.visibility = View.INVISIBLE
-                "L", "Ľ" -> binding.zadajLbutton.visibility = View.INVISIBLE
-                "M" -> binding.zadajMbutton.visibility = View.INVISIBLE
-                "N", "Ň" -> binding.zadajNbutton.visibility = View.INVISIBLE
-                "O", "Ó" -> binding.zadajObutton.visibility = View.INVISIBLE
-                "P" -> binding.zadajPbutton.visibility = View.INVISIBLE
-                "Q" -> binding.zadajQbutton.visibility = View.INVISIBLE
-                "R" -> binding.zadajRbutton.visibility = View.INVISIBLE
-                "S", "Š" -> binding.zadajSbutton.visibility = View.INVISIBLE
-                "T", "Ť" -> binding.zadajTbutton.visibility = View.INVISIBLE
-                "U", "Ú" -> binding.zadajUbutton.visibility = View.INVISIBLE
-                "V" -> binding.zadajVbutton.visibility = View.INVISIBLE
-                "W" -> binding.zadajWbutton.visibility = View.INVISIBLE
-                "X" -> binding.zadajXbutton.visibility = View.INVISIBLE
-                "Y", "Ý" -> binding.zadajYbutton.visibility = View.INVISIBLE
-                "Z", "Ž" -> binding.zadajZbutton.visibility = View.INVISIBLE
+                "A", "Á" -> binding.submitAbutton.visibility = View.INVISIBLE
+                "B" -> binding.submitBbutton.visibility = View.INVISIBLE
+                "C", "Č" -> binding.submitCbutton.visibility = View.INVISIBLE
+                "D", "Ď" -> binding.submitDbutton.visibility = View.INVISIBLE
+                "E", "É" -> binding.submitEbutton.visibility = View.INVISIBLE
+                "F" -> binding.submitFbutton.visibility = View.INVISIBLE
+                "G" -> binding.submitGbutton.visibility = View.INVISIBLE
+                "H" -> binding.submitHbutton.visibility = View.INVISIBLE
+                "I", "Í" -> binding.submitIbutton.visibility = View.INVISIBLE
+                "J" -> binding.submitJbutton.visibility = View.INVISIBLE
+                "K" -> binding.submitKbutton.visibility = View.INVISIBLE
+                "L", "Ľ" -> binding.submitLbutton.visibility = View.INVISIBLE
+                "M" -> binding.submitMbutton.visibility = View.INVISIBLE
+                "N", "Ň" -> binding.submitNbutton.visibility = View.INVISIBLE
+                "O", "Ó" -> binding.submitObutton.visibility = View.INVISIBLE
+                "P" -> binding.submitPbutton.visibility = View.INVISIBLE
+                "Q" -> binding.submitQbutton.visibility = View.INVISIBLE
+                "R" -> binding.submitRbutton.visibility = View.INVISIBLE
+                "S", "Š" -> binding.submitSbutton.visibility = View.INVISIBLE
+                "T", "Ť" -> binding.submitTbutton.visibility = View.INVISIBLE
+                "U", "Ú" -> binding.submitUbutton.visibility = View.INVISIBLE
+                "V" -> binding.submitVbutton.visibility = View.INVISIBLE
+                "W" -> binding.submitWbutton.visibility = View.INVISIBLE
+                "X" -> binding.submitXbutton.visibility = View.INVISIBLE
+                "Y", "Ý" -> binding.submitYbutton.visibility = View.INVISIBLE
+                "Z", "Ž" -> binding.submitZbutton.visibility = View.INVISIBLE
 
             }
         } else {
-            binding.zadajAbutton.visibility = View.VISIBLE
-            binding.zadajBbutton.visibility = View.VISIBLE
-            binding.zadajCbutton.visibility = View.VISIBLE
-            binding.zadajDbutton.visibility = View.VISIBLE
-            binding.zadajEbutton.visibility = View.VISIBLE
-            binding.zadajFbutton.visibility = View.VISIBLE
-            binding.zadajGbutton.visibility = View.VISIBLE
-            binding.zadajHbutton.visibility = View.VISIBLE
-            binding.zadajIbutton.visibility = View.VISIBLE
-            binding.zadajJbutton.visibility = View.VISIBLE
-            binding.zadajKbutton.visibility = View.VISIBLE
-            binding.zadajLbutton.visibility = View.VISIBLE
-            binding.zadajMbutton.visibility = View.VISIBLE
-            binding.zadajNbutton.visibility = View.VISIBLE
-            binding.zadajObutton.visibility = View.VISIBLE
-            binding.zadajPbutton.visibility = View.VISIBLE
-            binding.zadajQbutton.visibility = View.VISIBLE
-            binding.zadajRbutton.visibility = View.VISIBLE
-            binding.zadajSbutton.visibility = View.VISIBLE
-            binding.zadajTbutton.visibility = View.VISIBLE
-            binding.zadajUbutton.visibility = View.VISIBLE
-            binding.zadajVbutton.visibility = View.VISIBLE
-            binding.zadajWbutton.visibility = View.VISIBLE
-            binding.zadajXbutton.visibility = View.VISIBLE
-            binding.zadajYbutton.visibility = View.VISIBLE
-            binding.zadajZbutton.visibility = View.VISIBLE
+            binding.submitAbutton.visibility = View.VISIBLE
+            binding.submitBbutton.visibility = View.VISIBLE
+            binding.submitCbutton.visibility = View.VISIBLE
+            binding.submitDbutton.visibility = View.VISIBLE
+            binding.submitEbutton.visibility = View.VISIBLE
+            binding.submitFbutton.visibility = View.VISIBLE
+            binding.submitGbutton.visibility = View.VISIBLE
+            binding.submitHbutton.visibility = View.VISIBLE
+            binding.submitIbutton.visibility = View.VISIBLE
+            binding.submitJbutton.visibility = View.VISIBLE
+            binding.submitKbutton.visibility = View.VISIBLE
+            binding.submitLbutton.visibility = View.VISIBLE
+            binding.submitMbutton.visibility = View.VISIBLE
+            binding.submitNbutton.visibility = View.VISIBLE
+            binding.submitObutton.visibility = View.VISIBLE
+            binding.submitPbutton.visibility = View.VISIBLE
+            binding.submitQbutton.visibility = View.VISIBLE
+            binding.submitRbutton.visibility = View.VISIBLE
+            binding.submitSbutton.visibility = View.VISIBLE
+            binding.submitTbutton.visibility = View.VISIBLE
+            binding.submitUbutton.visibility = View.VISIBLE
+            binding.submitVbutton.visibility = View.VISIBLE
+            binding.submitWbutton.visibility = View.VISIBLE
+            binding.submitXbutton.visibility = View.VISIBLE
+            binding.submitYbutton.visibility = View.VISIBLE
+            binding.submitZbutton.visibility = View.VISIBLE
         }
     }
 
     /**
-     * funkcia ak hrac prehra
+     * funkcia ak hrac loss
      */
-    fun prehra() {
+    fun loss() {
         binding.prezradeneSlovoText.visibility = View.VISIBLE
         binding.hladaneSlovoText.visibility = View.INVISIBLE
-        binding.prezradeneSlovoText.text = "Prehral si, hladane slovo bolo " + hladaneSlovo
+        binding.prezradeneSlovoText.text = "Prehral si, hladane slovo bolo " + wordToFind
         binding.pauzaLayout.visibility = View.VISIBLE
         binding.pokracovatButton.visibility = View.INVISIBLE
-        schovajVsetkyButtony()
+        hideAllButtonns()
         binding.powerUpButton.isEnabled = false
         binding.powerUpLayout.visibility = View.INVISIBLE
     }
@@ -742,7 +746,7 @@ class HraActivity : AppCompatActivity() {
     /**
      * funkcia pre schovanie layoutu so vsetkymi buttonami pismen
      */
-    fun schovajVsetkyButtony() {
+    fun hideAllButtonns() {
         binding.buttonyLayout.visibility = View.INVISIBLE
 
     }
@@ -750,7 +754,7 @@ class HraActivity : AppCompatActivity() {
     /**
      * funkcia pre odkrytie layoutu so vsetkymi buttonami pismen
      */
-    fun odkryVsetkyButtony() {
+    fun showAllButtons() {
         binding.buttonyLayout.visibility = View.VISIBLE
     }
 }
