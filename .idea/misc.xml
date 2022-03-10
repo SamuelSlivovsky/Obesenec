@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/bakalarka/app/src/main/res/layout/activity_hra.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/activity_menu.xml" value="0.2203125" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_signin.xml" value="0.36666666666666664" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/activity_titulka.xml" value="0.2526041666666667" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_historia_hraca.xml" value="0.23958333333333334" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_hra.xml" value="0.31145833333333334" />

@@ -1,22 +1,24 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import sk.uniza.fri.slivovsky.semestralnapraca.R
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentTitulkaBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityTitulkaBinding
 
 
-class TitulkaActivity:AppCompatActivity() {
-    private lateinit var binding: FragmentTitulkaBinding
+class TitulkaActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityTitulkaBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = FragmentTitulkaBinding.inflate(layoutInflater)
+        binding = ActivityTitulkaBinding.inflate(layoutInflater)
         val view = binding.root
+
         setContentView(view)
-        val navController = findNavController(R.id.nav_host_fragment)
+
+        binding.playButton.setOnClickListener {
+            startActivity(Intent(this@TitulkaActivity,MenuActivity::class.java))
+        }
     }
 }
