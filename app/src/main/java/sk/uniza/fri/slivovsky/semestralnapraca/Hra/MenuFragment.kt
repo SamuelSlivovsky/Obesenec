@@ -8,10 +8,10 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_menu.*
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.SlovaViewModel
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.UdajeViewModel
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentMenuBinding
 
 /**
  * Fragment menu kde hrac zada svoje meno a vyberie si obtiaznost
@@ -22,7 +22,8 @@ class MenuFragment : Fragment() {
 
     private val viewModel: UdajeViewModel by activityViewModels()
     private val slovaViewModel : SlovaViewModel by activityViewModels()
-
+    private var _binding: FragmentMenuBinding? = null
+    private val binding get()=_binding!!
     /**
      *Funkcia ktora vytvori fragment menu
      *
@@ -37,7 +38,9 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        _binding =  FragmentMenuBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     /**
@@ -50,21 +53,21 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.lahkaButton).setOnClickListener {
-            viewModel.menoHraca = menoInputText.text.toString().trim()
+            viewModel.menoHraca = binding.menoInputText.text.toString().trim()
             if (skontrolujInput()) {
                 slovaViewModel.druhSlova = "lahke"
                 findNavController().navigate(R.id.action_menuFragment_to_fragmentHra)
             }
         }
         view.findViewById<Button>(R.id.stredneTazkaButton).setOnClickListener {
-            viewModel.menoHraca = menoInputText.text.toString().trim()
+            viewModel.menoHraca = binding.menoInputText.text.toString().trim()
             if (skontrolujInput()) {
                 slovaViewModel.druhSlova = "stredneTazke"
                 findNavController().navigate(R.id.action_menuFragment_to_fragmentHra)
             }
         }
         view.findViewById<Button>(R.id.tazkaButton).setOnClickListener {
-            viewModel.menoHraca = menoInputText.text.toString().trim()
+            viewModel.menoHraca = binding.menoInputText.text.toString().trim()
             if (skontrolujInput()) {
                 slovaViewModel.druhSlova = "tazke"
                 findNavController().navigate(R.id.action_menuFragment_to_fragmentHra)
@@ -80,11 +83,17 @@ class MenuFragment : Fragment() {
      */
     fun skontrolujInput(): Boolean {
 
-        if (menoInputText.text.toString().trim().isEmpty()) {
-            menoInputText.error = "Toto pole nesmie ostat prazdne"
-            lahkaButton.isActivated = false
+        if (binding.menoInputText.text.toString().trim().isEmpty()) {
+            binding.menoInputText.error = "Toto pole nesmie ostat prazdne"
+            binding.lahkaButton.isActivated = false
             return false
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 }

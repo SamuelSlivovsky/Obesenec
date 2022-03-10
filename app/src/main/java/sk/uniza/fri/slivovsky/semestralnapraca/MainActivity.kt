@@ -3,12 +3,8 @@ package sk.uniza.fri.slivovsky.semestralnapraca
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -18,10 +14,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_signin.*
-import sk.uniza.fri.slivovsky.semestralnapraca.Hra.HraFragment
 import sk.uniza.fri.slivovsky.semestralnapraca.Hra.TitulkaActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.Hra.TitulkaFragment
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivitySigninBinding
+
 
 /**
  * Aplikacia Obesenec implementuje klasicku hru obesenca
@@ -41,10 +37,13 @@ class MainActivity : AppCompatActivity() {
     // [END declare_auth]
 
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var binding: ActivitySigninBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signin)
-
+        binding = ActivitySigninBinding.inflate(layoutInflater)
+        val view= binding.root
+        setContentView(view)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
         // [END initialize_auth]
 
-        signinButton.setOnClickListener { signIn() }
+        binding.signinButton.setOnClickListener { signIn() }
     }
 
     // [START on_start_check_user]
@@ -101,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     startActivity(Intent(this@MainActivity,TitulkaActivity::class.java))
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)

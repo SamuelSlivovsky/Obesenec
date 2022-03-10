@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_hra.*
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.SlovaViewModel
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.UdajeViewModel
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentHraBinding
 import java.util.*
 
 /**
@@ -43,7 +43,8 @@ class HraFragment : Fragment() {
     private val viewModel: UdajeViewModel by activityViewModels()
     private val slovaViewModel: SlovaViewModel by activityViewModels()
     private var pokracuj = false
-
+    private var _binding: FragmentHraBinding? = null
+    private val binding get()=_binding!!
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
      * zabezpecuje vytvorenie fragmentu
@@ -58,7 +59,9 @@ class HraFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_hra, container, false)
+        _binding =  FragmentHraBinding.inflate(inflater, container, false)
+
+        return binding.root
 
     }
 
@@ -83,20 +86,21 @@ class HraFragment : Fragment() {
         //start novej hry
         novaHra(slova)
 
+
         //nastavenie tickListenerov pre 2 casovace
-        casovac2_TextView.setOnChronometerTickListener {
-            if (casovac2_TextView.text == "00:00") {
-                casovac_TextView.start()
-                casovac2_TextView.visibility = View.INVISIBLE
-                casovac_TextView.visibility = View.VISIBLE
-                casovac2_TextView.stop()
+        binding.casovac2TextView.setOnChronometerTickListener {
+            if (binding.casovac2TextView.text == "00:00") {
+                binding.casovacTextView.start()
+                binding.casovac2TextView.visibility = View.INVISIBLE
+                binding.casovacTextView.visibility = View.VISIBLE
+                binding.casovac2TextView.stop()
             }
         }
 
-        casovac_TextView.setOnChronometerTickListener {
-            if (casovac_TextView.text == "00:00") {
+        binding.casovacTextView.setOnChronometerTickListener {
+            if (binding.casovacTextView.text == "00:00") {
                 prehra()
-                casovac_TextView.stop()
+                binding.casovacTextView.stop()
             }
         }
 
@@ -117,12 +121,12 @@ class HraFragment : Fragment() {
                 pocetPowerUpov--
                 doplnPismeno()
                 if (powerUpUkaz == 0) {
-                    powerUpPismenoTextView.visibility = View.INVISIBLE
+                    binding.powerUpPismenoTextView.visibility = View.INVISIBLE
                 }
             }
 
             if (pocetPowerUpov == 0) {
-                pocet_powerUp_Text_View.visibility = View.INVISIBLE
+                binding.pocetPowerUpTextView.visibility = View.INVISIBLE
             }
             aktPocetPUPtext()
         }
@@ -132,22 +136,22 @@ class HraFragment : Fragment() {
             if (powerUpDajCas > 0) {
                 powerUpDajCas--
                 pocetPowerUpov--
-                casovac2_TextView.visibility = View.VISIBLE
-                casovac_TextView.visibility = View.INVISIBLE
-                casovac_TextView.stop()
+                binding.casovac2TextView.visibility = View.VISIBLE
+                binding.casovacTextView.visibility = View.INVISIBLE
+                binding.casovacTextView.stop()
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                    casovac2_TextView.isCountDown = true
+                    binding.casovac2TextView.isCountDown = true
                 }
-                casovac2_TextView.base = SystemClock.elapsedRealtime() + 10000
-                casovac2_TextView.start()
+                binding.casovac2TextView.base = SystemClock.elapsedRealtime() + 10000
+                binding.casovac2TextView.start()
 
                 if (powerUpDajCas == 0) {
-                    powerUpCasTextView.visibility = View.INVISIBLE
+                    binding.powerUpCasTextView.visibility = View.INVISIBLE
                 }
             }
 
             if (pocetPowerUpov == 0) {
-                pocet_powerUp_Text_View.visibility = View.INVISIBLE
+                binding.pocetPowerUpTextView.visibility = View.INVISIBLE
             }
             aktPocetPUPtext()
         }
@@ -160,12 +164,12 @@ class HraFragment : Fragment() {
                 pocetPowerUpov--
                 this.zivoty++
                 if (powerUpDajZivot == 0) {
-                    powerUpZivotyTextView2.visibility = View.INVISIBLE
+                    binding.powerUpZivotyTextView2.visibility = View.INVISIBLE
                 }
             }
 
             if (pocetPowerUpov == 0) {
-                pocet_powerUp_Text_View.visibility = View.INVISIBLE
+                binding.pocetPowerUpTextView.visibility = View.INVISIBLE
             }
             updateObr()
             aktPocetPUPtext()
@@ -177,11 +181,11 @@ class HraFragment : Fragment() {
 
             if (powerUpOtvorene) {
                 powerUpMenu.startAnimation(schovajButon)
-                powerUpLayout.visibility = View.INVISIBLE
+                binding.powerUpLayout.visibility = View.INVISIBLE
                 powerUpOtvorene = false
             } else {
                 powerUpMenu.startAnimation(ukazButon)
-                powerUpLayout.visibility = View.VISIBLE
+                binding.powerUpLayout.visibility = View.VISIBLE
                 powerUpOtvorene = true
             }
 
@@ -197,11 +201,11 @@ class HraFragment : Fragment() {
                 pokracuj = true
                 novaHra(slova)
                 odkryVsetkyButtony()
-                pauzaLayout.visibility = View.INVISIBLE
-                powerUpButton.isEnabled = true
+                binding.pauzaLayout.visibility = View.INVISIBLE
+                binding.powerUpButton.isEnabled = true
             } else {
                 prehra()
-                prezradeneSlovoText.text =
+                binding.prezradeneSlovoText.text =
                     "Gratulujem, uhádol si všetky slová. Za uhádnutie všetkých slov dostaneš " + pocetPowerUpov + " bonusových bodov"
                 body += pocetPowerUpov
                 updateSkore()
@@ -221,7 +225,7 @@ class HraFragment : Fragment() {
      * Funkcia pre update resp. zvysenie skóre
      */
     fun updateSkore() {
-        skoreTextView.text = "Skóre: " + body
+        binding.skoreTextView.text = "Skóre: " + body
     }
 
     /**
@@ -244,15 +248,15 @@ class HraFragment : Fragment() {
     private fun updateObr() {
         if (zivoty >= 6) {
 
-            ObesenecObr.setImageResource(R.drawable.obesenec_6)
+            binding.ObesenecObr.setImageResource(R.drawable.obesenec_6)
         } else {
             val resImg = resources.getIdentifier(
                 "obesenec_$zivoty", "drawable",
                 getActivity()?.getPackageName()
             )
-            ObesenecObr.setImageResource(resImg)
+            binding.ObesenecObr.setImageResource(resImg)
         }
-        zivotyTextView.text = "" + zivoty
+        binding.zivotyTextView.text = "" + zivoty
     }
 
     /**
@@ -273,7 +277,7 @@ class HraFragment : Fragment() {
         for (i in zoznamPismien.indices) {
             zoznamPismien[i] = '_'
         }
-        casovac2_TextView.visibility = View.INVISIBLE
+        binding.casovac2TextView.visibility = View.INVISIBLE
 
         var cas = 0
         when (slovaViewModel.druhSlova) {
@@ -282,15 +286,15 @@ class HraFragment : Fragment() {
             "tazke" -> cas = 20000
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            casovac_TextView.isCountDown = true
+            binding.casovacTextView.isCountDown = true
         }
-        casovac_TextView.visibility = View.VISIBLE
-        casovac_TextView.base = SystemClock.elapsedRealtime() + cas
-        casovac_TextView.start()
+        binding.casovacTextView.visibility = View.VISIBLE
+        binding.casovacTextView.base = SystemClock.elapsedRealtime() + cas
+        binding.casovacTextView.start()
 
-        hladaneSlovoText.text = textInicalizacia()
-        prezradeneSlovoText.visibility = View.GONE
-        prezradeneSlovoText.text = ""
+        binding.hladaneSlovoText.text = textInicalizacia()
+        binding.prezradeneSlovoText.visibility = View.GONE
+        binding.prezradeneSlovoText.text = ""
         zadaj(" ")
 
     }
@@ -347,7 +351,7 @@ class HraFragment : Fragment() {
                     zoznamPismien[index] = p[0]
                     index = hladaneSlovo!!.indexOf(p, index + 1)
                 }
-                hladaneSlovoText.text = zoznamPismien.joinToString(" ")
+                binding.hladaneSlovoText.text = zoznamPismien.joinToString(" ")
                 //pokial sa pismeno nenachadza v slove a nie je to medzera tak uberie zivot
             } else if (p != " ") {
                 this.zivoty--
@@ -363,16 +367,16 @@ class HraFragment : Fragment() {
             powerUp()
             schovajButtony("", false)
             schovajVsetkyButtony()
-            casovac_TextView.stop()
-            casovac2_TextView.stop()
-            pauzaLayout.visibility = View.VISIBLE
-            powerUpButton.isEnabled = false
+            binding.casovacTextView.stop()
+            binding.casovac2TextView.stop()
+            binding.pauzaLayout.visibility = View.VISIBLE
+            binding.powerUpButton.isEnabled = false
         }
 
         //podmienka pre prehru
         if (this.zivoty == 0) {
             prehra()
-            casovac_TextView.stop()
+            binding.casovacTextView.stop()
             schovajVsetkyButtony()
         }
     }
@@ -394,7 +398,7 @@ class HraFragment : Fragment() {
                 1 -> powerUpDajCas++
                 2 -> powerUpDajZivot++
             }
-            pismenoPowerUpButton.isClickable = true
+            binding.pismenoPowerUpButton.isClickable = true
         }
 
 
@@ -402,31 +406,31 @@ class HraFragment : Fragment() {
 
         //podmienky pre zobrazenie textu u buttonov, text ukazuje kolko ma hrac jednotlivych pouziti daneho powerUpu
         if (powerUpUkaz > 0) {
-            powerUpPismenoTextView.visibility = View.VISIBLE
+            binding.powerUpPismenoTextView.visibility = View.VISIBLE
 
         } else {
-            powerUpPismenoTextView.visibility = View.INVISIBLE
+            binding.powerUpPismenoTextView.visibility = View.INVISIBLE
         }
 
         if (powerUpDajCas > 0) {
-            powerUpCasTextView.visibility = View.VISIBLE
+            binding.powerUpCasTextView.visibility = View.VISIBLE
 
         } else {
-            powerUpCasTextView.visibility = View.INVISIBLE
+            binding.powerUpCasTextView.visibility = View.INVISIBLE
         }
 
         if (powerUpDajZivot > 0) {
-            powerUpZivotyTextView2.visibility = View.VISIBLE
+            binding.powerUpZivotyTextView2.visibility = View.VISIBLE
 
         } else {
-            powerUpZivotyTextView2.visibility = View.INVISIBLE
+            binding.powerUpZivotyTextView2.visibility = View.INVISIBLE
         }
 
         if (pocetPowerUpov > 0) {
-            pocet_powerUp_Text_View.visibility = View.VISIBLE
+            binding.pocetPowerUpTextView.visibility = View.VISIBLE
 
         } else {
-            pocet_powerUp_Text_View.visibility = View.INVISIBLE
+            binding.pocetPowerUpTextView.visibility = View.INVISIBLE
         }
 
         aktPocetPUPtext()
@@ -441,17 +445,17 @@ class HraFragment : Fragment() {
     }
 
     fun aktPocetPUPtext(){
-        pocet_powerUp_Text_View.text = pocetPowerUpov.toString()
-        powerUpZivotyTextView2.text = "" + powerUpDajZivot
-        powerUpCasTextView.text = "" + powerUpDajCas
-        powerUpPismenoTextView.text = "" + powerUpUkaz
+        binding.pocetPowerUpTextView.text = pocetPowerUpov.toString()
+        binding.powerUpZivotyTextView2.text = "" + powerUpDajZivot
+        binding.powerUpCasTextView.text = "" + powerUpDajCas
+        binding.powerUpPismenoTextView.text = "" + powerUpUkaz
     }
 
     /**
      * funkcia pre nastavenie listenerov vsetkych zadavacich buttonov
      */
     fun nastavButtony() {
-        zadajAbutton.setOnClickListener {
+        binding.zadajAbutton.setOnClickListener {
             if (hladaneSlovo!!.contains("A")) {
                 zadaj("A")
             }
@@ -466,8 +470,8 @@ class HraFragment : Fragment() {
                 zadaj("A")
             }
         }
-        zadajBbutton.setOnClickListener { zadaj("B") }
-        zadajCbutton.setOnClickListener {
+        binding.zadajBbutton.setOnClickListener { zadaj("B") }
+        binding.zadajCbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("C")) {
                 zadaj("C")
@@ -479,7 +483,7 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajDbutton.setOnClickListener {
+        binding.zadajDbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("D")) {
                 zadaj("D")
@@ -490,7 +494,7 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajEbutton.setOnClickListener {
+        binding.zadajEbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("E")) {
                 zadaj("E")
@@ -501,10 +505,10 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajFbutton.setOnClickListener { zadaj("F") }
-        zadajGbutton.setOnClickListener { zadaj("G") }
-        zadajHbutton.setOnClickListener { zadaj("H") }
-        zadajIbutton.setOnClickListener {
+        binding.zadajFbutton.setOnClickListener { zadaj("F") }
+        binding.zadajGbutton.setOnClickListener { zadaj("G") }
+        binding.zadajHbutton.setOnClickListener { zadaj("H") }
+        binding.zadajIbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("I")) {
                 zadaj("I")
@@ -515,9 +519,9 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajJbutton.setOnClickListener { zadaj("J") }
-        zadajKbutton.setOnClickListener { zadaj("K") }
-        zadajLbutton.setOnClickListener {
+        binding.zadajJbutton.setOnClickListener { zadaj("J") }
+        binding.zadajKbutton.setOnClickListener { zadaj("K") }
+        binding.zadajLbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("L")) {
                 zadaj("L")
@@ -531,8 +535,8 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajMbutton.setOnClickListener { zadaj("M") }
-        zadajNbutton.setOnClickListener {
+        binding.zadajMbutton.setOnClickListener { zadaj("M") }
+        binding.zadajNbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("N")) {
                 zadaj("N")
@@ -543,7 +547,7 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajObutton.setOnClickListener {
+        binding.zadajObutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("O")) {
                 zadaj("O")
@@ -557,10 +561,10 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajPbutton.setOnClickListener { zadaj("P") }
-        zadajQbutton.setOnClickListener { zadaj("Q") }
-        zadajRbutton.setOnClickListener { zadaj("R") }
-        zadajSbutton.setOnClickListener {
+        binding.zadajPbutton.setOnClickListener { zadaj("P") }
+        binding.zadajQbutton.setOnClickListener { zadaj("Q") }
+        binding.zadajRbutton.setOnClickListener { zadaj("R") }
+        binding.zadajSbutton.setOnClickListener {
 
             if (hladaneSlovo!!.contains("S")) {
                 zadaj("S")
@@ -571,7 +575,7 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajTbutton.setOnClickListener {
+        binding.zadajTbutton.setOnClickListener {
             if (hladaneSlovo!!.contains("Y")) {
                 zadaj("Y")
 
@@ -581,7 +585,7 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajUbutton.setOnClickListener {
+        binding.zadajUbutton.setOnClickListener {
             if (hladaneSlovo!!.contains("U")) {
                 zadaj("U")
 
@@ -591,10 +595,10 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajVbutton.setOnClickListener { zadaj("V") }
-        zadajWbutton.setOnClickListener { zadaj("W") }
-        zadajXbutton.setOnClickListener { zadaj("X") }
-        zadajYbutton.setOnClickListener {
+        binding.zadajVbutton.setOnClickListener { zadaj("V") }
+        binding.zadajWbutton.setOnClickListener { zadaj("W") }
+        binding.zadajXbutton.setOnClickListener { zadaj("X") }
+        binding.zadajYbutton.setOnClickListener {
             if (hladaneSlovo!!.contains("Y")) {
                 zadaj("Y")
 
@@ -604,7 +608,7 @@ class HraFragment : Fragment() {
 
             }
         }
-        zadajZbutton.setOnClickListener {
+        binding.zadajZbutton.setOnClickListener {
             if (hladaneSlovo!!.contains("Z")) {
                 zadaj("Z")
 
@@ -623,61 +627,61 @@ class HraFragment : Fragment() {
     fun schovajButtony(p: String, schovaj: Boolean) {
         if (schovaj) {
             when (p) {
-                "A", "Á" -> zadajAbutton.visibility = View.INVISIBLE
-                "B" -> zadajBbutton.visibility = View.INVISIBLE
-                "C" -> zadajCbutton.visibility = View.INVISIBLE
-                "D" -> zadajDbutton.visibility = View.INVISIBLE
-                "E" -> zadajEbutton.visibility = View.INVISIBLE
-                "F" -> zadajFbutton.visibility = View.INVISIBLE
-                "G" -> zadajGbutton.visibility = View.INVISIBLE
-                "H" -> zadajHbutton.visibility = View.INVISIBLE
-                "I" -> zadajIbutton.visibility = View.INVISIBLE
-                "J" -> zadajJbutton.visibility = View.INVISIBLE
-                "K" -> zadajKbutton.visibility = View.INVISIBLE
-                "L" -> zadajLbutton.visibility = View.INVISIBLE
-                "M" -> zadajMbutton.visibility = View.INVISIBLE
-                "N" -> zadajNbutton.visibility = View.INVISIBLE
-                "O" -> zadajObutton.visibility = View.INVISIBLE
-                "P" -> zadajPbutton.visibility = View.INVISIBLE
-                "Q" -> zadajQbutton.visibility = View.INVISIBLE
-                "R" -> zadajRbutton.visibility = View.INVISIBLE
-                "S" -> zadajSbutton.visibility = View.INVISIBLE
-                "T" -> zadajTbutton.visibility = View.INVISIBLE
-                "U" -> zadajUbutton.visibility = View.INVISIBLE
-                "V" -> zadajVbutton.visibility = View.INVISIBLE
-                "W" -> zadajWbutton.visibility = View.INVISIBLE
-                "X" -> zadajXbutton.visibility = View.INVISIBLE
-                "Y" -> zadajYbutton.visibility = View.INVISIBLE
-                "Z" -> zadajZbutton.visibility = View.INVISIBLE
+                "A", "Á" -> binding.zadajAbutton.visibility = View.INVISIBLE
+                "B" -> binding.zadajBbutton.visibility = View.INVISIBLE
+                "C" -> binding.zadajCbutton.visibility = View.INVISIBLE
+                "D" -> binding.zadajDbutton.visibility = View.INVISIBLE
+                "E" -> binding.zadajEbutton.visibility = View.INVISIBLE
+                "F" -> binding.zadajFbutton.visibility = View.INVISIBLE
+                "G" -> binding.zadajGbutton.visibility = View.INVISIBLE
+                "H" -> binding.zadajHbutton.visibility = View.INVISIBLE
+                "I" -> binding.zadajIbutton.visibility = View.INVISIBLE
+                "J" -> binding.zadajJbutton.visibility = View.INVISIBLE
+                "K" -> binding.zadajKbutton.visibility = View.INVISIBLE
+                "L" -> binding.zadajLbutton.visibility = View.INVISIBLE
+                "M" -> binding.zadajMbutton.visibility = View.INVISIBLE
+                "N" -> binding.zadajNbutton.visibility = View.INVISIBLE
+                "O" -> binding.zadajObutton.visibility = View.INVISIBLE
+                "P" -> binding.zadajPbutton.visibility = View.INVISIBLE
+                "Q" -> binding.zadajQbutton.visibility = View.INVISIBLE
+                "R" -> binding.zadajRbutton.visibility = View.INVISIBLE
+                "S" -> binding.zadajSbutton.visibility = View.INVISIBLE
+                "T" -> binding.zadajTbutton.visibility = View.INVISIBLE
+                "U" -> binding.zadajUbutton.visibility = View.INVISIBLE
+                "V" -> binding.zadajVbutton.visibility = View.INVISIBLE
+                "W" -> binding.zadajWbutton.visibility = View.INVISIBLE
+                "X" -> binding.zadajXbutton.visibility = View.INVISIBLE
+                "Y" -> binding.zadajYbutton.visibility = View.INVISIBLE
+                "Z" -> binding.zadajZbutton.visibility = View.INVISIBLE
 
             }
         } else {
-            zadajAbutton.visibility = View.VISIBLE
-            zadajBbutton.visibility = View.VISIBLE
-            zadajCbutton.visibility = View.VISIBLE
-            zadajDbutton.visibility = View.VISIBLE
-            zadajEbutton.visibility = View.VISIBLE
-            zadajFbutton.visibility = View.VISIBLE
-            zadajGbutton.visibility = View.VISIBLE
-            zadajHbutton.visibility = View.VISIBLE
-            zadajIbutton.visibility = View.VISIBLE
-            zadajJbutton.visibility = View.VISIBLE
-            zadajKbutton.visibility = View.VISIBLE
-            zadajLbutton.visibility = View.VISIBLE
-            zadajMbutton.visibility = View.VISIBLE
-            zadajNbutton.visibility = View.VISIBLE
-            zadajObutton.visibility = View.VISIBLE
-            zadajPbutton.visibility = View.VISIBLE
-            zadajQbutton.visibility = View.VISIBLE
-            zadajRbutton.visibility = View.VISIBLE
-            zadajSbutton.visibility = View.VISIBLE
-            zadajTbutton.visibility = View.VISIBLE
-            zadajUbutton.visibility = View.VISIBLE
-            zadajVbutton.visibility = View.VISIBLE
-            zadajWbutton.visibility = View.VISIBLE
-            zadajXbutton.visibility = View.VISIBLE
-            zadajYbutton.visibility = View.VISIBLE
-            zadajZbutton.visibility = View.VISIBLE
+            binding.zadajAbutton.visibility = View.VISIBLE
+            binding.zadajBbutton.visibility = View.VISIBLE
+            binding.zadajCbutton.visibility = View.VISIBLE
+            binding.zadajDbutton.visibility = View.VISIBLE
+            binding.zadajEbutton.visibility = View.VISIBLE
+            binding.zadajFbutton.visibility = View.VISIBLE
+            binding.zadajGbutton.visibility = View.VISIBLE
+            binding.zadajHbutton.visibility = View.VISIBLE
+            binding.zadajIbutton.visibility = View.VISIBLE
+            binding.zadajJbutton.visibility = View.VISIBLE
+            binding.zadajKbutton.visibility = View.VISIBLE
+            binding.zadajLbutton.visibility = View.VISIBLE
+            binding.zadajMbutton.visibility = View.VISIBLE
+            binding.zadajNbutton.visibility = View.VISIBLE
+            binding.zadajObutton.visibility = View.VISIBLE
+            binding. zadajPbutton.visibility = View.VISIBLE
+            binding.zadajQbutton.visibility = View.VISIBLE
+            binding.zadajRbutton.visibility = View.VISIBLE
+            binding.zadajSbutton.visibility = View.VISIBLE
+            binding.zadajTbutton.visibility = View.VISIBLE
+            binding.zadajUbutton.visibility = View.VISIBLE
+            binding.zadajVbutton.visibility = View.VISIBLE
+            binding.zadajWbutton.visibility = View.VISIBLE
+            binding.zadajXbutton.visibility = View.VISIBLE
+            binding.zadajYbutton.visibility = View.VISIBLE
+            binding.zadajZbutton.visibility = View.VISIBLE
         }
     }
 
@@ -685,21 +689,21 @@ class HraFragment : Fragment() {
      * funkcia ak hrac prehra
      */
     fun prehra() {
-        prezradeneSlovoText.visibility = View.VISIBLE
-        hladaneSlovoText.visibility = View.INVISIBLE
-        prezradeneSlovoText.text = "Prehral si, hladane slovo bolo " + hladaneSlovo
-        pauzaLayout.visibility = View.VISIBLE
-        pokracovatButton.visibility = View.INVISIBLE
+        binding.prezradeneSlovoText.visibility = View.VISIBLE
+        binding.hladaneSlovoText.visibility = View.INVISIBLE
+        binding.prezradeneSlovoText.text = "Prehral si, hladane slovo bolo " + hladaneSlovo
+        binding.pauzaLayout.visibility = View.VISIBLE
+        binding.pokracovatButton.visibility = View.INVISIBLE
         schovajVsetkyButtony()
-        powerUpButton.isEnabled = false
-        powerUpLayout.visibility = View.INVISIBLE
+        binding.powerUpButton.isEnabled = false
+        binding.powerUpLayout.visibility = View.INVISIBLE
     }
 
     /**
      * funkcia pre schovanie layoutu so vsetkymi buttonami pismen
      */
     fun schovajVsetkyButtony() {
-        buttonyLayout.visibility = View.INVISIBLE
+        binding.buttonyLayout.visibility = View.INVISIBLE
 
     }
 
@@ -707,7 +711,13 @@ class HraFragment : Fragment() {
      * funkcia pre odkrytie layoutu so vsetkymi buttonami pismen
      */
     fun odkryVsetkyButtony() {
-        buttonyLayout.visibility = View.VISIBLE
+        binding.buttonyLayout.visibility = View.VISIBLE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 
 

@@ -1,7 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +8,11 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_koniec.*
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.Skore
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.UdajeViewModel
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.*
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
 
 /**
  * Trieda KoniecFragment zabezpecuje vlozenie
@@ -25,7 +21,8 @@ import java.util.*
 class KoniecFragment: Fragment(){
 
     private val viewModel: UdajeViewModel by activityViewModels();
-
+    private var _binding: FragmentKoniecBinding? = null
+    private val binding get()=_binding!!
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -36,7 +33,9 @@ class KoniecFragment: Fragment(){
         var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
         databaza.insert(Skore(viewModel.menoHraca,body))
 
-        return inflater.inflate(R.layout.fragment_koniec, container, false)
+        _binding = FragmentKoniecBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     /**
@@ -52,12 +51,18 @@ class KoniecFragment: Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         var body = requireArguments().getInt("body")
-        koniecTextView.text = viewModel.menoHraca + " " +koniecTextView.text.toString() + " " + body
+        binding.koniecTextView.text = viewModel.menoHraca + " " +binding.koniecTextView.text.toString() + " " + body
         view.findViewById<Button>(R.id.vratDoMenuButton).setOnClickListener {
             findNavController().navigate(R.id.action_koniecFragment_to_FirstFragment)
         }
         view.findViewById<Button>(R.id.DoSkoreButon).setOnClickListener {
             findNavController().navigate(R.id.action_koniecFragment_to_skoreFragment)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 }

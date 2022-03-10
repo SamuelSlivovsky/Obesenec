@@ -5,8 +5,13 @@
       <map>
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/activity_signin.xml" value="0.36666666666666664" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_historia_hraca.xml" value="0.23958333333333334" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_hra.xml" value="0.31145833333333334" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_menu.xml" value="0.24947916666666667" />
         <entry key="..\:/bakalarka/app/src/main/res/layout/fragment_titulka.xml" value="0.36666666666666664" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/bakalarka/app/src/main/res/layout/list_item2.xml" value="0.36666666666666664" />
         <entry key="..\:/bc/Obesenec/app/src/main/res/layout/fragment_menu.xml" value="0.32864583333333336" />
         <entry key="..\:/bc/Obesenec/app/src/main/res/layout/fragment_titulka.xml" value="0.5" />
       </map>

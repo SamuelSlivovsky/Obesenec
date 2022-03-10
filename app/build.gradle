@@ -1,9 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'org.jetbrains.dokka'
     id 'com.google.gms.google-services'
+
 }
 apply plugin: 'kotlin-kapt'
 

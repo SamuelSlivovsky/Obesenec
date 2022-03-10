@@ -8,10 +8,9 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_item.view.*
-import org.w3c.dom.Text
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.Skore
 import sk.uniza.fri.slivovsky.semestralnapraca.R
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ListItemBinding
 
 /**
  * Adapter pre skore recycler view
@@ -31,15 +30,15 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
      * @param itemView view do ktoreho posielam list_item
      */
     class SkoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
-
-        var poradoveCisloText: TextView = itemView.poradoveCTextView
-        var menoHraca: TextView = itemView.skore_historiaTextView
-        var pocetBodov: TextView = itemView.bodyTextView
-        var datum: TextView = itemView.datum_skore_TextView
+        val binding = ListItemBinding.bind(itemView)
+        var poradoveCisloText: TextView = binding.poradoveCTextView
+        var menoHraca: TextView = binding.skoreHistoriaTextView
+        var pocetBodov: TextView = binding.bodyTextView
+        var datum: TextView = binding.datumSkoreTextView
 
         init {
 
-            itemView.itemLayout.setOnLongClickListener(this)
+            binding.itemLayout.setOnLongClickListener(this)
         }
 
         /**

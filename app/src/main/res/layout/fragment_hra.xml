@@ -18,7 +18,7 @@
         tools:context=".Hra.HraFragment">
 
         <Chronometer
-            android:id="@+id/casovac_TextView"
+            android:id="@+id/casovacTextView"
             android:layout_width="77dp"
             android:layout_height="28dp"
             android:layout_marginTop="48dp"
@@ -33,7 +33,7 @@
             tools:targetApi="24" />
 
         <Chronometer
-            android:id="@+id/casovac2_TextView"
+            android:id="@+id/casovac2TextView"
             android:layout_width="77dp"
             android:layout_height="28dp"
             android:layout_marginTop="48dp"
@@ -574,17 +574,17 @@
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
             <TextView
-                android:id="@+id/pocet_powerUp_Text_View"
+                android:id="@+id/pocetPowerUpTextView"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="25dp"
                 android:layout_height="24dp"
                 android:layout_gravity="top|right"
                 android:background="@drawable/badge_tvar"
-                android:visibility="invisible"
                 android:elevation="8dp"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="visible" />
         </FrameLayout>
 
         <ImageView

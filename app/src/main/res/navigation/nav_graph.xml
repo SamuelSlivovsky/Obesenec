@@ -7,12 +7,9 @@
 
     <fragment
         android:id="@+id/TitulkaFragment"
-        android:name="sk.uniza.fri.slivovsky.semestralnapraca.Hra.TitulkaFragment"
+        android:name="sk.uniza.fri.slivovsky.semestralnapraca.Hra.TitulkaActivity"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_titulka">
-        <action
-            android:id="@+id/action_FirstFragment_to_fragmentHra"
-            app:destination="@id/fragmentHra" />
         <action
             android:id="@+id/action_FirstFragment_to_skoreFragment"
             app:destination="@id/skoreFragment" />

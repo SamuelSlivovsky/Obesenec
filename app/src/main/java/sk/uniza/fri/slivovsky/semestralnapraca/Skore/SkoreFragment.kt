@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_skore.*
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSkoreBinding
 
 /**
  * Fragment ktori zobrazuje top hracov, ich skore a datum.
  *
  */
 class SkoreFragment:Fragment() {
-
+    private var _binding: FragmentSkoreBinding? = null
+    private val binding get()=_binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +27,9 @@ class SkoreFragment:Fragment() {
 
 
 
-        return inflater.inflate(R.layout.fragment_skore, container, false)
+        _binding = FragmentSkoreBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     /**
@@ -43,11 +46,16 @@ class SkoreFragment:Fragment() {
 
         val najHraci = databaza.getBest()
 
-        skoreRecylclerView.adapter = SkoreAdapter(requireContext(),najHraci!!)
+        binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(),najHraci!!)
 
         view.findViewById<Button>(R.id.buttonVratDoMenuZoSkore).setOnClickListener {
             findNavController().navigate(R.id.action_skoreFragment_to_FirstFragment2)
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
