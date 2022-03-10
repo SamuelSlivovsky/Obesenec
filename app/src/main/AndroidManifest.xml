@@ -9,13 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SemestralnaPraca"
-
         >
 
 
-        <activity android:name=".Hra.TitulkaActivity"></activity>
+        <activity android:name=".Hra.TitulkaActivity" android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SemestralnaPraca.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize">
