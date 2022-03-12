@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background2">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".Hra.HraFragment">
+
+            <Chronometer
+                android:id="@+id/casovacTextView"
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="16dp"
+                android:lineSpacingExtra="18sp"
+                android:textColor = "?android:textColorPrimary"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skoreTextView"
+                tools:targetApi="24" />
+
+            <Chronometer
+                android:id="@+id/casovac2TextView"
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="16dp"
+                android:lineSpacingExtra="18sp"
+                android:textAlignment="center"
+                android:textColor = "?android:textColorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skoreTextView"
+                tools:targetApi="24" />
+
+            <TextView
+                android:id="@+id/hladaneSlovoText"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+                android:text="_ _ _ _ _ _ _"
+                android:textAlignment="center"
+                android:textColor = "?android:textColorPrimary"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ObesenecObr" />
+
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="512dp"
+                android:fillViewport="true"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/buttonyLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hladaneSlovoText">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitAbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="A"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitBbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="B"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitCbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="C"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitDbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="D"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitEbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="E"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitFbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="F"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitGbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="G"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitHbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="H"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitIbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="I"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitJbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="J"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitKbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="K"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitLbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="L"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitMbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="M"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitNbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="N"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitObutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="O"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitPbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="P"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitQbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="Q"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitRbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="R"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitSbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="S"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitTbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="T"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitUbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="U"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitVbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="V"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitWbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="W"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitXbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="X"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitYbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="Y"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/submitZbutton"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/buttony"
+                            android:elevation="20dp"
+                            android:text="Z"
+                            android:textColor="?android:textColorSecondary"
+                            app:cornerRadius="10dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/skoreTextView"
+                android:layout_width="119dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="skóre:"
+                android:textAlignment="viewStart"
+                android:textColor = "?android:textColorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ObesenecObr"
+                android:layout_width="124dp"
+                android:layout_height="174dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zivotyImageView"
+                app:srcCompat="@drawable/obesenec_6" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/pauzaLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="142dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.464"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@+id/ObesenecObr">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/pokracovatButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="?android:textColorSecondary"
+                    android:text="Pokračovať"
+                    android:elevation="20dp"
+                    app:cornerRadius="10dp"
+                    android:backgroundTint="@color/buttony"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.509"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/koniecButton"
+                    android:layout_width="132dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="32dp"
+                    android:textColor="?android:textColorSecondary"
+                    android:elevation="20dp"
+                    android:text="Koniec"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.504"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokracovatButton" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/powerUpLayout"
+                android:layout_width="115dp"
+                android:layout_height="196dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+                <TextView
+                    android:id="@+id/powerUpCasTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor = "?android:textColorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="invisible"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/powerUpCasButton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.768" />
+
+                <TextView
+                    android:id="@+id/powerUpZivotyTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="TextView"
+                    android:textColor = "?android:textColorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="invisible"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/zivotyPowerUpButton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.395" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/powerUpCasButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="136dp"
+                    android:clickable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_recent_history" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/zivotyPowerUpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="70dp"
+                    android:clickable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_input_add" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/pismenoPowerUpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:clickable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_view" />
+
+                <TextView
+                    android:id="@+id/powerUpPismenoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_marginTop="4dp"
+                    android:text="TextView"
+                    android:textColor = "?android:textColorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/pismenoPowerUpButton"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="63dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.045"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/powerUpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:clickable="true"
+                    android:cropToPadding="false"
+                    app:backgroundTint="#00C853"
+                    app:fabSize="normal"
+                    app:rippleColor="#D51717"
+                    app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                <TextView
+                    android:id="@+id/pocetPowerUpTextView"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="25dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="top|right"
+                    android:background="@drawable/badge_tvar"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/zivotyImageView"
+                android:layout_width="42dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.387"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/srdce" />
+
+            <TextView
+                android:id="@+id/zivotyTextView"
+                android:layout_width="63dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
+                android:text="6"
+                android:textAlignment="textStart"
+                android:textColor = "?android:textColorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/zivotyImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+
+                android:id="@+id/prezradeneSlovoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hladaneSlovoText"
+                android:layout_centerHorizontal="true"
+                android:textColor = "?android:textColorPrimary"
+                android:layout_marginTop="56dp"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ObesenecObr" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
+

@@ -53,11 +53,11 @@
         <TextView
             android:id="@+id/koniecTextView"
             android:layout_width="383dp"
-            android:layout_height="69dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:text="@string/koniec_text"
             android:textAlignment="center"
-            android:textColor = "?android:textColorPrimary"
+            android:textColor="?android:textColorPrimary"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

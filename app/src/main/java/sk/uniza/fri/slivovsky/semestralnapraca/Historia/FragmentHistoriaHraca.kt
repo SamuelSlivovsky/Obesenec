@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_historia_hraca.*
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentHistoriaHracaBinding
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
@@ -17,6 +17,8 @@ import sk.uniza.fri.slivovsky.semestralnapraca.R
  */
 class FragmentHistoriaHraca : Fragment() {
 
+    private var _binding: FragmentHistoriaHracaBinding? = null
+    private val binding get()=_binding!!
     /**
      *
      *
@@ -31,7 +33,9 @@ class FragmentHistoriaHraca : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_historia_hraca, container, false)
+        _binding = FragmentHistoriaHracaBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     /**
@@ -48,11 +52,16 @@ class FragmentHistoriaHraca : Fragment() {
         var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
 
         val historiaHraca = databaza.getHistoriaHraca(hrac!!)
-        menoHracaText.text = "Hráč: " +  hrac.toString()
-        historiaRecylcerView.adapter = HistoriaAdapter(requireContext(),historiaHraca!!)
+        binding.menoHracaText.text = "Hráč: " +  hrac.toString()
+        binding.historiaRecylcerView.adapter = HistoriaAdapter(requireContext(),historiaHraca!!)
 
         view.findViewById<Button>(R.id.buttonSpatZHistorie).setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentHistoriaHraca_to_skoreFragment)
+
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

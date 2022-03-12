@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_item.view.*
-import kotlinx.android.synthetic.main.list_item.view.poradoveCTextView
-import kotlinx.android.synthetic.main.list_item.view.skore_historiaTextView
-import kotlinx.android.synthetic.main.list_item2.view.*
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.Skore
 import sk.uniza.fri.slivovsky.semestralnapraca.R
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentHistoriaHracaBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ListItem2Binding
 
 /**
  * Adapter pre historia recycler view.
@@ -30,9 +28,12 @@ class HistoriaAdapter(private val context: Context,private val historiaHraca: Li
      */
     class HistoriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var poradoveCisloText: TextView = itemView.poradoveCTextView
-        var pocetBodov: TextView = itemView.skore_historiaTextView
-        var datum: TextView = itemView.datum_historiaTextView2
+        val binding = ListItem2Binding.bind(itemView)
+        var poradoveCisloText: TextView = binding.poradoveCTextView
+        var pocetBodov: TextView = binding.skoreHistoriaTextView
+        var datum: TextView = binding.datumHistoriaTextView2
+
+
 
         /**
          * Funkica ktora nastavi textView itemov na hodnoty ziskane z databazy
@@ -42,9 +43,13 @@ class HistoriaAdapter(private val context: Context,private val historiaHraca: Li
          */
         fun nastavHodnoty(skore: Skore, poradoveCislo: Int) {
 
+            with(binding){
             pocetBodov.text = skore.skore.toString()
             poradoveCisloText.text = poradoveCislo.toString()
             datum.text = skore.datum.toString()
+
+            }
+
         }
     }
 

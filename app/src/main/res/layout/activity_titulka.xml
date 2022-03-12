@@ -3,11 +3,16 @@
 
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background2">
 
     <data>
 
     </data>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,9 +43,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menuDoSkoreButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
                 android:text="@string/skore_button"
@@ -55,13 +62,14 @@
                 android:id="@+id/titulkaTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="292dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/app_name"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/app_name" />
@@ -87,5 +95,7 @@
                 app:srcCompat="@drawable/trophy" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+    </FrameLayout>
 </layout>
