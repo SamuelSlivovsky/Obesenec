@@ -8,6 +8,9 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.Skore
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
@@ -20,8 +23,8 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
  */
 class KoniecFragment: Fragment(){
 
-    private val viewModel: UdajeViewModel by activityViewModels();
     private var _binding: FragmentKoniecBinding? = null
+    private lateinit var auth: FirebaseAuth
     private val binding get()=_binding!!
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -29,9 +32,11 @@ class KoniecFragment: Fragment(){
             savedInstanceState: Bundle?
     ): View? {
 
-        var body = requireArguments().getInt("body")
         var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
-        databaza.insert(Skore(viewModel.menoHraca,body))
+        var bundle = arguments
+        auth = Firebase.auth
+        val currUser = auth.currentUser
+        databaza.insert(Skore(currUser!!.displayName.toString(),bundle!!.getInt("points")))
 
         _binding = FragmentKoniecBinding.inflate(inflater, container, false)
 
@@ -49,9 +54,10 @@ class KoniecFragment: Fragment(){
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var body = requireArguments().getInt("body")
-        binding.koniecTextView.text = viewModel.menoHraca + " " +binding.koniecTextView.text.toString() + " " + body
+        auth = Firebase.auth
+        val currUser = auth.currentUser
+        var bundle = arguments
+        binding.koniecTextView.text = currUser!!.displayName + " " +binding.koniecTextView.text.toString() + " " + bundle!!.getInt("points")
         view.findViewById<Button>(R.id.vratDoMenuButton).setOnClickListener {
 
         }

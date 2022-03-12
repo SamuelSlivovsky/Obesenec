@@ -33,20 +33,35 @@ class MenuActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(UdajeViewModel::class.java)
         slovaViewModel = ViewModelProviders.of(this).get(SlovaViewModel::class.java)
 
+        val intent =Intent(this@MenuActivity,HraActivity::class.java)
         binding.lahkaButton.setOnClickListener {
             val profileUpdates = userProfileChangeRequest {
                 displayName = binding.menoInputText.text.toString().trim()
             }
 
             user!!.updateProfile(profileUpdates)
-            slovaViewModel.druhSlova = "lahke"
-            startActivity(Intent(this@MenuActivity,HraActivity::class.java))
+            intent.putExtra("druh","lahke")
+            startActivity(intent)
             }
         binding.stredneTazkaButton.setOnClickListener {
+            val profileUpdates = userProfileChangeRequest {
+                displayName = binding.menoInputText.text.toString().trim()
+            }
+
+            user!!.updateProfile(profileUpdates)
+            intent.putExtra("druh","medium")
+            startActivity(intent)
 
             }
         binding.tazkaButton.setOnClickListener {
 
+            val profileUpdates = userProfileChangeRequest {
+                displayName = binding.menoInputText.text.toString().trim()
+            }
+
+            user!!.updateProfile(profileUpdates)
+            intent.putExtra("druh","tazke")
+            startActivity(intent)
 
         }
 

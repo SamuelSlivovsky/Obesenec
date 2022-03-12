@@ -21,11 +21,11 @@
 
     <TextView
         android:id="@+id/skore_historiaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
         android:layout_marginStart="32dp"
         android:text="TextView"
-        android:textColor = "?android:textColorPrimary"
+        android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

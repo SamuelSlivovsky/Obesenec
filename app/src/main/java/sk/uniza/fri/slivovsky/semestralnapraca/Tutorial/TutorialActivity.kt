@@ -68,8 +68,6 @@ class TutorialActivity : AppCompatActivity() {
         binding = ActivityTutorialBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.hide()
 
         binding.powerUpButton.setOnClickListener {  showToast("Tlacidlo ktore vam otvori vase dostupne powerUpy")}
         binding.powerUpCasButton.setOnClickListener {  showToast("PowerUp ktory pozastavi casomieru na 10 sekund")}
@@ -89,7 +87,6 @@ class TutorialActivity : AppCompatActivity() {
         sortToast?.cancel()
         sortToast = Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT)
         sortToast?.show()
-        //Toast.makeText(this@TutorialActivity, message, Toast.LENGTH_SHORT).show()
     }
 
 

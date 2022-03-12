@@ -1,6 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.Skore
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ListItemBinding
  * @property najHraci
  * @property poradoveCislo
  */
-class SkoreAdapter(private val context: Context,private val najHraci: List<Skore>, private var poradoveCislo: Int = 0) : RecyclerView.Adapter<SkoreAdapter.SkoreViewHolder>() {
+class SkoreAdapter(private val context: Context,private val najHraci: List<PlayersModelClass>, private var poradoveCislo: Int = 0) : RecyclerView.Adapter<SkoreAdapter.SkoreViewHolder>() {
 
 
     /**
@@ -61,11 +62,11 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
          * @param skore Databaza
          * @param poradoveCislo poradove cislo v zozname
          */
-        fun nastavHodnoty(skore: Skore, poradoveCislo: Int) {
-            menoHraca.text = skore.menoHraca
-            pocetBodov.text = skore.skore.toString()
-            poradoveCisloText.text = poradoveCislo.toString()
-            datum.text = skore.datum.toString()
+        fun nastavHodnoty(hrac: PlayersModelClass, poradoveCislo: Int) {
+            menoHraca.text = hrac.name
+            poradoveCisloText.text = poradoveCislo.toString() + "."
+            pocetBodov.text = hrac.score.toString()
+            datum.text = hrac.date
         }
     }
 
@@ -84,8 +85,10 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Skore
 
     override fun onBindViewHolder(holder: SkoreViewHolder, position: Int) {
 
+        val hrac = najHraci[position]
         poradoveCislo++
-        holder.nastavHodnoty(najHraci[position], poradoveCislo)
+        holder.nastavHodnoty(hrac, poradoveCislo)
+
     }
 
     /**

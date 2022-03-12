@@ -1,6 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.internal.ContextUtils.getActivity
@@ -71,7 +73,12 @@ class HraActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(UdajeViewModel::class.java)
         wordsViewModel = ViewModelProviders.of(this).get(SlovaViewModel::class.java)
 
-        words = wordsViewModel.slovaLahke
+        when(intent.getStringExtra("druh")){
+        "lahke" -> words = wordsViewModel.slovaLahke
+        "medium"-> words = wordsViewModel.slovaStredneTazke
+        "tazke"-> words = wordsViewModel.slovaTazke
+        }
+
 
 
         newGame(words)
@@ -202,12 +209,13 @@ class HraActivity : AppCompatActivity() {
             }
         }
 
-        /*   //listener pre button na ukoncenie
-           val koniec: Button = view.findViewById(R.id.koniecButton)
-           koniec.setOnClickListener {
-               val bundle = bundleOf("points" to points)
-               findNavController().navigate(R.id.action_fragmentHra_to_koniecFragment, bundle)
-           }*/
+           //listener pre button na ukoncenie
+
+           binding.koniecButton.setOnClickListener {
+               val intent = Intent(this@HraActivity,KoniecActivity::class.java)
+               intent.putExtra("points",points)
+               startActivity(intent)
+           }
     }
 
 
@@ -270,11 +278,13 @@ class HraActivity : AppCompatActivity() {
         binding.casovac2TextView.visibility = View.INVISIBLE
 
         var cas = 0
-        /*   when (wordsViewModel.druhwords) {
+
+
+           when (intent.getStringExtra("druh")) {
                "lahke" -> cas = 60000
-               "stredneTazke" -> cas = 40000
+               "medium" -> cas = 40000
                "tazke" -> cas = 20000
-           }*/
+           }
         cas = 60000
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             binding.casovacTextView.isCountDown = true
@@ -377,11 +387,13 @@ class HraActivity : AppCompatActivity() {
      */
     fun powerUp() {
         var hodnota = 1
-        /*when (wordsViewModel.druhwords) {
+
+
+        when (intent.getStringExtra("druh")) {
             "lahke" -> hodnota = 1
-            "stredneTazke" -> hodnota = 2
+            "medium" -> hodnota = 2
             "tazke" -> hodnota = 3
-        }*/
+        }
         if (points % hodnota == 0) {
             var nahCislo = Random().nextInt(3)
             when (nahCislo) {

@@ -1,12 +1,17 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.Skore
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSkoreBinding
@@ -18,7 +23,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSkoreBinding
 class SkoreFragment:Fragment() {
     private var _binding: FragmentSkoreBinding? = null
     private val binding get()=_binding!!
-
+    var list = mutableListOf<PlayersModelClass>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,10 +48,21 @@ class SkoreFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
+        val db = Firebase.firestore
 
-        val najHraci = databaza.getBest()
 
-        binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(),najHraci!!)
+        db.collection("scoreboard")
+            .orderBy("score", Query.Direction.DESCENDING).limit(10)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    list.add(PlayersModelClass(document.data.getValue("name").toString(),
+                        (document.data.getValue("score") as Number).toInt(), document.data.getValue("date").toString()
+                    ))
+                }
+                binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(),list)
+
+            }
 
         view.findViewById<Button>(R.id.buttonVratDoMenuZoSkore).setOnClickListener {
         }

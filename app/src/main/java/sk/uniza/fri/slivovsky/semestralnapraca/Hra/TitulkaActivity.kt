@@ -24,5 +24,9 @@ class TitulkaActivity : AppCompatActivity() {
         binding.menuDoSkoreButton.setOnClickListener {
             startActivity(Intent(this@TitulkaActivity,TutorialActivity::class.java))
         }
+
+        binding.scoreIcon.setOnClickListener {
+            startActivity(Intent(this@TitulkaActivity,ScoreActivity::class.java))
+        }
     }
 }
