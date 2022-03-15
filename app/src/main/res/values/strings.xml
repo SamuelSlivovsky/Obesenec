@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">OBESENEC</string>
+    <string name="title">BESENEC</string>
     <!-- Strings used for fragments for navigation -->
     <string name="play_buttoon">HRAJ</string>
     <string name="skore_button">SKÓRE</string>
@@ -14,7 +15,11 @@
     <string name="str_button"> Stredná</string>
     <string name="tazka_button"> Ťažká</string>
     <string name="menu_button"> Menu</string>
+    <string name="home"> Domov</string>
+    <string name="history"> História</string>
+    <string name="feedback"> Spätná väzba</string>
     <string name="koniec_text">TVOJE VÝSLEDNÉ SKÓRE BOLO:</string>
+
 
 
 

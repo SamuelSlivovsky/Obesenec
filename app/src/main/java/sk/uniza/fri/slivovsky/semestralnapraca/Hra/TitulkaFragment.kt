@@ -9,23 +9,23 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.Databaza.SkoreDatabaza
+import sk.uniza.fri.slivovsky.semestralnapraca.Hra.MenuActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.Hra.TitulkaActivity
+import sk.uniza.fri.slivovsky.semestralnapraca.Hra.TutorialActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.R
+import sk.uniza.fri.slivovsky.semestralnapraca.Skore.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentHistoriaHracaBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentTitulkaBinding
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
  *
  */
-class FragmentHistoriaHraca : Fragment() {
+class TitulkaFragment : Fragment() {
 
-    private var _binding: FragmentHistoriaHracaBinding? = null
+    private var _binding: FragmentTitulkaBinding? = null
     private val binding get()=_binding!!
-    private lateinit var auth: FirebaseAuth
     /**
      *
      *
@@ -40,7 +40,7 @@ class FragmentHistoriaHraca : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentHistoriaHracaBinding.inflate(inflater, container, false)
+        _binding = FragmentTitulkaBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -54,12 +54,17 @@ class FragmentHistoriaHraca : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        auth = Firebase.auth
-        val currUser = auth.currentUser
-        var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
-        val historiaHraca = databaza.getHistoriaHraca(currUser!!.uid)
-        binding.menoHracaText.text = "Hráč: " +  currUser!!.displayName.toString()
-        binding.historiaRecylcerView.adapter = HistoriaAdapter(requireContext(),historiaHraca!!)
+
+        binding.playButton.setOnClickListener {
+            startActivity(Intent(context, MenuActivity::class.java))
+        }
+        binding.menuDoSkoreButton.setOnClickListener {
+            startActivity(Intent(context, TutorialActivity::class.java))
+        }
+
+        binding.scoreIcon.setOnClickListener {
+            startActivity(Intent(context, ScoreActivity::class.java))
+        }
 
 
     }

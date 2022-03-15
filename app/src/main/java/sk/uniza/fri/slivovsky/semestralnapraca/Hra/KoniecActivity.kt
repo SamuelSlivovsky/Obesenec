@@ -7,8 +7,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.R
-import sk.uniza.fri.slivovsky.semestralnapraca.Skore.SkoreFragment
-
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityKoniecBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +26,7 @@ class KoniecActivity:AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = KoniecFragment()
 
-        val body = intent.getIntExtra("points",0)
+        var body = intent.getIntExtra("points",0)
         val bundle = Bundle()
         bundle.putInt("points",body)
         fragment.arguments = bundle
@@ -36,14 +34,34 @@ class KoniecActivity:AppCompatActivity() {
         auth = Firebase.auth
         val currUser = auth.currentUser
         val db = Firebase.firestore
-        val user = hashMapOf(
-            "name" to currUser!!.displayName,
-            "score" to body,
-            "date" to SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Calendar.getInstance().time)
-        )
-        for (i in 1..10){
-            db.collection("scoreboard").document(i.toString()).set(user)
-        }
+        var bestScore = 0;
+        db.collection("scoreboard")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    if(document.id == currUser!!.uid){
+                        bestScore = (document.data.get("score") as Number).toInt()
+                    }
+
+                }
+
+                if (body > bestScore){
+                    val user = hashMapOf(
+                        "name" to currUser!!.displayName,
+                        "score" to body,
+                        "date" to SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Calendar.getInstance().time)
+                    )
+
+                    db.collection("scoreboard").document(currUser.uid).set(user)
+                }
+                }
+
+            .addOnFailureListener { exception ->
+
+            }
+
+
+
 
 
     }

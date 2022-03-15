@@ -17,7 +17,7 @@ interface  SkoreDatabazaDao {
     @Query("select * from skore order by skore desc limit 10") // vrati udaje o najlepsich 10 hracoch
     fun getBest(): List<Skore> ?
 
-    @Query("select * from skore where menoHraca = :menoHraca") // vrati historiu hier hraca
-    fun getHistoriaHraca(menoHraca : String): List<Skore> ?
+    @Query("select * from skore where uid = :uid") // vrati historiu hier hraca
+    fun getHistoriaHraca(uid : String): List<Skore> ?
 
 }

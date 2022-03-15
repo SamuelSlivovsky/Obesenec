@@ -3,8 +3,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background2">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -40,6 +39,7 @@
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="16dp"
                 android:lineSpacingExtra="18sp"
+                android:fontFamily="@font/fredoka"
                 android:textAlignment="center"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="18sp"
@@ -56,6 +56,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:text="_ _ _ _ _ _ _"
+                android:fontFamily="@font/fredoka"
                 android:textAlignment="center"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="25sp"
@@ -97,10 +98,10 @@
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
+                            android:textColor="@color/white"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="A"
-                            android:textColor="?android:textColorSecondary"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -113,6 +114,7 @@
                 android:layout_height="44dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fredoka"
                 android:text="skóre:"
                 android:textAlignment="viewStart"
                 android:textColor = "?android:textColorPrimary"
@@ -289,6 +291,7 @@
                     android:layout_width="25dp"
                     android:layout_height="24dp"
                     android:layout_gravity="top|right"
+                    android:fontFamily="@font/fredoka"
                     android:background="@drawable/badge_tvar"
                     android:elevation="8dp"
                     android:gravity="center"
@@ -314,6 +317,7 @@
                 android:layout_height="27dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/fredoka"
                 android:text="6"
                 android:textAlignment="textStart"
                 android:textColor = "?android:textColorPrimary"

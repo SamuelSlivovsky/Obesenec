@@ -26,7 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:backgroundTint="@color/buttony"
-                android:textColor="?android:textColorSecondary"
+                android:fontFamily="@font/fredoka"
+                android:textSize="20sp"
+                android:textColor="@color/white"
                 android:elevation="20dp"
                 android:text="@string/skore_button"
                 app:cornerRadius="10dp"
@@ -37,10 +39,12 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/vratDoMenuButton"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/fredoka"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/buttony"
-                android:textColor="?android:textColorSecondary"
+                android:textColor="@color/white"
                 android:elevation="20dp"
                 android:text="@string/menu_button"
                 app:cornerRadius="10dp"
@@ -55,6 +59,7 @@
             android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
+            android:fontFamily="@font/fredoka"
             android:text="@string/koniec_text"
             android:textAlignment="center"
             android:textColor="?android:textColorPrimary"
@@ -67,4 +72,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </layout>

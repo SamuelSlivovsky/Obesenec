@@ -15,6 +15,7 @@
         android:textColor = "?android:textColorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/fredoka"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,13 +24,14 @@
         android:id="@+id/skore_historiaTextView"
         android:layout_width="100dp"
         android:layout_height="25dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/fredoka"
         android:text="TextView"
         android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/poradoveCTextView"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:text="TextView"
+        android:fontFamily="@font/fredoka"
         android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -48,6 +51,7 @@
     <TextView
         android:id="@+id/poradoveCTextView"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/fredoka"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor = "?android:textColorPrimary"
@@ -56,4 +60,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/poradoveCTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/crown" />
 </androidx.constraintlayout.widget.ConstraintLayout>

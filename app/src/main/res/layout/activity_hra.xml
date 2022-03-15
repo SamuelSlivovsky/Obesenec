@@ -4,7 +4,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background2">
+   >
 
     <data>
 
@@ -37,6 +37,7 @@
                 android:id="@+id/casovac2TextView"
                 android:layout_width="77dp"
                 android:layout_height="28dp"
+                android:fontFamily="@font/fredoka"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="16dp"
                 android:lineSpacingExtra="18sp"
@@ -56,6 +57,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:text="_ _ _ _ _ _ _"
+                android:fontFamily="@font/fredoka"
                 android:textAlignment="center"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="25sp"
@@ -68,18 +70,16 @@
             <HorizontalScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="512dp"
                 android:fillViewport="true"
-                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:id="@+id/buttonyLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="32dp"
                     android:orientation="vertical"
@@ -96,12 +96,13 @@
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitAbutton"
                             android:layout_width="40dp"
+
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="A"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -112,7 +113,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="B"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -123,7 +124,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="C"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -134,7 +135,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="D"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -145,7 +146,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="E"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -156,7 +157,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="F"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -167,7 +168,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="G"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -178,7 +179,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="H"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -189,7 +190,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="I"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -208,7 +209,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="J"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -219,7 +220,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="K"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -230,7 +231,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="L"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -241,7 +242,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="M"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -252,7 +253,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="N"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -263,7 +264,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="O"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -274,7 +275,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="P"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -285,7 +286,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="Q"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -296,7 +297,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="R"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -315,7 +316,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="S"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -326,7 +327,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="T"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -337,7 +338,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="U"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -348,7 +349,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="V"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -359,7 +360,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="W"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -370,7 +371,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="X"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -381,7 +382,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="Y"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -392,7 +393,7 @@
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="Z"
-                            android:textColor="?android:textColorSecondary"
+                            android:textColor="@color/white"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -405,6 +406,7 @@
                 android:layout_height="44dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fredoka"
                 android:text="skóre:"
                 android:textAlignment="viewStart"
                 android:textColor = "?android:textColorPrimary"
@@ -439,7 +441,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="?android:textColorSecondary"
+                    android:textColor="@color/white"
                     android:text="Pokračovať"
                     android:elevation="20dp"
                     app:cornerRadius="10dp"
@@ -454,10 +456,11 @@
                     android:layout_width="132dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="32dp"
-                    android:textColor="?android:textColorSecondary"
+                    android:textColor="@color/white"
                     android:elevation="20dp"
                     android:text="Koniec"
                     app:cornerRadius="10dp"
+                    android:backgroundTint="@color/buttony"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.504"
                     app:layout_constraintStart_toStartOf="parent"
@@ -579,6 +582,7 @@
                     style="@style/TextAppearance.MaterialComponents.Caption"
                     android:layout_width="25dp"
                     android:layout_height="24dp"
+                    android:fontFamily="@font/fredoka"
                     android:layout_gravity="top|right"
                     android:background="@drawable/badge_tvar"
                     android:elevation="8dp"
@@ -606,6 +610,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="24dp"
                 android:text="6"
+                android:fontFamily="@font/fredoka"
                 android:textAlignment="textStart"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="24sp"

@@ -67,6 +67,10 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Playe
             poradoveCisloText.text = poradoveCislo.toString() + "."
             pocetBodov.text = hrac.score.toString()
             datum.text = hrac.date
+            if (poradoveCislo == 1){
+                binding.imageView2.visibility = View.VISIBLE
+            }
+
         }
     }
 
@@ -86,8 +90,7 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Playe
     override fun onBindViewHolder(holder: SkoreViewHolder, position: Int) {
 
         val hrac = najHraci[position]
-        poradoveCislo++
-        holder.nastavHodnoty(hrac, poradoveCislo)
+        holder.nastavHodnoty(hrac, position+1)
 
     }
 

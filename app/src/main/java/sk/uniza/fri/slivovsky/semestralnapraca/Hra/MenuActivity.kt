@@ -21,8 +21,6 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityMenuBinding
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuBinding
-    private lateinit var viewModel: UdajeViewModel
-    private lateinit var slovaViewModel: SlovaViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,36 +28,40 @@ class MenuActivity : AppCompatActivity() {
         val view = binding.root
         val user = Firebase.auth.currentUser
         setContentView(view)
-        viewModel = ViewModelProviders.of(this).get(UdajeViewModel::class.java)
-        slovaViewModel = ViewModelProviders.of(this).get(SlovaViewModel::class.java)
 
         val intent =Intent(this@MenuActivity,HraActivity::class.java)
         binding.lahkaButton.setOnClickListener {
-            val profileUpdates = userProfileChangeRequest {
-                displayName = binding.menoInputText.text.toString().trim()
+            if (binding.menoInputText.text.toString().trim().isNotEmpty()){
+                val profileUpdates = userProfileChangeRequest {
+                    displayName = binding.menoInputText.text.toString().trim()
+                }
+                user!!.updateProfile(profileUpdates)
             }
 
-            user!!.updateProfile(profileUpdates)
-            intent.putExtra("druh","lahke")
+            intent.putExtra("druh","svkWordsEasy.txt")
+            intent.putExtra("docName","svkEz")
             startActivity(intent)
             }
         binding.stredneTazkaButton.setOnClickListener {
-            val profileUpdates = userProfileChangeRequest {
-                displayName = binding.menoInputText.text.toString().trim()
+            if (binding.menoInputText.text.toString().trim().isNotEmpty()){
+                val profileUpdates = userProfileChangeRequest {
+                    displayName = binding.menoInputText.text.toString().trim()
+                }
+                user!!.updateProfile(profileUpdates)
             }
 
-            user!!.updateProfile(profileUpdates)
             intent.putExtra("druh","medium")
             startActivity(intent)
 
             }
         binding.tazkaButton.setOnClickListener {
 
-            val profileUpdates = userProfileChangeRequest {
-                displayName = binding.menoInputText.text.toString().trim()
+            if (binding.menoInputText.text.toString().trim().isNotEmpty()){
+                val profileUpdates = userProfileChangeRequest {
+                    displayName = binding.menoInputText.text.toString().trim()
+                }
+                user!!.updateProfile(profileUpdates)
             }
-
-            user!!.updateProfile(profileUpdates)
             intent.putExtra("druh","tazke")
             startActivity(intent)
 

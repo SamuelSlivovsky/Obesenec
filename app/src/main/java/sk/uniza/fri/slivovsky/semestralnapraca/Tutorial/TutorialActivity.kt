@@ -85,7 +85,7 @@ class TutorialActivity : AppCompatActivity() {
 
     fun showToast(message: String){
         sortToast?.cancel()
-        sortToast = Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT)
+        sortToast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
         sortToast?.show()
     }
 

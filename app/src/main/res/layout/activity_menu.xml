@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background2">
+    >
 
     <data>
 
@@ -18,11 +17,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/lahkaButton"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/fredoka"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:textSize="20sp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
-                android:textColor="?android:textColorSecondary"
+                android:textColor="@color/white"
                 android:text="@string/lahka_button"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -33,10 +34,12 @@
                 android:id="@+id/stredneTazkaButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
-                android:textColor="?android:textColorSecondary"
+                android:textSize="20sp"
+                android:textColor="@color/white"
                 android:text="@string/str_button"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +53,9 @@
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
-                android:textColor="?android:textColorSecondary"
+                android:textColor="@color/white"
+                android:fontFamily="@font/fredoka"
+                android:textSize="20sp"
                 android:text="@string/tazka_button"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +69,7 @@
                 android:layout_marginTop="128dp"
                 android:text="@string/obtiaznosti"
                 android:textAlignment="center"
+                android:fontFamily="@font/fredoka"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -73,6 +79,7 @@
 
             <TextView
                 android:id="@+id/zadajMenoTextView"
+                android:fontFamily="@font/fredoka"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -98,6 +105,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/menoInputText"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/fredoka"
                     android:layout_height="63dp"
                     android:hint="Meno" />
             </com.google.android.material.textfield.TextInputLayout>

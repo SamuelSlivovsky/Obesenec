@@ -1,5 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +38,8 @@ class KoniecFragment: Fragment(){
         var bundle = arguments
         auth = Firebase.auth
         val currUser = auth.currentUser
-        databaza.insert(Skore(currUser!!.displayName.toString(),bundle!!.getInt("points")))
+
+        databaza.insert(Skore(currUser!!.displayName.toString(),bundle!!.getInt("points"),currUser.uid))
 
         _binding = FragmentKoniecBinding.inflate(inflater, container, false)
 
@@ -52,6 +55,7 @@ class KoniecFragment: Fragment(){
      * @param view
      * @param savedInstanceState
      */
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
@@ -60,6 +64,7 @@ class KoniecFragment: Fragment(){
         binding.koniecTextView.text = currUser!!.displayName + " " +binding.koniecTextView.text.toString() + " " + bundle!!.getInt("points")
         view.findViewById<Button>(R.id.vratDoMenuButton).setOnClickListener {
 
+            startActivity(Intent(requireContext(),TitulkaActivity::class.java))
         }
         view.findViewById<Button>(R.id.DoSkoreButon).setOnClickListener {
 

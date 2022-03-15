@@ -2,27 +2,36 @@ package sk.uniza.fri.slivovsky.semestralnapraca.Hra
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.internal.ContextUtils.getActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.SlovaViewModel
-import sk.uniza.fri.slivovsky.semestralnapraca.ViewModels.UdajeViewModel
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityHraBinding
-import java.time.LocalDateTime
+import java.io.File
+import java.io.InputStream
 import java.util.*
+import com.google.firebase.firestore.DocumentSnapshot
+
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
+
+import com.google.android.gms.tasks.OnCompleteListener
+
 
 /**
  * Fragment ktori sa stara o logiku hry
@@ -31,57 +40,86 @@ import java.util.*
 class HraActivity : AppCompatActivity() {
 
     private var words = mutableListOf<String>()
+    private lateinit var auth: FirebaseAuth
     private var wordToFind: String? = null
     private var lettersArray: CharArray = charArrayOf()
     private var helpingLetter: CharArray = charArrayOf()
     private val usedLetters = ArrayList<String>()
     private var lives = 0
-    private val Random = Random()
+    private val random = Random()
     private var points = 0
     private var powerUpShow = 0
     private var powerUpTime = 0
     private var powerUpLife = 0
+    private var pause = false
     private var powerUpOtvorene = false
     private var pocetPowerUpov = 0
-    private var userName = ""
-    private lateinit var viewModel: UdajeViewModel
     private lateinit var wordsViewModel: SlovaViewModel
     private var nextGame = false
     private lateinit var binding: ActivityHraBinding
+    private var cas = 0
 
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
      * zabezpecuje vytvorenie fragmentu
      *
-     * @param inflater
-     * @param container
      * @param savedInstanceState
-     *@return inflater
      */
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val storage = Firebase.storage
         binding = ActivityHraBinding.inflate(layoutInflater)
         val view = binding.root
-
-        val user = Firebase.auth.currentUser
-
-        userName = user?.displayName.toString()
         setContentView(view)
-        viewModel = ViewModelProviders.of(this).get(UdajeViewModel::class.java)
+        binding.casovacTextView.base = SystemClock.elapsedRealtime() + 100000000000
         wordsViewModel = ViewModelProviders.of(this).get(SlovaViewModel::class.java)
 
-        when(intent.getStringExtra("druh")){
-        "lahke" -> words = wordsViewModel.slovaLahke
-        "medium"-> words = wordsViewModel.slovaStredneTazke
-        "tazke"-> words = wordsViewModel.slovaTazke
-        }
+        val storageRef = storage.reference
+        auth = Firebase.auth
+        val currUser = auth.currentUser
+        val db = Firebase.firestore
+
+        val docRef = db.collection("words" + currUser!!.uid)
+            .document(intent.getStringExtra("docName").toString())
+
+        docRef.get().addOnCompleteListener(OnCompleteListener<DocumentSnapshot?> { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document.exists()) {
+                    db.collection("words" + currUser!!.uid).get().addOnSuccessListener { result ->
+                        for (document in result) {
+                            val list = document.data
+
+                            words = list["words"] as MutableList<String>
+
+                        }
+
+                        newGame(words)
+                    }
+                } else {
+                    val word = storageRef.child(intent.getStringExtra("druh").toString())
+                    val localFile = File.createTempFile("words", "txt")
+                    word.getFile(localFile).addOnSuccessListener {
+                        val inputStream: InputStream = File(localFile.path).inputStream()
+                        val list = mutableListOf<String>()
+                        inputStream.bufferedReader().forEachLine {
+                            list.add(it)
+                        }
+                        words = list
+                        newGame(words)
 
 
+                    }.addOnFailureListener {
+                        println("haha no file")
+                    }
+                }
+            } else {
 
-        newGame(words)
+            }
+        })
+
 
         binding.casovac2TextView.setOnChronometerTickListener {
             if (binding.casovac2TextView.text == "00:00") {
@@ -92,13 +130,18 @@ class HraActivity : AppCompatActivity() {
             }
         }
 
+
         binding.casovacTextView.setOnChronometerTickListener {
+
+            if (pause) {
+                binding.casovacTextView.stop()
+            }
+
             if (binding.casovacTextView.text == "00:00") {
                 loss()
                 binding.casovacTextView.stop()
             }
         }
-
         //  animacia pre powerUp button
 
         val ukazButon: Animation =
@@ -194,7 +237,12 @@ class HraActivity : AppCompatActivity() {
         //listener pre button na pokracovanie
         val pokracovat: Button = view.findViewById(R.id.pokracovatButton)
         pokracovat.setOnClickListener {
+
             if (words.isNotEmpty()) {
+                val wordsColl = hashMapOf(
+                    "words" to words
+                )
+                db.collection("words" + currUser!!.uid).document(intent.getStringExtra("docName").toString()).set(wordsColl)
                 nextGame = true
                 newGame(words)
                 showAllButtons()
@@ -209,19 +257,40 @@ class HraActivity : AppCompatActivity() {
             }
         }
 
-           //listener pre button na ukoncenie
+        //listener pre button na ukoncenie
 
-           binding.koniecButton.setOnClickListener {
-               val intent = Intent(this@HraActivity,KoniecActivity::class.java)
-               intent.putExtra("points",points)
-               startActivity(intent)
-           }
+        binding.koniecButton.setOnClickListener {
+            val wordsColl = hashMapOf(
+                "words" to words
+            )
+            db.collection("words" + currUser!!.uid).document(intent.getStringExtra("docName").toString()).set(wordsColl)
+            val intent = Intent(this@HraActivity, KoniecActivity::class.java)
+            intent.putExtra("points", points)
+            startActivity(intent)
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.casovacTextView.stop()
+        pause = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.casovacTextView.stop()
+        pause = false
+        if (!pause) {
+            binding.casovacTextView.start()
+        }
     }
 
 
     /**
      * Funkcia pre update resp. zvysenie skóre
      */
+    @SuppressLint("SetTextI18n")
     fun updateScore() {
         binding.skoreTextView.text = "Skóre: " + points
     }
@@ -232,8 +301,8 @@ class HraActivity : AppCompatActivity() {
      */
 
     fun wordToFind(words: MutableList<String>): String {
-        var cislo = Random.nextInt(words.size)
-        var slovo = words[cislo]
+        val cislo = random.nextInt(words.size)
+        val slovo = words[cislo]
         words.removeAt(cislo)
         return slovo
     }
@@ -243,7 +312,7 @@ class HraActivity : AppCompatActivity() {
      *
      */
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "SetTextI18n")
     private fun updateImage() {
         if (lives >= 6) {
 
@@ -251,7 +320,7 @@ class HraActivity : AppCompatActivity() {
         } else {
             val resImg = resources.getIdentifier(
                 "obesenec_$lives", "drawable",
-                getActivity(this@HraActivity)?.getPackageName()
+                getActivity(this@HraActivity)?.packageName
             )
             binding.ObesenecObr.setImageResource(resImg)
         }
@@ -271,21 +340,19 @@ class HraActivity : AppCompatActivity() {
         }
         usedLetters.clear()
         wordToFind = wordToFind(words)
+        println(wordToFind)
         lettersArray = CharArray(wordToFind!!.length)
         for (i in lettersArray.indices) {
             lettersArray[i] = '_'
         }
         binding.casovac2TextView.visibility = View.INVISIBLE
 
-        var cas = 0
-
-
-           when (intent.getStringExtra("druh")) {
-               "lahke" -> cas = 60000
-               "medium" -> cas = 40000
-               "tazke" -> cas = 20000
-           }
-        cas = 60000
+        var cas = 60000
+        when (intent.getStringExtra("druh")) {
+            "lahke" -> cas = 60000
+            "medium" -> cas = 40000
+            "tazke" -> cas = 20000
+        }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             binding.casovacTextView.isCountDown = true
         }
@@ -325,8 +392,8 @@ class HraActivity : AppCompatActivity() {
         //nacitam hladane slovo do charArray
         helpingLetter = wordToFind!!.toCharArray()
 
-        var index = Random.nextInt(helpingLetter.size)
-        var pismeno = helpingLetter[index]
+        val index = random.nextInt(helpingLetter.size)
+        val pismeno = helpingLetter[index]
         //podmienka ktora pozera ci sa nevratila medzera alebo pismeno ktore uz bolo najdene
         if (pismeno == ' ' || usedLetters.contains(pismeno)) {
             fillInLetter()
@@ -395,8 +462,7 @@ class HraActivity : AppCompatActivity() {
             "tazke" -> hodnota = 3
         }
         if (points % hodnota == 0) {
-            var nahCislo = Random().nextInt(3)
-            when (nahCislo) {
+            when (Random().nextInt(3)) {
                 0 -> powerUpShow++
                 1 -> powerUpTime++
                 2 -> powerUpLife++
@@ -447,6 +513,7 @@ class HraActivity : AppCompatActivity() {
         return wordToFind?.contentEquals(String(lettersArray)) == true
     }
 
+    @SuppressLint("SetTextI18n")
     fun howManyPowerUps() {
         binding.pocetPowerUpTextView.text = pocetPowerUpov.toString()
         binding.powerUpZivotyTextView2.text = "" + powerUpLife
@@ -744,6 +811,7 @@ class HraActivity : AppCompatActivity() {
     /**
      * funkcia ak hrac loss
      */
+    @SuppressLint("SetTextI18n")
     fun loss() {
         binding.prezradeneSlovoText.visibility = View.VISIBLE
         binding.hladaneSlovoText.visibility = View.INVISIBLE

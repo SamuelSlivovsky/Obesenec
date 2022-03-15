@@ -2,4 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/titulkaFragment">
+    <fragment
+        android:id="@+id/titulkaFragment"
+        android:name="sk.uniza.fri.slivovsky.semestralnapraca.Historia.TitulkaFragment"
+        android:label="TitulkaFragment"
+        tools:layout="@layout/fragment_titulka">
+        <action
+            android:id="@+id/action_titulkaFragment_to_fragmentHistoriaHraca"
+            app:destination="@id/fragmentHistoriaHraca" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHistoriaHraca"
+        android:name="sk.uniza.fri.slivovsky.semestralnapraca.Historia.FragmentHistoriaHraca"
+        android:label="FragmentHistoriaHraca"
+        tools:layout="@layout/fragment_koniec">
+        <action
+            android:id="@+id/action_fragmentHistoriaHraca_to_titulkaFragment"
+            app:destination="@id/titulkaFragment" />
+    </fragment>
+</navigation>

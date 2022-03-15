@@ -18,7 +18,11 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ListItem2Binding
  * @property historiaHraca
  * @property poradoveCislo
  */
-class HistoriaAdapter(private val context: Context,private val historiaHraca: List<Skore>, private var poradoveCislo: Int = 0) : RecyclerView.Adapter<HistoriaAdapter.HistoriaViewHolder>() {
+class HistoriaAdapter(
+    private val context: Context,
+    private val historiaHraca: List<Skore>,
+    private var poradoveCislo: Int = 0
+) : RecyclerView.Adapter<HistoriaAdapter.HistoriaViewHolder>() {
 
     /**
      * View holder v sebe drzi atributy list_itemu2
@@ -34,7 +38,6 @@ class HistoriaAdapter(private val context: Context,private val historiaHraca: Li
         var datum: TextView = binding.datumHistoriaTextView2
 
 
-
         /**
          * Funkica ktora nastavi textView itemov na hodnoty ziskane z databazy
          *
@@ -42,13 +45,10 @@ class HistoriaAdapter(private val context: Context,private val historiaHraca: Li
          * @param poradoveCislo
          */
         fun nastavHodnoty(skore: Skore, poradoveCislo: Int) {
-
-            with(binding){
             pocetBodov.text = skore.skore.toString()
-            poradoveCisloText.text = poradoveCislo.toString()
-            datum.text = skore.datum.toString()
+            poradoveCisloText.text = poradoveCislo.toString()+"."
+            datum.text = skore.datum
 
-            }
 
         }
     }
@@ -66,9 +66,7 @@ class HistoriaAdapter(private val context: Context,private val historiaHraca: Li
      * @param position
      */
     override fun onBindViewHolder(holder: HistoriaViewHolder, position: Int) {
-
-        poradoveCislo++
-        holder.nastavHodnoty(historiaHraca[position], poradoveCislo)
+        holder.nastavHodnoty(historiaHraca[position], position + 1)
     }
 
     /**
