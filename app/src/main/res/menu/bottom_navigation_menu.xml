@@ -2,11 +2,22 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
-        android:icon="@drawable/badge_tvar"
-        android:title="@string/app_name"/>
+        android:icon="@drawable/home"
+        android:title=""/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/badge_tvar"
-        android:title="@string/app_name"/>
+        android:icon="@drawable/history"
+        android:title=""/>
+    <item
+        android:id="@+id/page_3"
+        android:enabled="true"
+        android:icon="@drawable/feedback"
+        android:title=""/>
+    <item
+        android:id="@+id/page_4"
+        android:enabled="true"
+        android:icon="@drawable/gear"
+        android:title=""/>
+
 </menu>

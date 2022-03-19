@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background2">
+    >
 
     <data>
 
@@ -11,60 +10,101 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="label"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+                <AutoCompleteTextView
+                    android:id="@+id/menu_text"
+                    android:text="Obtiaznost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/lahkaButton"
+                android:id="@+id/easyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
-                android:textColor="?android:textColorSecondary"
-                android:text="@string/lahka_button"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/easy"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/buttony"
+                android:elevation="20dp"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/play_buttoon"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/stredneTazkaButton"
+                android:id="@+id/mediumButon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
-                android:textColor="?android:textColorSecondary"
-                android:text="@string/str_button"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/medium"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lahkaButton" />
+                app:layout_constraintTop_toBottomOf="@+id/easyButton" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/tazkaButton"
+                android:id="@+id/hardButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/buttony"
                 android:elevation="20dp"
-                android:textColor="?android:textColorSecondary"
-                android:text="@string/tazka_button"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/hard"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stredneTazkaButton" />
+                app:layout_constraintTop_toBottomOf="@+id/mediumButon" />
 
             <TextView
                 android:id="@+id/infoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="128dp"
-                android:text="@string/obtiaznosti"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/difficulty"
                 android:textAlignment="center"
-                android:textColor = "?android:textColorPrimary"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,12 +112,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
             <TextView
-                android:id="@+id/zadajMenoTextView"
+                android:id="@+id/enterNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:text="@string/zadaj_meno"
-                android:textColor = "?android:textColorPrimary"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/enterYourName"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,13 +134,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zadajMenoTextView">
+                app:layout_constraintTop_toBottomOf="@+id/enterNameTextView">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/menoInputText"
+                    android:id="@+id/nameInputText"
                     android:layout_width="match_parent"
                     android:layout_height="63dp"
-                    android:hint="Meno" />
+                    android:fontFamily="@font/fredoka"
+                    android:hint="@string/name" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

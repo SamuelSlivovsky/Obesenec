@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import sk.uniza.fri.slivovsky.semestralnapraca.Hra.TitulkaActivity
+import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivitySigninBinding
 
 
@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-
         auth = Firebase.auth
 
         binding.signinButton.setOnClickListener { signIn() }
@@ -73,8 +72,9 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    startActivity(Intent(this@MainActivity,TitulkaActivity::class.java))
+                    googleSignInClient.signOut()
+                    startActivity(Intent(this@MainActivity, TitleActivity::class.java))
+
 
                 } else {
                     // If sign in fails, display a message to the user.

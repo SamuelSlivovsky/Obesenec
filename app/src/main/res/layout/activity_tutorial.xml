@@ -3,8 +3,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background2">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,10 +15,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".Hra.HraFragment">
+            tools:context=".game.HraFragment">
 
             <Chronometer
-                android:id="@+id/casovacTextView"
+                android:id="@+id/timerTextView"
                 android:layout_width="77dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="48dp"
@@ -30,39 +29,41 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/skoreTextView"
+                app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
                 tools:targetApi="24" />
 
             <Chronometer
-                android:id="@+id/casovac2TextView"
+                android:id="@+id/timer2TextView"
                 android:layout_width="77dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="16dp"
                 android:lineSpacingExtra="18sp"
+                android:fontFamily="@font/fredoka"
                 android:textAlignment="center"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/skoreTextView"
+                app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
                 tools:targetApi="24" />
 
             <TextView
-                android:id="@+id/hladaneSlovoText"
+                android:id="@+id/wordToFindSlovoText"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:text="_ _ _ _ _ _ _"
+                android:fontFamily="@font/fredoka"
                 android:textAlignment="center"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ObesenecObr" />
+                app:layout_constraintTop_toBottomOf="@+id/hangmanImageView" />
 
             <HorizontalScrollView
                 android:layout_width="0dp"
@@ -76,7 +77,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/buttonyLayout"
+                    android:id="@+id/buttonsLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -84,7 +85,7 @@
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hladaneSlovoText">
+                    app:layout_constraintTop_toBottomOf="@+id/wordToFindSlovoText">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -97,10 +98,10 @@
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
+                            android:textColor="@color/white"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="A"
-                            android:textColor="?android:textColorSecondary"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -108,32 +109,33 @@
             </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/skoreTextView"
+                android:id="@+id/scoreTextView"
                 android:layout_width="119dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:text="skóre:"
+                android:fontFamily="@font/fredoka"
+                android:text="@string/gameScore"
                 android:textAlignment="viewStart"
-                android:textColor = "?android:textColorPrimary"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/ObesenecObr"
+                android:id="@+id/hangmanImageView"
                 android:layout_width="200dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zivotyImageView"
+                app:layout_constraintTop_toBottomOf="@+id/livesImageView"
                 android:src="@drawable/img1"
                  />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/pauzaLayout"
+                android:id="@+id/pauseLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="142dp"
@@ -141,10 +143,10 @@
                 app:layout_constraintHorizontal_bias="0.464"
                 app:layout_constraintStart_toStartOf="parent"
                 android:visibility="invisible"
-                app:layout_constraintTop_toBottomOf="@+id/ObesenecObr">
+                app:layout_constraintTop_toBottomOf="@+id/hangmanImageView">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/pokracovatButton"
+                    android:id="@+id/continueButton"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
@@ -159,7 +161,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/koniecButton"
+                    android:id="@+id/endButton"
                     android:layout_width="132dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="32dp"
@@ -170,7 +172,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.504"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pokracovatButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/continueButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,7 +188,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
                 <TextView
-                    android:id="@+id/powerUpCasTextView"
+                    android:id="@+id/powerUpTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
@@ -195,12 +197,12 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/powerUpCasButton"
+                    app:layout_constraintStart_toEndOf="@+id/powerUpTimeButton"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.768" />
 
                 <TextView
-                    android:id="@+id/powerUpZivotyTextView2"
+                    android:id="@+id/powerUpLivesTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
@@ -210,12 +212,12 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/zivotyPowerUpButton"
+                    app:layout_constraintStart_toEndOf="@+id/livesPowerUpButton"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.395" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/powerUpCasButton"
+                    android:id="@+id/powerUpTimeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -226,7 +228,7 @@
                     app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/zivotyPowerUpButton"
+                    android:id="@+id/livesPowerUpButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -237,7 +239,7 @@
                     app:srcCompat="@android:drawable/ic_input_add" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/pismenoPowerUpButton"
+                    android:id="@+id/showPowerUpButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -248,7 +250,7 @@
                     app:srcCompat="@android:drawable/ic_menu_view" />
 
                 <TextView
-                    android:id="@+id/powerUpPismenoTextView"
+                    android:id="@+id/powerUpShowTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -257,7 +259,7 @@
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/pismenoPowerUpButton"
+                    app:layout_constraintStart_toEndOf="@+id/showPowerUpButton"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -284,11 +286,12 @@
                     app:srcCompat="@android:drawable/btn_star_big_on" />
 
                 <TextView
-                    android:id="@+id/pocetPowerUpTextView"
+                    android:id="@+id/amountPowerUpTextView"
                     style="@style/TextAppearance.MaterialComponents.Caption"
                     android:layout_width="25dp"
                     android:layout_height="24dp"
                     android:layout_gravity="top|right"
+                    android:fontFamily="@font/fredoka"
                     android:background="@drawable/badge_tvar"
                     android:elevation="8dp"
                     android:gravity="center"
@@ -298,7 +301,7 @@
             </FrameLayout>
 
             <ImageView
-                android:id="@+id/zivotyImageView"
+                android:id="@+id/livesImageView"
                 android:layout_width="42dp"
                 android:layout_height="33dp"
                 android:layout_marginTop="24dp"
@@ -309,25 +312,26 @@
                 app:srcCompat="@drawable/srdce" />
 
             <TextView
-                android:id="@+id/zivotyTextView"
+                android:id="@+id/livesTextView"
                 android:layout_width="63dp"
                 android:layout_height="27dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/fredoka"
                 android:text="6"
                 android:textAlignment="textStart"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/zivotyImageView"
+                app:layout_constraintStart_toEndOf="@+id/livesImageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
 
-                android:id="@+id/prezradeneSlovoText"
+                android:id="@+id/spoilWordSlovoText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hladaneSlovoText"
+                android:layout_below="@id/wordToFindSlovoText"
                 android:layout_centerHorizontal="true"
                 android:textColor = "?android:textColorPrimary"
                 android:layout_marginTop="56dp"
@@ -336,7 +340,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ObesenecObr" />
+                app:layout_constraintTop_toBottomOf="@+id/hangmanImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

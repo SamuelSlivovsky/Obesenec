@@ -1,20 +1,36 @@
 <resources>
     <string name="app_name">OBESENEC</string>
+    <string name="title">BESENEC</string>
     <!-- Strings used for fragments for navigation -->
     <string name="play_buttoon">HRAJ</string>
     <string name="skore_button">SKÓRE</string>
     <string name="top10">TOP 10 HRÁČOV</string>
-    <string name="historia"> HISTÓRIA SKÓRE</string>
+    <string name="historyScore"> HISTÓRIA SKÓRE</string>
     <string name="umiestnenie"> Um.</string>
-    <string name="meno"> Meno</string>
-    <string name="skore"> Skóre</string>
-    <string name="zadaj_meno"> Zadaj svoje meno</string>
-    <string name="obtiaznosti"> VYBER SI OBTIAŽNOSŤ</string>
-    <string name="lahka_button"> Ľahká</string>
-    <string name="str_button"> Stredná</string>
-    <string name="tazka_button"> Ťažká</string>
-    <string name="menu_button"> Menu</string>
-    <string name="koniec_text">TVOJE VÝSLEDNÉ SKÓRE BOLO:</string>
+    <string name="settings"> Nastavenia</string>
+    <string name="name"> Meno</string>
+    <string name="score"> Skóre</string>
+    <string name="gameScore"> skóre:</string>
+    <string name="historyPlayer"> Hráč:</string>
+    <string name="enterYourName"> Zadaj svoje meno</string>
+    <string name="difficulty"> VYBER SI OBTIAŽNOSŤ</string>
+    <string name="easy"> Ľahká</string>
+    <string name="medium"> Stredná</string>
+    <string name="hard"> Ťažká</string>
+    <string name="menu"> Menu</string>
+    <string name="home"> Domov</string>
+    <string name="history"> História</string>
+    <string name="feedback"> Spätná väzba</string>
+    <string name="yourFeedback"> Vaša spätná väzba</string>
+    <string name="submit"> Odošli</string>
+    <string name="endText">TVOJE VÝSLEDNÉ SKÓRE BOLO:</string>
+    <string name="competLoss">Prehral si, hladane slovo bolo</string>
+    <string name="nonCompetLoss">Nepodarilo sa ti uhádnuť správne slovo, skús to znova</string>
+    <string name="diff">Obtiažnosť</string>
+    <string name="animals">Zvieratá</string>
+    <string name="cities">Hlavné mestá</string>
+    <string name="food">Potraviny</string>
+
 
 
 

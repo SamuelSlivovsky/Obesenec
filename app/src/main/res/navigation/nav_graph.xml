@@ -2,4 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/skoreFragment">
+
+    <fragment
+        android:id="@+id/skoreFragment"
+        android:name="sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreboardEasyFragment"
+        android:label="SkoreFragment"
+        tools:layout="@layout/fragment_score">
+        <action
+            android:id="@+id/action_skoreFragment_to_fragmentHistoriaHraca"
+            app:destination="@id/fragmentHistoriaHraca"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHistoriaHraca"
+        android:name="sk.uniza.fri.slivovsky.semestralnapraca.playerHistory.PlayerHistoryFragment"
+        android:label="FragmentHistoriaHraca"
+        tools:layout="@layout/fragment_player_history">
+        <action
+            android:id="@+id/action_fragmentHistoriaHraca_to_skoreFragment"
+            app:destination="@id/skoreFragment" />
+    </fragment>
+</navigation>
