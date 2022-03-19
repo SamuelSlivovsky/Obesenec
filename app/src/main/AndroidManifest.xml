@@ -14,12 +14,13 @@
         android:requestLegacyExternalStorage="true"
 
         >
-        <activity android:name=".Hra.TitulkaActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" ></activity>
-        <activity android:name=".Hra.KoniecActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".Hra.MenuActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".Hra.HraActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".Hra.TutorialActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".Skore.ScoreActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity android:name=".title.TitleActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" ></activity>
+        <activity android:name=".playerHistory.HistoryPlayersActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" ></activity>
+        <activity android:name=".game.EndActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity android:name=".game.MenuActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity android:name=".game.GameActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity android:name=".game.TutorialActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity android:name=".score.ScoreActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

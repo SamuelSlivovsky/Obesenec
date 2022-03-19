@@ -6,7 +6,5 @@
     tools:context=".MainActivity"
 
     >
-
-
-    <include layout="@layout/content_main" />
+    <include layout="@layout/activity_score" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
