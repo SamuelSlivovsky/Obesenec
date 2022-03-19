@@ -1,6 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.title
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,27 +16,37 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTitleBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        if (intent.getStringExtra("background") == "background2"){
+            setTheme(R.style.Background2)
+        }
         binding = ActivityTitleBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        LocaleHelper.setLocale(this@TitleActivity, LocaleHelper.getLanguage(this@TitleActivity))
+        val settings = getSharedPreferences(
+            "mysettings",
+            MODE_PRIVATE
+        )
+        val editor = settings.edit()
+        editor.putString("mystring", "wahay")
+        editor.commit()
         val fragmentManager = supportFragmentManager
         var fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = TitleFragment()
-        fragmentTransaction.add(R.id.fragment_container,fragment).commit()
+        fragmentTransaction.add(R.id.fragment_container, fragment).commit()
         findViewById<BottomNavigationView>(R.id.bottom_navigation)
             .setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.page_1 -> {
                         fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container,fragment).commit()
+                        fragmentTransaction.replace(R.id.fragment_container, fragment).commit()
 
                         true
                     }
                     R.id.page_2 -> {
                         val fragmentH = PlayerHistoryFragment()
                         fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container,fragmentH).commit()
+                        fragmentTransaction.replace(R.id.fragment_container, fragmentH).commit()
 
                         true
                     }
@@ -43,7 +54,7 @@ class TitleActivity : AppCompatActivity() {
                     R.id.page_3 -> {
                         val fragmentF = FeedbackFragment()
                         fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container,fragmentF).commit()
+                        fragmentTransaction.replace(R.id.fragment_container, fragmentF).commit()
 
                         true
                     }
@@ -51,7 +62,7 @@ class TitleActivity : AppCompatActivity() {
 
                         val fragmentS = SettingsFragment()
                         fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container,fragmentS).commit()
+                        fragmentTransaction.replace(R.id.fragment_container, fragmentS).commit()
                         true
                     }
                 }

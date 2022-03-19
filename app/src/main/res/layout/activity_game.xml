@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".game.HraFragment">
 
             <Chronometer
@@ -78,9 +78,8 @@
 
                 <LinearLayout
                     android:id="@+id/buttonsLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
                     android:layout_marginTop="32dp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +97,7 @@
                             android:layout_width="40dp"
 
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="A"
@@ -109,7 +108,7 @@
                             android:id="@+id/submitBbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="B"
@@ -120,7 +119,7 @@
                             android:id="@+id/submitCbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="C"
@@ -131,7 +130,7 @@
                             android:id="@+id/submitDbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="D"
@@ -142,7 +141,7 @@
                             android:id="@+id/submitEbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="E"
@@ -153,7 +152,7 @@
                             android:id="@+id/submitFbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="F"
@@ -164,34 +163,37 @@
                             android:id="@+id/submitGbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="G"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitHbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="H"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitIbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="I"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -205,100 +207,109 @@
                             android:id="@+id/submitJbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="J"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitKbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="K"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitLbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="L"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitMbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="M"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitNbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="N"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitObutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="O"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitPbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="P"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitQbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="Q"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitRbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="R"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -312,84 +323,91 @@
                             android:id="@+id/submitSbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="S"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitTbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="T"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitUbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="U"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitVbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="V"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitWbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="W"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitXbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="X"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitYbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="Y"
                             android:textColor="@color/white"
-                            app:cornerRadius="10dp" />
+                            app:cornerRadius="10dp"
+                            tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/submitZbutton"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginEnd="2dp"
                             android:backgroundTint="@color/buttony"
                             android:elevation="20dp"
                             android:text="Z"

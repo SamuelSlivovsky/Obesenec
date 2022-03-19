@@ -19,10 +19,17 @@
 -->
     </style>
 
+
     <style name="Theme.SemestralnaPraca.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/background3</item>
+    </style>
+    
+    <style name="Background2">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background2</item>
     </style>
 
 

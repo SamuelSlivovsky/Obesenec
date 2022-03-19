@@ -30,8 +30,8 @@
     <string name="animals">Animals</string>
     <string name="cities">Capitals</string>
     <string name="food">Food</string>
-
-
+    <string name="currLang">Current language: </string>
+    <string name="language">Language</string>
 
 
 </resources>

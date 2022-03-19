@@ -12,15 +12,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SemestralnaPraca.NoActionBar"
         android:requestLegacyExternalStorage="true"
-
+        android:fullBackupOnly="true"
         >
-        <activity android:name=".title.TitleActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" ></activity>
-        <activity android:name=".playerHistory.HistoryPlayersActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" ></activity>
-        <activity android:name=".game.EndActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".game.MenuActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".game.GameActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".game.TutorialActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".score.ScoreActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity
+            android:name=".title.TitleActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".playerHistory.HistoryPlayersActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".game.EndActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".game.MenuActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".game.GameActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".game.TutorialActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".score.ScoreActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

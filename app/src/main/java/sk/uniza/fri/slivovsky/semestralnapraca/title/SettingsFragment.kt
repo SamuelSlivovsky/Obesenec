@@ -1,5 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.title
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.game.GameActivity
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
@@ -20,7 +22,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBindi
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
-    private val binding get()=_binding!!
+    private val binding get() = _binding!!
 
     /**
      *
@@ -34,10 +36,9 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -55,6 +56,14 @@ class SettingsFragment : Fragment() {
         binding.menuButton.setOnClickListener { v: View ->
             showMenu(v, R.menu.overflow_menu)
         }
+
+        val currLang = LocaleHelper.getLanguage(requireContext())
+        println(currLang)
+        if (currLang == "sk") binding.currLangTextView.text =
+            getString(R.string.currLang) + " Slovenčina" else binding.currLangTextView.text =
+            getString(R.string.currLang) + " English"
+
+
     }
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
@@ -63,19 +72,23 @@ class SettingsFragment : Fragment() {
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
 
-            when(menuItem.itemId){
-                R.id.option_1->{
-                    LocaleHelper.setLocale(requireContext(),"en")
+
+            when (menuItem.itemId) {
+                R.id.option_1 -> {
+                    LocaleHelper.setLocale(requireContext(), "en")
                     activity?.supportFragmentManager?.beginTransaction()?.detach(this)
                         ?.attach(this)
                         ?.commit();
 
                 }
-                R.id.option_2->{
-                    LocaleHelper.setLocale(requireContext(),"sk")
-                    activity?.supportFragmentManager?.beginTransaction()?.detach(this)
-                        ?.attach(this)
-                        ?.commit();
+                R.id.option_2 -> {
+                    LocaleHelper.setLocale(requireContext(), "sk")
+
+                }
+                else -> {
+                    val intent = Intent(context, TitleActivity::class.java)
+                    intent.putExtra("background", "background2")
+                    startActivity(intent)
                 }
 
             }

@@ -30,6 +30,8 @@
     <string name="animals">Zvieratá</string>
     <string name="cities">Hlavné mestá</string>
     <string name="food">Potraviny</string>
+    <string name="currLang">Jazyk: </string>
+    <string name="language">Jazyk</string>
 
 
 
