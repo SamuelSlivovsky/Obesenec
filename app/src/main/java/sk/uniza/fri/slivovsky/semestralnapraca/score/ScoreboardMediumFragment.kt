@@ -19,8 +19,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreMediumBi
  *
  */
 class ScoreboardMediumFragment : Fragment() {
-    private var _binding: FragmentScoreMediumBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentScoreMediumBinding
     var list = mutableListOf<PlayersModelClass>()
 
     override fun onCreateView(
@@ -29,7 +28,7 @@ class ScoreboardMediumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentScoreMediumBinding.inflate(inflater, container, false)
+        binding = FragmentScoreMediumBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -70,8 +69,4 @@ class ScoreboardMediumFragment : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

@@ -16,24 +16,48 @@
 
         <!--<item name="android:textColorPrimary">#000000</item>
         <item name="android:textColorSecondary">#FFFFFF</item>-->
--->
+        -->
     </style>
-
 
     <style name="Theme.SemestralnaPraca.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/background3</item>
+        <item name="android:windowBackground">@drawable/background1</item>
     </style>
-    
+
+    <style name="Background1">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background1</item>
+
+    </style>
+
     <style name="Background2">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/background2</item>
     </style>
 
+    <style name="Background3">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background3</item>
+    </style>
 
-   <!-- <style name="Theme.SemestralnaPraca.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Background4">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background4</item>
+    </style>
 
-    <style name="Theme.SemestralnaPraca.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <style name="Background5">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background5</item>
+    </style>
+
+
+    <!-- <style name="Theme.SemestralnaPraca.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+     <style name="Theme.SemestralnaPraca.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 </resources>

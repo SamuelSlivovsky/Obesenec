@@ -11,8 +11,7 @@ import java.util.*
 object LocaleHelper {
     private const val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
     fun onCreate(context: Context) {
-        val lang: String?
-        lang = if (getLanguage(context)!!.isEmpty()) {
+        val lang: String? = if (getLanguage(context)!!.isEmpty()) {
             getPersistedData(context, Locale.getDefault().language)
         } else {
             getLanguage(context)
@@ -50,8 +49,8 @@ object LocaleHelper {
         val locale = Locale(language)
         Locale.setDefault(locale)
         val resources: Resources = context.resources
-        val configuration: Configuration = resources.getConfiguration()
+        val configuration: Configuration = resources.configuration
         configuration.locale = locale
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics())
+        resources.updateConfiguration(configuration, resources.displayMetrics)
     }
 }

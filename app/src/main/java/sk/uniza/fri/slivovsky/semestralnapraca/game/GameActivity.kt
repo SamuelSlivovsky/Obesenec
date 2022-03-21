@@ -65,7 +65,18 @@ class GameActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val background = getSharedPreferences(
+            "background",
+            MODE_PRIVATE
+        )
+        when (background.getString("background", "defaultvalue")) {
+            "background1" -> setTheme(R.style.Background1)
+            "background2" -> setTheme(R.style.Background2)
+            "background3" -> setTheme(R.style.Background3)
+            "background4" -> setTheme(R.style.Background4)
+            "background5" -> setTheme(R.style.Background5)
 
+        }
         //binding
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root

@@ -35,15 +35,22 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var docName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMenuBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-
-        val settings = getSharedPreferences(
-            "mysettings",
+        val background = getSharedPreferences(
+            "background",
             MODE_PRIVATE
         )
-        val myString = settings.getString("mystring", "defaultvalue")
+        when (background.getString("background", "defaultvalue")) {
+            "background1" -> setTheme(R.style.Background1)
+            "background2" -> setTheme(R.style.Background2)
+            "background3" -> setTheme(R.style.Background3)
+            "background4" -> setTheme(R.style.Background4)
+            "background5" -> setTheme(R.style.Background5)
+
+        }
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
 
         val items = listOf(
             getString(R.string.diff),

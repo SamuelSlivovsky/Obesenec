@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import sk.uniza.fri.slivovsky.semestralnapraca.game.MenuActivity
-import sk.uniza.fri.slivovsky.semestralnapraca.game.TutorialActivity
+import sk.uniza.fri.slivovsky.semestralnapraca.tutorial.TutorialActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentTitleBinding
 
@@ -17,8 +17,8 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentTitleBinding
  */
 class TitleFragment : Fragment() {
 
-    private var _binding: FragmentTitleBinding? = null
-    private val binding get()=_binding!!
+    private lateinit var binding: FragmentTitleBinding
+
     /**
      *
      *
@@ -33,7 +33,7 @@ class TitleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentTitleBinding.inflate(inflater, container, false)
+        binding = FragmentTitleBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -62,8 +62,4 @@ class TitleFragment : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

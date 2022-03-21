@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreHardBinding
@@ -19,8 +20,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreMediumBi
  *
  */
 class ScoreboardHardFragment:Fragment() {
-    private var _binding: FragmentScoreHardBinding? = null
-    private val binding get()=_binding!!
+    private lateinit var binding: FragmentScoreHardBinding
     var list = mutableListOf<PlayersModelClass>()
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class ScoreboardHardFragment:Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentScoreHardBinding.inflate(inflater, container, false)
+        binding = FragmentScoreHardBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -66,8 +66,4 @@ class ScoreboardHardFragment:Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }
