@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreBinding
 
@@ -17,8 +18,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreBinding
  *
  */
 class ScoreboardEasyFragment : Fragment() {
-    private var _binding: FragmentScoreBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentScoreBinding
     var list = mutableListOf<PlayersModelClass>()
 
     override fun onCreateView(
@@ -27,10 +27,10 @@ class ScoreboardEasyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        for (item in list){
+        for (item in list) {
             list.remove(item)
         }
-        _binding = FragmentScoreBinding.inflate(inflater, container, false)
+        binding = FragmentScoreBinding.inflate(inflater, container, false)
         val db = Firebase.firestore
         db.collection("scoreboardeasy")
             .orderBy("score", Query.Direction.DESCENDING).limit(10)
@@ -46,7 +46,6 @@ class ScoreboardEasyFragment : Fragment() {
                         )
                     )
                 }
-                println(list)
                 binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(), list)
             }
         binding.buttonBackToMenu.setOnClickListener {
@@ -56,21 +55,5 @@ class ScoreboardEasyFragment : Fragment() {
         return binding.root
     }
 
-    /**
-     * Z databazy dostane pomocou funkcie getBest najlepsich 10 hracov.
-     * Do adaptera posle zoznam tychto hracov.
-     *
-     * @param view
-     * @param savedInstanceState
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

@@ -1,9 +1,10 @@
-package sk.uniza.fri.slivovsky.semestralnapraca.game
+package sk.uniza.fri.slivovsky.semestralnapraca.tutorial
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityTutorialBinding
 import java.util.*
 
@@ -28,7 +29,15 @@ class TutorialActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val background = getSharedPreferences(
+            "background",
+            MODE_PRIVATE
+        )
+        val myBackground = background.getString("background", "defaultvalue")
+        println(myBackground)
+        if (myBackground == "background2") {
+            setTheme(R.style.Background2)
+        }
         binding = ActivityTutorialBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

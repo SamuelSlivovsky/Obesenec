@@ -13,6 +13,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentFeedbackBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreMediumBinding
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
@@ -20,8 +21,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentFeedbackBindi
  */
 class FeedbackFragment : Fragment() {
 
-    private var _binding: FragmentFeedbackBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentFeedbackBinding
     private lateinit var auth: FirebaseAuth
 
     /**
@@ -38,7 +38,7 @@ class FeedbackFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFeedbackBinding.inflate(inflater, container, false)
+        binding = FragmentFeedbackBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -71,14 +71,10 @@ class FeedbackFragment : Fragment() {
 
     }
 
-    fun View.hideSoftInput() {
+    private fun View.hideSoftInput() {
         val inputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

@@ -1,5 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.title
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -7,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
 import sk.uniza.fri.slivovsky.semestralnapraca.R
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentFeedbackBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.game.GameActivity
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
@@ -19,8 +23,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBindi
  */
 class SettingsFragment : Fragment() {
 
-    private var _binding: FragmentSettingsBinding? = null
-    private val binding get()=_binding!!
+    private lateinit var binding: FragmentSettingsBinding
 
     /**
      *
@@ -34,10 +37,9 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -55,6 +57,41 @@ class SettingsFragment : Fragment() {
         binding.menuButton.setOnClickListener { v: View ->
             showMenu(v, R.menu.overflow_menu)
         }
+
+        val currLang = LocaleHelper.getLanguage(requireContext())
+        if (currLang == "sk") binding.currLangTextView.text =
+            getString(R.string.currLang) + " Slovenčina" else binding.currLangTextView.text =
+            getString(R.string.currLang) + " English"
+
+        when (activity?.getSharedPreferences("background", AppCompatActivity.MODE_PRIVATE)
+            ?.getString("background", "")) {
+            "background1" -> binding.radioButton1.isChecked = true
+            "background2" -> binding.radioButton2.isChecked = true
+            "background3" -> binding.radioButton3.isChecked = true
+            "background4" -> binding.radioButton4.isChecked = true
+            "background5" -> binding.radioButton5.isChecked = true
+
+        }
+
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+
+            when (checkedId) {
+                R.id.radio_button_1 -> changeBackground("background1")
+
+                R.id.radio_button_2 -> changeBackground("background2")
+
+                R.id.radio_button_3 -> changeBackground("background3")
+
+                R.id.radio_button_4 -> changeBackground("background4")
+
+                R.id.radio_button_5 -> changeBackground("background5")
+
+
+            }
+
+        }
+
+
     }
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
@@ -63,19 +100,23 @@ class SettingsFragment : Fragment() {
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
 
-            when(menuItem.itemId){
-                R.id.option_1->{
-                    LocaleHelper.setLocale(requireContext(),"en")
+
+            when (menuItem.itemId) {
+                R.id.option_1 -> {
+                    LocaleHelper.setLocale(requireContext(), "en")
                     activity?.supportFragmentManager?.beginTransaction()?.detach(this)
                         ?.attach(this)
                         ?.commit();
 
                 }
-                R.id.option_2->{
-                    LocaleHelper.setLocale(requireContext(),"sk")
+                R.id.option_2 -> {
+                    LocaleHelper.setLocale(requireContext(), "sk")
                     activity?.supportFragmentManager?.beginTransaction()?.detach(this)
                         ?.attach(this)
                         ?.commit();
+                }
+                else -> {
+
                 }
 
             }
@@ -89,8 +130,13 @@ class SettingsFragment : Fragment() {
         popup.show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private fun changeBackground(background: String) {
+
+
+        val intent = Intent(context, TitleActivity::class.java)
+        intent.putExtra("background", background)
+        startActivity(intent)
+
     }
+
 }

@@ -1,6 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.game
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -21,6 +22,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityMenuBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import java.io.File
 import java.io.InputStream
+import android.content.SharedPreferences
 
 
 /**
@@ -30,12 +32,26 @@ import java.io.InputStream
 class MenuActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMenuBinding
+    private lateinit var docName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val background = getSharedPreferences(
+            "background",
+            MODE_PRIVATE
+        )
+        when (background.getString("background", "defaultvalue")) {
+            "background1" -> setTheme(R.style.Background1)
+            "background2" -> setTheme(R.style.Background2)
+            "background3" -> setTheme(R.style.Background3)
+            "background4" -> setTheme(R.style.Background4)
+            "background5" -> setTheme(R.style.Background5)
+
+        }
         binding = ActivityMenuBinding.inflate(layoutInflater)
         val view = binding.root
+
         setContentView(view)
-        println(LocaleHelper.getLanguage(this@MenuActivity))
+
         val items = listOf(
             getString(R.string.diff),
             getString(R.string.animals),
@@ -52,53 +68,114 @@ class MenuActivity : AppCompatActivity() {
                     hideOrShow(true)
                 }
                 1.toLong() -> {
-                    showLevel("svkAnimals")
+                    docName = when {
+                        LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                            "svkAnimals"
+                        }
+                        LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                            "enAnimals"
+                        }
+                        else -> {
+                            "svkAnimals"
+                        }
+                    }
+                    showLevel(docName)
                     hideOrShow(false)
                     binding.playButton.setOnClickListener {
                         startActivity(
                             createIntent(
                                 "animals",
                                 false,
-                                "svkAnimals.txt",
-                                "svkAnimals"
+                                "$docName.txt",
+                                docName
                             )
                         )
                     }
                 }
                 2.toLong() -> {
-                    showLevel("svkCapitalCities")
+
+                    docName = when {
+                        LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                            "svkCapitalCities"
+                        }
+                        LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                            "enCapitalCities"
+                        }
+                        else -> {
+                            "svkCapitalCities"
+                        }
+                    }
+                    showLevel(docName)
                     hideOrShow(false)
                     binding.playButton.setOnClickListener {
                         startActivity(
                             createIntent(
                                 "cities",
                                 false,
-                                "svkCapitalCities.txt",
-                                "svkCapitalCities"
+                                "$docName.txt",
+                                docName
                             )
                         )
                     }
                 }
                 3.toLong() -> {
-                    showLevel("svkFood")
+                    docName = when {
+                        LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                            "svkFood"
+                        }
+                        LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                            "enFood"
+                        }
+                        else -> {
+                            "svkFood"
+                        }
+                    }
+                    showLevel(docName)
                     hideOrShow(false)
                     binding.playButton.setOnClickListener {
-                        startActivity(createIntent("food", false, "svkFood.txt", "svkFood"))
+                        startActivity(
+                            createIntent(
+                                "food",
+                                false,
+                                "$docName.txt",
+                                docName
+                            )
+                        )
                     }
                 }
 
             }
         }
-        println(binding.menuText.text)
 
         binding.easyButton.setOnClickListener {
 
-            startActivity(createIntent("easy", true, "svkWordsEasy.txt", "svkEz"))
+            docName = when {
+                LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                    "svkWordsEasy"
+                }
+                LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                    "enWordsEasy"
+                }
+                else -> {
+                    "svkWordsEasy"
+                }
+            }
+            startActivity(createIntent("easy", true, "$docName.txt", docName))
         }
         binding.mediumButon.setOnClickListener {
 
-            intent.putExtra("druh", "medium")
-            startActivity(intent)
+            docName = when {
+                LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                    "svkWordsMedium"
+                }
+                LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                    "enWordsMedium"
+                }
+                else -> {
+                    "svkWordsMedium"
+                }
+            }
+            startActivity(createIntent("easy", true, "$docName.txt", docName))
 
         }
         binding.hardButton.setOnClickListener {
@@ -108,9 +185,18 @@ class MenuActivity : AppCompatActivity() {
                       }
                       user!!.updateProfile(profileUpdates)
                   }*/
-            intent.putExtra("druh", "hard")
-            startActivity(intent)
-
+            docName = when {
+                LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                    "svkWordsHard"
+                }
+                LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                    "enWordsHard"
+                }
+                else -> {
+                    "svkWordsHard"
+                }
+            }
+            startActivity(createIntent("easy", true, "$docName.txt", docName))
         }
 
     }
@@ -125,7 +211,7 @@ class MenuActivity : AppCompatActivity() {
         return intent
     }
 
-    fun hideOrShow(compet: Boolean) {
+    private fun hideOrShow(compet: Boolean) {
 
         if (compet) {
 

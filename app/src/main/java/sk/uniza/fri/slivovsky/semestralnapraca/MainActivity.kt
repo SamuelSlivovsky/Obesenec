@@ -36,8 +36,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val background = getSharedPreferences(
+            "background",
+            MODE_PRIVATE
+        )
+
+        when (background.getString("background", "")) {
+            "background1" -> setTheme(R.style.Background1)
+            "background2" -> setTheme(R.style.Background2)
+            "background3" -> setTheme(R.style.Background3)
+            "background4" -> setTheme(R.style.Background4)
+            "background5" -> setTheme(R.style.Background5)
+
+        }
         binding = ActivitySigninBinding.inflate(layoutInflater)
-        val view= binding.root
+        val view = binding.root
         setContentView(view)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))

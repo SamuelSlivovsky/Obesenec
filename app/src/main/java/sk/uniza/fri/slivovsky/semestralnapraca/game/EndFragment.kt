@@ -16,21 +16,21 @@ import sk.uniza.fri.slivovsky.semestralnapraca.database.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentPlayerHistoryBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 
 /**
  * Trieda KoniecFragment zabezpecuje vlozenie
  * mena hraca a jeho skore do databazy
  */
-class EndFragment: Fragment(){
+class EndFragment : Fragment() {
 
-    private var _binding: FragmentKoniecBinding? = null
+    private lateinit var binding: FragmentKoniecBinding
     private lateinit var auth: FirebaseAuth
-    private val binding get()=_binding!!
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
@@ -38,9 +38,15 @@ class EndFragment: Fragment(){
         auth = Firebase.auth
         val currUser = auth.currentUser
 
-        databaza.insert(Skore(currUser!!.displayName.toString(),bundle!!.getInt("points"),currUser.uid))
+        databaza.insert(
+            Skore(
+                currUser!!.displayName.toString(),
+                bundle!!.getInt("points"),
+                currUser.uid
+            )
+        )
 
-        _binding = FragmentKoniecBinding.inflate(inflater, container, false)
+        binding = FragmentKoniecBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -60,19 +66,17 @@ class EndFragment: Fragment(){
         auth = Firebase.auth
         val currUser = auth.currentUser
         var bundle = arguments
-        binding.endTextView.text = currUser!!.displayName + " " +binding.endTextView.text.toString() + " " + bundle!!.getInt("points")
+        binding.endTextView.text =
+            currUser!!.displayName + " " + binding.endTextView.text.toString() + " " + bundle!!.getInt(
+                "points"
+            )
         view.findViewById<Button>(R.id.backToMenuButton).setOnClickListener {
 
             startActivity(Intent(requireContext(), TitleActivity::class.java))
         }
         view.findViewById<Button>(R.id.toScoreButton).setOnClickListener {
-            startActivity(Intent(requireContext(),ScoreActivity::class.java))
+            startActivity(Intent(requireContext(), ScoreActivity::class.java))
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        _binding = null
-    }
 }

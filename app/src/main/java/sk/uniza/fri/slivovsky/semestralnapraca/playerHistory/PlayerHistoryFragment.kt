@@ -20,8 +20,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentPlayerHistory
  */
 class PlayerHistoryFragment : Fragment() {
 
-    private var _binding: FragmentPlayerHistoryBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentPlayerHistoryBinding
     private lateinit var auth: FirebaseAuth
     var list = mutableListOf<HistoryPlayerModelClass>()
 
@@ -39,7 +38,7 @@ class PlayerHistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentPlayerHistoryBinding.inflate(inflater, container, false)
+        binding = FragmentPlayerHistoryBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -70,17 +69,13 @@ class PlayerHistoryFragment : Fragment() {
                         )
                     )
                 }
-                binding.historyRecylcerView.adapter = HistoryAdapter(requireContext(), list)
+                binding.historyRecylcerView.adapter = context?.let { HistoryAdapter(it, list) }
 
             }
 
-        binding.playerNameTextView.text = getString(R.string.historyPlayer)+" " + currUser.displayName.toString()
+        binding.playerNameTextView.text =
+            getString(R.string.historyPlayer) + " " + currUser.displayName.toString()
 
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

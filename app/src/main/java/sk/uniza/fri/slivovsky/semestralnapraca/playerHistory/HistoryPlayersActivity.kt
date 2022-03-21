@@ -8,6 +8,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityPlayersHistoryBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreActivity
 
@@ -22,8 +23,20 @@ class HistoryPlayersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val background = getSharedPreferences(
+            "background",
+            MODE_PRIVATE
+        )
+        when (background.getString("background", "defaultvalue")) {
+            "background1" -> setTheme(R.style.Background1)
+            "background2" -> setTheme(R.style.Background2)
+            "background3" -> setTheme(R.style.Background3)
+            "background4" -> setTheme(R.style.Background4)
+            "background5" -> setTheme(R.style.Background5)
+
+        }
         binding = ActivityPlayersHistoryBinding.inflate(layoutInflater)
-        val view= binding.root
+        val view = binding.root
         setContentView(view)
         val uid = intent.getStringExtra("uid")
         val userName = intent.getStringExtra("userName")
@@ -40,12 +53,13 @@ class HistoryPlayersActivity : AppCompatActivity() {
                         )
                     )
                 }
-                binding.historyRecylcerView.adapter = HistoryPlayersAdapter(this@HistoryPlayersActivity, list)
+                binding.historyRecylcerView.adapter =
+                    HistoryPlayersAdapter(this@HistoryPlayersActivity, list)
 
             }
 
         binding.buttonBackToMenu.setOnClickListener {
-            startActivity(Intent(this@HistoryPlayersActivity,ScoreActivity::class.java))
+            startActivity(Intent(this@HistoryPlayersActivity, ScoreActivity::class.java))
         }
         binding.playerNameTextView.text = "Hráč: $userName"
     }

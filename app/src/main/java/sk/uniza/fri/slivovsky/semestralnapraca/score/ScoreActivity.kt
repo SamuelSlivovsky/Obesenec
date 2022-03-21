@@ -3,6 +3,7 @@ package sk.uniza.fri.slivovsky.semestralnapraca.score
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityScoreBinding
@@ -17,40 +18,46 @@ class ScoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val background = getSharedPreferences(
+            "background",
+            MODE_PRIVATE
+        )
+        when (background.getString("background", "defaultvalue")) {
+            "background1" -> setTheme(R.style.Background1)
+            "background2" -> setTheme(R.style.Background2)
+            "background3" -> setTheme(R.style.Background3)
+            "background4" -> setTheme(R.style.Background4)
+            "background5" -> setTheme(R.style.Background5)
 
+        }
         binding = ActivityScoreBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        val fragmentManager = supportFragmentManager
-        var fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = ScoreboardEasyFragment()
-        fragmentTransaction.add(R.id.fragment_container, fragment).commit()
+        replaceFragment(ScoreboardEasyFragment())
         findViewById<BottomNavigationView>(R.id.bottom_navigation)
             .setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.page_1 -> {
-                        fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container, fragment).commit()
-
+                        replaceFragment(ScoreboardEasyFragment())
                         true
                     }
                     R.id.page_2 -> {
-                        val fragmentM = ScoreboardMediumFragment()
-                        fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container, fragmentM).commit()
-
+                        replaceFragment(ScoreboardMediumFragment())
                         true
                     }
 
                     else -> {
-                        val fragmentH = ScoreboardHardFragment()
-                        fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.fragment_container, fragmentH).commit()
-
+                        replaceFragment(ScoreboardHardFragment())
                         true
                     }
                 }
             }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment).commit()
     }
 }
