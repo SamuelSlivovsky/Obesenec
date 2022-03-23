@@ -9,11 +9,8 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreHardBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreMediumBinding
 
 /**
  * Fragment ktori zobrazuje top hracov, ich skore a datum.
@@ -27,7 +24,7 @@ class ScoreboardHardFragment:Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentScoreHardBinding.inflate(inflater, container, false)
 

@@ -31,7 +31,7 @@ class TitleFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentTitleBinding.inflate(inflater, container, false)
 

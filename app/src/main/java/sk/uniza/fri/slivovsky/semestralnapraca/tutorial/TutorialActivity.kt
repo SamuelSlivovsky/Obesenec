@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityTutorialBinding
-import java.util.*
 
 /**
  * Fragment ktori sa stara o logiku hry
@@ -20,8 +19,6 @@ class TutorialActivity : AppCompatActivity() {
      * Funkcia oncreate ktora je dedena z Fragment classy,
      * zabezpecuje vytvorenie fragmentu
      *
-     * @param inflater
-     * @param container
      * @param savedInstanceState
      *@return inflater
      */
@@ -34,7 +31,6 @@ class TutorialActivity : AppCompatActivity() {
             MODE_PRIVATE
         )
         val myBackground = background.getString("background", "defaultvalue")
-        println(myBackground)
         if (myBackground == "background2") {
             setTheme(R.style.Background2)
         }
@@ -56,7 +52,7 @@ class TutorialActivity : AppCompatActivity() {
     }
 
 
-    fun showToast(message: String){
+    private fun showToast(message: String){
         sortToast?.cancel()
         sortToast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
         sortToast?.show()

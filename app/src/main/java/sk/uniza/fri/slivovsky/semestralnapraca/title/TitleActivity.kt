@@ -1,7 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.title
 
-
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import java.util.*
 
 class TitleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTitleBinding
+    @SuppressLint("ApplySharedPref")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val myBackground = intent?.getStringExtra("background")
@@ -22,7 +22,7 @@ class TitleActivity : AppCompatActivity() {
             "background",
             MODE_PRIVATE
         )
-        var back = ""
+        val back: String
 
         if (myBackground == null) {
             back = background.getString("background", "").toString()
@@ -53,7 +53,6 @@ class TitleActivity : AppCompatActivity() {
         LocaleHelper.setLocale(this@TitleActivity, LocaleHelper.getLanguage(this@TitleActivity))
         val editor = background.edit()
         editor.putString("background", back)
-        println(back)
         editor.commit()
         replaceFragment(TitleFragment())
         findViewById<BottomNavigationView>(R.id.bottom_navigation)

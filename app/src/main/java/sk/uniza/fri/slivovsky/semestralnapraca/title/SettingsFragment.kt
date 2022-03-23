@@ -1,5 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.title
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +10,10 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
 import sk.uniza.fri.slivovsky.semestralnapraca.R
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentFeedbackBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.game.GameActivity
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
@@ -50,6 +48,7 @@ class SettingsFragment : Fragment() {
      * @param view
      * @param savedInstanceState
      */
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -73,7 +72,7 @@ class SettingsFragment : Fragment() {
 
         }
 
-        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
 
             when (checkedId) {
                 R.id.radio_button_1 -> changeBackground("background1")
@@ -106,14 +105,14 @@ class SettingsFragment : Fragment() {
                     LocaleHelper.setLocale(requireContext(), "en")
                     activity?.supportFragmentManager?.beginTransaction()?.detach(this)
                         ?.attach(this)
-                        ?.commit();
+                        ?.commit()
 
                 }
                 R.id.option_2 -> {
                     LocaleHelper.setLocale(requireContext(), "sk")
                     activity?.supportFragmentManager?.beginTransaction()?.detach(this)
                         ?.attach(this)
-                        ?.commit();
+                        ?.commit()
                 }
                 else -> {
 

@@ -1,5 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.playerHistory
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -42,9 +43,10 @@ class HistoryAdapter(
          * @param skore
          * @param poradoveCislo
          */
+        @SuppressLint("SetTextI18n")
         fun nastavHodnoty(skore: HistoryPlayerModelClass, poradoveCislo: Int) {
             pocetBodov.text = skore.score.toString()
-            poradoveCisloText.text = poradoveCislo.toString() + "."
+            poradoveCisloText.text = "$poradoveCislo."
             datum.text = skore.date
 
 

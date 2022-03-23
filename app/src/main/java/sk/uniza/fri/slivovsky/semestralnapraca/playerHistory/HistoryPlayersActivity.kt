@@ -1,10 +1,9 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.playerHistory
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,6 +20,7 @@ class HistoryPlayersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlayersHistoryBinding
     var list = mutableListOf<HistoryPlayerModelClass>()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val background = getSharedPreferences(
@@ -61,7 +61,7 @@ class HistoryPlayersActivity : AppCompatActivity() {
         binding.buttonBackToMenu.setOnClickListener {
             startActivity(Intent(this@HistoryPlayersActivity, ScoreActivity::class.java))
         }
-        binding.playerNameTextView.text = "Hráč: $userName"
+        binding.playerNameTextView.text = /*getString(R.string.historyPlayer)+ " " +*/ "$userName"
     }
 
 }

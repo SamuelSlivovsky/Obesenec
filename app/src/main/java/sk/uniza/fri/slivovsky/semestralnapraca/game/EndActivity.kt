@@ -20,7 +20,7 @@ class EndActivity : AppCompatActivity() {
             "background",
             MODE_PRIVATE
         )
-        when (background.getString("background", "defaultvalue")) {
+        when (background.getString("background", "")) {
             "background1" -> setTheme(R.style.Background1)
             "background2" -> setTheme(R.style.Background2)
             "background3" -> setTheme(R.style.Background3)
@@ -37,7 +37,7 @@ class EndActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = EndFragment()
 
-        var points = intent.getIntExtra("points", 0)
+        val points = intent.getIntExtra("points", 0)
         val bundle = Bundle()
         bundle.putInt("points", points)
         fragment.arguments = bundle
@@ -45,7 +45,7 @@ class EndActivity : AppCompatActivity() {
         auth = Firebase.auth
         val currUser = auth.currentUser
         val db = Firebase.firestore
-        var bestScore = 0;
+        var bestScore = 0
 
         if (intent.getStringExtra("type") == "easy" || intent.getStringExtra("type") == "medium" || intent.getStringExtra(
                 "type"
@@ -58,7 +58,7 @@ class EndActivity : AppCompatActivity() {
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         if (document.id == currUser!!.uid) {
-                            bestScore = (document.data.get("score") as Number).toInt()
+                            bestScore = (document.data["score"] as Number).toInt()
                         }
 
                     }
@@ -73,11 +73,12 @@ class EndActivity : AppCompatActivity() {
                             )
                         )
 
-                        db.collection("scoreboard"+ intent.getStringExtra("type")).document(currUser.uid).set(user)
+                        db.collection("scoreboard" + intent.getStringExtra("type"))
+                            .document(currUser.uid).set(user)
                     }
                 }
 
-                .addOnFailureListener { exception ->
+                .addOnFailureListener {
 
                 }
             val user = hashMapOf(

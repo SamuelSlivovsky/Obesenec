@@ -16,7 +16,6 @@ import sk.uniza.fri.slivovsky.semestralnapraca.database.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentPlayerHistoryBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 
 /**
@@ -31,10 +30,10 @@ class EndFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
-        var bundle = arguments
+        val databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
+        val bundle = arguments
         auth = Firebase.auth
         val currUser = auth.currentUser
 
@@ -65,7 +64,7 @@ class EndFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
         val currUser = auth.currentUser
-        var bundle = arguments
+        val bundle = arguments
         binding.endTextView.text =
             currUser!!.displayName + " " + binding.endTextView.text.toString() + " " + bundle!!.getInt(
                 "points"

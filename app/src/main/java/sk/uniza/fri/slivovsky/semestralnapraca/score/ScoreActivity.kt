@@ -7,11 +7,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityScoreBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.playerHistory.PlayerHistoryFragment
-import sk.uniza.fri.slivovsky.semestralnapraca.title.FeedbackFragment
-import sk.uniza.fri.slivovsky.semestralnapraca.title.SettingsFragment
-import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleFragment
-
 
 class ScoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScoreBinding

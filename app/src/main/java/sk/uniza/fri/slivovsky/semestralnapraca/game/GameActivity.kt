@@ -21,9 +21,6 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityGameBinding
 import java.io.File
 import java.io.InputStream
 import java.util.*
-import com.google.firebase.firestore.DocumentSnapshot
-
-import com.google.android.gms.tasks.OnCompleteListener
 import kotlin.collections.ArrayList
 
 
@@ -99,15 +96,15 @@ class GameActivity : AppCompatActivity() {
         isCompet = intent.getBooleanExtra("compet", true)
         //init words
         if (!isCompet) {
-            docRef.get().addOnCompleteListener(OnCompleteListener<DocumentSnapshot?> { task ->
+            docRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document.exists()) {
                         db.collection("words" + currUser.uid).get().addOnSuccessListener { result ->
-                            for (document in result) {
-                                if (document.id == intent.getStringExtra("docName")) {
-                                    val list = document.data
-                                    words = list["words"] as MutableList<String>
+                            for (doc in result) {
+                                if (doc.id == intent.getStringExtra("docName")) {
+                                    val list = doc.data
+                                    words = (list["words"]) as MutableList<String>
                                     pocetPowerUpov = (list["powerUps"] as? Number)!!.toInt()
                                     powerUpShow = (list["show"] as? Number)!!.toInt()
                                     powerUpTime = (list["time"] as? Number)!!.toInt()
@@ -136,7 +133,7 @@ class GameActivity : AppCompatActivity() {
                         }
                     }
                 }
-            })
+            }
         } else {
             val word = storageRef.child(intent.getStringExtra("druh").toString())
             val localFile = File.createTempFile("words", "txt")
@@ -343,22 +340,20 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-
-    override fun onPause() {
-        super.onPause()
-        binding.timerTextView.stop()
-        pause = true
-    }
-
     override fun onResume() {
-        super.onResume()
         binding.timerTextView.stop()
         pause = false
         if (!pause) {
             binding.timerTextView.start()
         }
+        super.onResume()
     }
 
+    override fun onPause() {
+        binding.timerTextView.stop()
+        pause = true
+        super.onPause()
+    }
 
     /**
      * Funkcia pre update resp. zvysenie skóre
@@ -378,7 +373,6 @@ class GameActivity : AppCompatActivity() {
         if (!intent.getBooleanExtra("compet", true)) {
             word = words[0]
             words.removeAt(0)
-            println(words)
         } else {
             val i = random.nextInt(words.size)
             word = words[i]
@@ -476,7 +470,7 @@ class GameActivity : AppCompatActivity() {
         val index = random.nextInt(helpingLetter.size)
         val pismeno = helpingLetter[index]
         //podmienka ktora pozera ci sa nevratila medzera alebo pismeno ktore uz bolo najdene
-        if (pismeno == ' ' || usedLetters.contains(pismeno)) {
+        if (pismeno == ' ' || usedLetters.contains(pismeno.toString())) {
             fillInLetter()
         }
         //zavola metodu submit

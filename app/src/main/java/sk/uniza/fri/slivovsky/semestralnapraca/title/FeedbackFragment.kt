@@ -13,7 +13,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentFeedbackBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreMediumBinding
 
 /**
  * Fragment ktory v recyler view drzi historu skore pre jednotlivych hracov
@@ -36,7 +35,7 @@ class FeedbackFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentFeedbackBinding.inflate(inflater, container, false)
 

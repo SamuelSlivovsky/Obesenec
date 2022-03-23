@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreBinding
 
@@ -25,7 +24,7 @@ class ScoreboardEasyFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         for (item in list) {
             list.remove(item)

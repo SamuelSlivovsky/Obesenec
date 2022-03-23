@@ -1,28 +1,18 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.game
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityMenuBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
-import java.io.File
-import java.io.InputStream
-import android.content.SharedPreferences
 
 
 /**
@@ -175,7 +165,7 @@ class MenuActivity : AppCompatActivity() {
                     "svkWordsMedium"
                 }
             }
-            startActivity(createIntent("easy", true, "$docName.txt", docName))
+            startActivity(createIntent("medium", true, "$docName.txt", docName))
 
         }
         binding.hardButton.setOnClickListener {
@@ -196,7 +186,7 @@ class MenuActivity : AppCompatActivity() {
                     "svkWordsHard"
                 }
             }
-            startActivity(createIntent("easy", true, "$docName.txt", docName))
+            startActivity(createIntent("hard", true, "$docName.txt", docName))
         }
 
     }
@@ -238,29 +228,26 @@ class MenuActivity : AppCompatActivity() {
         val docRef = db.collection("words" + currUser!!.uid)
             .document(docName)
         //init words
-        docRef.get().addOnCompleteListener(OnCompleteListener<DocumentSnapshot?> { task ->
+        docRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document = task.result
                 if (document.exists()) {
                     db.collection("words" + currUser.uid).get().addOnSuccessListener { result ->
-                        for (document in result) {
-                            if (document.id == docName) {
-                                level = (document["level"] as Number).toInt()
+                        for (doc in result) {
+                            if (doc.id == docName) {
+                                level = (doc["level"] as Number).toInt()
                             }
                         }
                         binding.playButton.text =
                             getString(R.string.play_buttoon) + " LEVEL " + level.toString()
 
                     }
-                } else {
-
-
                 }
             } else {
                 binding.playButton.text =
                     getString(R.string.play_buttoon) + " LEVEL " + level.toString()
             }
-        })
+        }
 
     }
 
