@@ -32,4 +32,5 @@
         app:menu="@menu/score_bottom_navigation_menu"
         tools:layout_editor_absoluteX="16dp"
         android:layout_gravity="bottom"/>
+
 </LinearLayout>

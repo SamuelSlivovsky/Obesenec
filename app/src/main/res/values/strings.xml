@@ -33,8 +33,7 @@
     <string name="currLang">Jazyk: </string>
     <string name="language">Jazyk</string>
     <string name="background">Výber pozadia</string>
-
-
+    <string name="welcome">Vitaj</string>
 
 
 </resources>

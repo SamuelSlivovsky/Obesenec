@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityMenuBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 
 
 /**
@@ -48,6 +49,10 @@ class MenuActivity : AppCompatActivity() {
             getString(R.string.cities),
             getString(R.string.food)
         )
+
+        binding.backButton.setOnClickListener {
+            startActivity(Intent(this@MenuActivity, TitleActivity::class.java))
+        }
         val arrayAdapter =
             ArrayAdapter(this@MenuActivity, R.layout.list_item_menu, R.id.menu_item, items)
         binding.menuText.setAdapter(arrayAdapter)
@@ -169,12 +174,6 @@ class MenuActivity : AppCompatActivity() {
 
         }
         binding.hardButton.setOnClickListener {
-            /*      if (binding.nameInputText.text.toString().trim().isNotEmpty()) {
-                      val profileUpdates = userProfileChangeRequest {
-                          displayName = binding.nameInputText.text.toString().trim()
-                      }
-                      user!!.updateProfile(profileUpdates)
-                  }*/
             docName = when {
                 LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
                     "svkWordsHard"

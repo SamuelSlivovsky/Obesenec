@@ -1,11 +1,13 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.tutorial
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityTutorialBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 
 /**
  * Fragment ktori sa stara o logiku hry
@@ -48,6 +50,9 @@ class TutorialActivity : AppCompatActivity() {
         binding.scoreTextView.setOnClickListener {  showToast("Zobrazenie vasho aktualneho skore")}
         binding.wordToFindSlovoText.setOnClickListener {  showToast("Tu sa zobrazuju priebeh hladaneho slova")}
         binding.submitAbutton.setOnClickListener {  showToast("Pomocou podobnych tlacidiel budete mat moznost hadat pismena")}
+        binding.backButton.setOnClickListener {
+            startActivity(Intent(this@TutorialActivity, TitleActivity::class.java))
+        }
 
     }
 

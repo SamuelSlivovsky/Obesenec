@@ -51,6 +51,9 @@ class GameActivity : AppCompatActivity() {
     private var gameType = ""
     private var wordsBefore = mutableListOf<String>()
     private var isCompet = false
+    private var maxLevel = 0
+    private var firstGame = false
+    private var uhadnute = false
 
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
@@ -96,6 +99,7 @@ class GameActivity : AppCompatActivity() {
         isCompet = intent.getBooleanExtra("compet", true)
         //init words
         if (!isCompet) {
+            binding.scoreTextView.visibility = View.INVISIBLE
             docRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
@@ -110,6 +114,7 @@ class GameActivity : AppCompatActivity() {
                                     powerUpTime = (list["time"] as? Number)!!.toInt()
                                     powerUpLife = (list["life"] as? Number)!!.toInt()
                                     howManyPowerUps()
+                                    lives = (list["currLife"] as? Number)!!.toInt()
                                 }
                             }
 
@@ -144,6 +149,10 @@ class GameActivity : AppCompatActivity() {
                     list.add(it)
                 }
                 words = list
+                if (!isCompet) {
+                    maxLevel = words.size
+                    firstGame = true
+                }
                 newGame()
 
 
@@ -280,14 +289,27 @@ class GameActivity : AppCompatActivity() {
                                 previousPoints = (document.data.getValue("level") as Number).toInt()
                         }
 
-                        val wordsColl = hashMapOf(
+                        var wordsColl = hashMapOf(
                             "words" to wordsBefore,
                             "level" to 1 + previousPoints,
                             "powerUps" to pocetPowerUpov,
                             "show" to powerUpShow,
                             "time" to powerUpTime,
-                            "life" to powerUpLife
+                            "life" to powerUpLife,
+                            "currLife" to lives,
                         )
+                        if (maxLevel > 0) {
+                            wordsColl = hashMapOf(
+                                "words" to wordsBefore,
+                                "level" to 1 + previousPoints,
+                                "powerUps" to pocetPowerUpov,
+                                "show" to powerUpShow,
+                                "time" to powerUpTime,
+                                "life" to powerUpLife,
+                                "currLife" to lives,
+                                "maxLevel" to maxLevel
+                            )
+                        }
                         db.collection("words" + currUser.uid)
                             .document(intent.getStringExtra("docName").toString()).set(wordsColl)
                     }
@@ -319,14 +341,29 @@ class GameActivity : AppCompatActivity() {
 
                     }
                     if (previousPoints == 0) previousPoints = 1
-                    val wordsColl = hashMapOf(
-                        "words" to words,
+
+                    var wordsColl = hashMapOf(
+                        "words" to wordsBefore,
                         "level" to if (!lost) 1 + previousPoints else previousPoints,
                         "powerUps" to pocetPowerUpov,
                         "show" to powerUpShow,
                         "time" to powerUpTime,
-                        "life" to powerUpLife
+                        "life" to powerUpLife,
+                        "currLife" to lives,
                     )
+                    if (maxLevel > 0) {
+                        wordsColl = hashMapOf(
+                            "words" to wordsBefore,
+                            "level" to if (!lost) 1 + previousPoints else previousPoints,
+                            "powerUps" to pocetPowerUpov,
+                            "show" to powerUpShow,
+                            "time" to powerUpTime,
+                            "life" to powerUpLife,
+                            "currLife" to lives,
+                            "maxLevel" to maxLevel
+                        )
+                    }
+
                     db.collection("words" + currUser.uid)
                         .document(intent.getStringExtra("docName").toString()).set(wordsColl)
                 }
@@ -368,7 +405,7 @@ class GameActivity : AppCompatActivity() {
      * @return slovo vrati vybrane slovo
      */
 
-    fun wordToFind(): String {
+    private fun wordToFind(): String {
         val word: String
         if (!intent.getBooleanExtra("compet", true)) {
             word = words[0]
@@ -405,13 +442,17 @@ class GameActivity : AppCompatActivity() {
      * funkcia pre start novej hry, inicializuje atributy na startovne hodnoty
      */
 
-    fun newGame() {
+    private fun newGame() {
 
         wordsBefore = ArrayList(words)
         if (!nextGame) {
-            this.lives = 6
+            if (lives == 0) {
+                this.lives = 6
+            }
             points = 0
         }
+        binding.livesTextView.text = lives.toString()
+        uhadnute = false
         usedLetters.clear()
         wordToFind = wordToFind()
         println(wordToFind)
@@ -447,7 +488,7 @@ class GameActivity : AppCompatActivity() {
      *
      * @return vrati zoznam pismen
      */
-    fun textInit(): String {
+    private fun textInit(): String {
         val builder = StringBuilder()
         for (i in lettersArray.indices) {
             builder.append(lettersArray[i])
@@ -463,7 +504,7 @@ class GameActivity : AppCompatActivity() {
      * funkcia pre doplnenie pismena pomocou powerUpu
      *
      */
-    fun fillInLetter() {
+    private fun fillInLetter() {
         //nacitam hladane slovo do charArray
         helpingLetter = wordToFind!!.toCharArray()
 
@@ -474,7 +515,8 @@ class GameActivity : AppCompatActivity() {
             fillInLetter()
         }
         //zavola metodu submit
-        submit(pismeno.toString())
+        if (!uhadnute)
+            submit(pismeno.toString())
     }
 
     /**
@@ -483,7 +525,7 @@ class GameActivity : AppCompatActivity() {
      *  @param p - pismeno zadane pomocou buttonu
      */
 
-    fun submit(p: String) {
+    private fun submit(p: String) {
 
         //schovam button
         hideButtons(p, true)
@@ -505,6 +547,8 @@ class GameActivity : AppCompatActivity() {
 
         //podmienka ak bolo slovo uhadnute, prida points a zastavi hru, hrac sa rozhodne ci nextGamee alebo konci
         if (found()) {
+            uhadnute = true
+            wordsBefore = ArrayList(words)
             points++
             updateScore()
             powerUp()
@@ -528,7 +572,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * funkcia pre powerupy, vyberie nahodny z 3 powerupov
      */
-    fun powerUp() {
+    private fun powerUp() {
 
 
         val hodnota = when (intent.getStringExtra("type")) {
@@ -554,7 +598,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * jednoducha boolean funkcia pre rozhodnutie ci hrac nasiel slovo
      */
-    fun found(): Boolean {
+    private fun found(): Boolean {
 
         return wordToFind?.contentEquals(String(lettersArray)) == true
     }
@@ -598,7 +642,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * funkcia pre nastavenie listenerov vsetkych zadavacich buttonov
      */
-    fun nastavButtony() {
+    private fun nastavButtony() {
         binding.submitAbutton.setOnClickListener {
             if (wordToFind!!.contains("A")) {
                 submit("A")
@@ -821,7 +865,7 @@ class GameActivity : AppCompatActivity() {
      * @param p
      * @param schovaj
      */
-    fun hideButtons(p: String, schovaj: Boolean) {
+    private fun hideButtons(p: String, schovaj: Boolean) {
         if (schovaj) {
             when (p) {
                 "A", "Á" -> binding.submitAbutton.visibility = View.INVISIBLE
@@ -906,7 +950,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * funkcia pre schovanie layoutu so vsetkymi buttonami pismen
      */
-    fun hideAllButtonns() {
+    private fun hideAllButtonns() {
         binding.buttonsLayout.visibility = View.INVISIBLE
 
     }
@@ -914,7 +958,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * funkcia pre odkrytie layoutu so vsetkymi buttonami pismen
      */
-    fun showAllButtons() {
+    private fun showAllButtons() {
         binding.buttonsLayout.visibility = View.VISIBLE
     }
 }
