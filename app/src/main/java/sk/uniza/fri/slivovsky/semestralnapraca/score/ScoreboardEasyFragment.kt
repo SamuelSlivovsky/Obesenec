@@ -11,6 +11,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentScoreBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.playerHistory.HistoryAdapter
 
 /**
  * Fragment ktori zobrazuje top hracov, ich skore a datum.
@@ -45,7 +46,7 @@ class ScoreboardEasyFragment : Fragment() {
                         )
                     )
                 }
-                binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(), list)
+                binding.skoreRecylclerView.adapter = context?.let { SkoreAdapter(it, list) }
             }
 
         binding.backButton.setOnClickListener {

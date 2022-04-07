@@ -12,6 +12,7 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
+import sk.uniza.fri.slivovsky.semestralnapraca.MainActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBinding
 
@@ -20,6 +21,7 @@ import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentSettingsBindi
  *
  */
 class SettingsFragment : Fragment() {
+
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -55,6 +57,10 @@ class SettingsFragment : Fragment() {
 
         binding.menuButton.setOnClickListener { v: View ->
             showMenu(v, R.menu.overflow_menu)
+        }
+
+        binding.logoutButton.setOnClickListener {
+            startActivity(Intent(context,MainActivity::class.java))
         }
 
         val currLang = LocaleHelper.getLanguage(requireContext())
@@ -130,8 +136,6 @@ class SettingsFragment : Fragment() {
     }
 
     private fun changeBackground(background: String) {
-
-
         val intent = Intent(context, TitleActivity::class.java)
         intent.putExtra("background", background)
         startActivity(intent)

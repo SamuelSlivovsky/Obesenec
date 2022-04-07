@@ -16,7 +16,7 @@
             android:layout_marginTop="48dp"
             android:fontFamily="@font/fredoka"
             android:text="@string/historyScore"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             android:layout_marginTop="88dp"
             android:fontFamily="@font/fredoka"
             android:text="@string/historyPlayer"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

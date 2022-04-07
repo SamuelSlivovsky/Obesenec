@@ -76,6 +76,9 @@ class EndFragment : Fragment() {
         view.findViewById<Button>(R.id.toScoreButton).setOnClickListener {
             startActivity(Intent(requireContext(), ScoreActivity::class.java))
         }
+
     }
+
+
 
 }

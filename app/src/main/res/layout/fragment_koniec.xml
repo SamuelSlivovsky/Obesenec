@@ -62,7 +62,7 @@
                 android:fontFamily="@font/fredoka"
                 android:text="@string/endText"
                 android:textAlignment="center"
-                android:textColor="?android:textColorPrimary"
+                android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

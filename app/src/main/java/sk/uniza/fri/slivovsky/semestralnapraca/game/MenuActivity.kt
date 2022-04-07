@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -42,7 +45,7 @@ class MenuActivity : AppCompatActivity() {
         val view = binding.root
 
         setContentView(view)
-
+        hideSystemBars()
         val items = listOf(
             getString(R.string.diff),
             getString(R.string.animals),
@@ -200,6 +203,11 @@ class MenuActivity : AppCompatActivity() {
         return intent
     }
 
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
     private fun hideOrShow(compet: Boolean) {
 
         if (compet) {

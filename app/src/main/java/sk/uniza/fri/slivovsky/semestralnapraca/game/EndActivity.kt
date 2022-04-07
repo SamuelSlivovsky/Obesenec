@@ -1,13 +1,18 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.game
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityEndBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,7 +37,7 @@ class EndActivity : AppCompatActivity() {
         val view = binding.root
 
         setContentView(view)
-
+        hideSystemBars()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = EndFragment()
@@ -91,7 +96,14 @@ class EndActivity : AppCompatActivity() {
 
             db.collection("history" + currUser!!.uid).add(user)
         }
-
-
+    }
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@EndActivity, TitleActivity::class.java))
     }
 }

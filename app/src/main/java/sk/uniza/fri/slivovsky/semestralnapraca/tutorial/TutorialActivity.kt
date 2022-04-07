@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityTutorialBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
@@ -39,7 +42,7 @@ class TutorialActivity : AppCompatActivity() {
         binding = ActivityTutorialBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        hideSystemBars()
         binding.powerUpButton.setOnClickListener {  showToast("Tlacidlo ktore vam otvori vase dostupne powerUpy")}
         binding.powerUpTimeButton.setOnClickListener {  showToast("PowerUp ktory pozastavi casomieru na 10 sekund")}
         binding.showPowerUpButton.setOnClickListener {  showToast("PowerUp ktory za vas doplni jedno alebo viacero rovnakych pismen ktore sa nachadzaju v slove")}
@@ -56,7 +59,11 @@ class TutorialActivity : AppCompatActivity() {
 
     }
 
-
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
     private fun showToast(message: String){
         sortToast?.cancel()
         sortToast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)

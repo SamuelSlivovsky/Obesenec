@@ -127,7 +127,7 @@
                 android:fontFamily="@font/fredoka"
                 android:text="@string/difficulty"
                 android:textAlignment="center"
-                android:textColor="?android:textColorPrimary"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

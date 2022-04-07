@@ -32,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/arrow" />
+
         <TextView
             android:id="@+id/scoreText"
             android:layout_width="wrap_content"
@@ -40,7 +41,7 @@
             android:fontFamily="@font/fredoka"
             android:text="@string/top10"
             android:textAlignment="center"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

@@ -54,7 +54,7 @@ class ScoreboardHardFragment:Fragment() {
                         document.id
                     ))
                 }
-                binding.skoreRecylclerView.adapter = SkoreAdapter(requireContext(),list)
+                binding.skoreRecylclerView.adapter = context?.let { SkoreAdapter(it, list) }
             }
         binding.backButton.setOnClickListener {
             startActivity(Intent(requireContext(), TitleActivity::class.java))

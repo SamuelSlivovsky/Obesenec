@@ -3,6 +3,9 @@ package sk.uniza.fri.slivovsky.semestralnapraca.title
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
@@ -50,6 +53,7 @@ class TitleActivity : AppCompatActivity() {
         binding = ActivityTitleBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        hideSystemBars()
         LocaleHelper.setLocale(this@TitleActivity, LocaleHelper.getLanguage(this@TitleActivity))
         val editor = background.edit()
         editor.putString("background", back)
@@ -84,5 +88,11 @@ class TitleActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit()
+    }
+
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
 }

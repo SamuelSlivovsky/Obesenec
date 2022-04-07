@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             MODE_PRIVATE
         )
 
+
         when (background.getString("background", "")) {
             "background1" -> setTheme(R.style.Background1)
             "background2" -> setTheme(R.style.Background2)
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivitySigninBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        hideSystemBars()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -64,6 +69,11 @@ class MainActivity : AppCompatActivity() {
         binding.signinButton.setOnClickListener { signIn() }
     }
 
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
