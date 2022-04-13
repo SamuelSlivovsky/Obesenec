@@ -43,7 +43,7 @@ class TutorialActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         hideSystemBars()
-        binding.powerUpButton.setOnClickListener {  showToast("Tlacidlo ktore vam otvori vase dostupne powerUpy")}
+        binding.powerUpButton.setOnClickListener {  showToast("Button which opens your powerUps menu")}
         binding.powerUpTimeButton.setOnClickListener {  showToast("PowerUp ktory pozastavi casomieru na 10 sekund")}
         binding.showPowerUpButton.setOnClickListener {  showToast("PowerUp ktory za vas doplni jedno alebo viacero rovnakych pismen ktore sa nachadzaju v slove")}
         binding.livesPowerUpButton.setOnClickListener {  showToast("PowerUp ktory vam prida 1 zivot")}

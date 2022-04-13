@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import sk.uniza.fri.slivovsky.semestralnapraca.database.Skore
-import sk.uniza.fri.slivovsky.semestralnapraca.database.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
@@ -31,20 +29,6 @@ class EndFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        val databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
-        val bundle = arguments
-        auth = Firebase.auth
-        val currUser = auth.currentUser
-
-        databaza.insert(
-            Skore(
-                currUser!!.displayName.toString(),
-                bundle!!.getInt("points"),
-                currUser.uid
-            )
-        )
-
         binding = FragmentKoniecBinding.inflate(inflater, container, false)
 
         return binding.root

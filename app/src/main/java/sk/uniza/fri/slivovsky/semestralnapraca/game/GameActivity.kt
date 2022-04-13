@@ -25,6 +25,7 @@ import java.io.File
 import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 
 /**
@@ -34,6 +35,7 @@ import kotlin.collections.ArrayList
 class GameActivity : AppCompatActivity() {
 
     private var words = mutableListOf<String>()
+    private var lastPause:Long = 0
     private lateinit var auth: FirebaseAuth
     private var wordToFind: String? = null
     private var lettersArray: CharArray = charArrayOf()
@@ -167,9 +169,10 @@ class GameActivity : AppCompatActivity() {
         //init textViews
         binding.timer2TextView.setOnChronometerTickListener {
             if (binding.timer2TextView.text == "00:00") {
-                binding.timer2TextView.start()
+                binding.timerTextView.base = binding.timerTextView.base + SystemClock.elapsedRealtime() - lastPause
+                binding.timerTextView.start()
                 binding.timer2TextView.visibility = View.INVISIBLE
-                binding.timer2TextView.visibility = View.VISIBLE
+                binding.timerTextView.visibility = View.VISIBLE
                 binding.timer2TextView.stop()
             }
         }
@@ -195,8 +198,6 @@ class GameActivity : AppCompatActivity() {
             getActivity(this@GameActivity),
             R.anim.hide_button
         )
-
-
         //listenery pre powerUpButtony
 
         val powerUpPismeno: FloatingActionButton = view.findViewById(R.id.showPowerUpButton)
@@ -209,7 +210,6 @@ class GameActivity : AppCompatActivity() {
                     binding.powerUpShowTextView.visibility = View.INVISIBLE
                 }
             }
-
             if (pocetPowerUpov == 0) {
                 binding.amountPowerUpTextView.visibility = View.INVISIBLE
             }
@@ -223,6 +223,7 @@ class GameActivity : AppCompatActivity() {
                 pocetPowerUpov--
                 binding.timer2TextView.visibility = View.VISIBLE
                 binding.timerTextView.visibility = View.INVISIBLE
+                lastPause = SystemClock.elapsedRealtime()
                 binding.timerTextView.stop()
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                     binding.timer2TextView.isCountDown = true
@@ -277,7 +278,7 @@ class GameActivity : AppCompatActivity() {
         }
 
         //nastavenie onClickListenerov pre buttony
-        nastavButtony()
+        setButtons()
 
         //listener pre button na pokracovanie
         val pokracovat: Button = view.findViewById(R.id.continueButton)
@@ -387,22 +388,6 @@ class GameActivity : AppCompatActivity() {
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
-
-    override fun onResume() {
-        binding.timerTextView.stop()
-        pause = false
-        if (!pause) {
-            binding.timerTextView.start()
-        }
-        super.onResume()
-    }
-
-    override fun onPause() {
-        binding.timerTextView.stop()
-        pause = true
-        super.onPause()
-    }
-
     /**
      * Funkcia pre update resp. zvysenie skóre
      */
@@ -436,12 +421,11 @@ class GameActivity : AppCompatActivity() {
 
     @SuppressLint("RestrictedApi", "SetTextI18n")
     private fun updateImage() {
-        if (lives >= 6) {
-
-            binding.hangmanImageView.setImageResource(R.drawable.obesenec_6)
+        if (lives >= 7) {
+            binding.hangmanImageView.setImageResource(R.drawable.hangman0)
         } else {
             val resImg = resources.getIdentifier(
-                "obesenec_$lives", "drawable",
+                "hangman${7-lives}", "drawable",
                 getActivity(this@GameActivity)?.packageName
             )
             binding.hangmanImageView.setImageResource(resImg)
@@ -458,7 +442,7 @@ class GameActivity : AppCompatActivity() {
         wordsBefore = ArrayList(words)
         if (!nextGame) {
             if (lives == 0) {
-                this.lives = 6
+                this.lives = 7
             }
             points = 0
         }
@@ -507,7 +491,6 @@ class GameActivity : AppCompatActivity() {
                 builder.append(" ")
             }
         }
-
         return builder.toString()
     }
 
@@ -539,7 +522,7 @@ class GameActivity : AppCompatActivity() {
     private fun submit(p: String) {
 
         //schovam button
-        hideButtons(p, true)
+        hideButton(p, true)
         //podmienka ktora pozera ci sa pismeno nachadza v slove
         if (wordToFind!!.contains(p)) {
             var index = wordToFind!!.indexOf(p)
@@ -563,7 +546,7 @@ class GameActivity : AppCompatActivity() {
             points++
             updateScore()
             powerUp()
-            hideButtons("", false)
+            hideButton("", false)
             hideAllButtonns()
             binding.timerTextView.stop()
             binding.timer2TextView.stop()
@@ -584,8 +567,6 @@ class GameActivity : AppCompatActivity() {
      * funkcia pre powerupy, vyberie nahodny z 3 powerupov
      */
     private fun powerUp() {
-
-
         val hodnota = when (intent.getStringExtra("type")) {
             "easy" -> 1
             "medium" -> 2
@@ -653,7 +634,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * funkcia pre nastavenie listenerov vsetkych zadavacich buttonov
      */
-    private fun nastavButtony() {
+    private fun setButtons() {
         binding.submitAbutton.setOnClickListener {
             if (wordToFind!!.contains("A")) {
                 submit("A")
@@ -874,10 +855,10 @@ class GameActivity : AppCompatActivity() {
     /**
      * funkcia pre schovanie jedlotlivych buttonov podla zadaneho pismena
      * @param p
-     * @param schovaj
+     * @param hide
      */
-    private fun hideButtons(p: String, schovaj: Boolean) {
-        if (schovaj) {
+    private fun hideButton(p: String, hide: Boolean) {
+        if (hide) {
             when (p) {
                 "A", "Á" -> binding.submitAbutton.visibility = View.INVISIBLE
                 "B" -> binding.submitBbutton.visibility = View.INVISIBLE

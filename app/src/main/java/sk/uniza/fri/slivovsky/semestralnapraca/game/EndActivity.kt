@@ -56,8 +56,6 @@ class EndActivity : AppCompatActivity() {
                 "type"
             ) == "hard"
         ) {
-
-
             db.collection("scoreboard" + intent.getStringExtra("type"))
                 .get()
                 .addOnSuccessListener { result ->

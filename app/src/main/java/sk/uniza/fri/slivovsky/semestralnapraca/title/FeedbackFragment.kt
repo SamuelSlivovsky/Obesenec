@@ -56,11 +56,9 @@ class FeedbackFragment : Fragment() {
         val db = Firebase.firestore
 
         binding.submitButton.setOnClickListener {
-
             val feedback = hashMapOf(
                 "feedback" to binding.feedbackInputText.text.toString().trim()
             )
-
             db.collection("feedback").document(currUser!!.uid).set(feedback)
             Toast.makeText(context, "Feedback odoslany", Toast.LENGTH_LONG).show()
             binding.feedbackInputText.setText("")
