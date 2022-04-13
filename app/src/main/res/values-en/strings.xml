@@ -32,6 +32,6 @@
     <string name="food">Food</string>
     <string name="currLang">Current language: </string>
     <string name="language">Language</string>
-
-
+    <string name="background">Background choice</string>
+    <string name="welcome">Welcome</string>
 </resources>

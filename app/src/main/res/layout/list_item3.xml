@@ -8,12 +8,12 @@
 
     <TextView
         android:id="@+id/skore_historiaTextView"
-        android:fontFamily="@font/fredoka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="@font/fredoka"
         android:text="TextView"
-        android:textColor = "?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,12 +22,12 @@
 
     <TextView
         android:id="@+id/datum_historiaTextView2"
-        android:fontFamily="@font/fredoka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="@font/fredoka"
         android:text="TextView"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,11 +36,11 @@
 
     <TextView
         android:id="@+id/poradoveCTextView"
-        android:fontFamily="@font/fredoka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
         android:text="TextView"
-        android:textColor = "?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

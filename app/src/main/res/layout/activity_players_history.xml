@@ -16,7 +16,7 @@
             android:layout_marginTop="48dp"
             android:fontFamily="@font/fredoka"
             android:text="@string/historyScore"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,25 +45,20 @@
             android:layout_marginTop="88dp"
             android:fontFamily="@font/fredoka"
             android:text="@string/historyPlayer"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonBackToMenu"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/buttony"
-            android:elevation="20dp"
-            android:textColor="?android:textColorPrimary"
-            app:cornerRadius="10dp"
-            app:icon="@drawable/abc_vector_test"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

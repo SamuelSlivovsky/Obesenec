@@ -36,7 +36,7 @@ class PlayerHistoryFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentPlayerHistoryBinding.inflate(inflater, container, false)
 

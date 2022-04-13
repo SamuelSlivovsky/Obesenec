@@ -11,12 +11,9 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import sk.uniza.fri.slivovsky.semestralnapraca.database.Skore
-import sk.uniza.fri.slivovsky.semestralnapraca.database.SkoreDatabaza
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.score.ScoreActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentKoniecBinding
-import sk.uniza.fri.slivovsky.semestralnapraca.databinding.FragmentPlayerHistoryBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 
 /**
@@ -31,21 +28,7 @@ class EndFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        var databaza = SkoreDatabaza.getInstance(requireContext()).SkoreDatabazaDao
-        var bundle = arguments
-        auth = Firebase.auth
-        val currUser = auth.currentUser
-
-        databaza.insert(
-            Skore(
-                currUser!!.displayName.toString(),
-                bundle!!.getInt("points"),
-                currUser.uid
-            )
-        )
-
+    ): View {
         binding = FragmentKoniecBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -65,7 +48,7 @@ class EndFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
         val currUser = auth.currentUser
-        var bundle = arguments
+        val bundle = arguments
         binding.endTextView.text =
             currUser!!.displayName + " " + binding.endTextView.text.toString() + " " + bundle!!.getInt(
                 "points"
@@ -77,6 +60,9 @@ class EndFragment : Fragment() {
         view.findViewById<Button>(R.id.toScoreButton).setOnClickListener {
             startActivity(Intent(requireContext(), ScoreActivity::class.java))
         }
+
     }
+
+
 
 }

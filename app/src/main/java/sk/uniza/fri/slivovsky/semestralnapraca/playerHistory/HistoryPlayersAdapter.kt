@@ -1,5 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.playerHistory
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +32,9 @@ class HistoryPlayersAdapter(
     class HistoryPlayersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val binding = ListItem3Binding.bind(itemView)
-        var poradoveCisloText: TextView = binding.poradoveCTextView
-        var pocetBodov: TextView = binding.skoreHistoriaTextView
-        var datum: TextView = binding.datumHistoriaTextView2
+        private var poradoveCisloText: TextView = binding.poradoveCTextView
+        private var pocetBodov: TextView = binding.skoreHistoriaTextView
+        private var datum: TextView = binding.datumHistoriaTextView2
 
 
         /**
@@ -42,9 +43,10 @@ class HistoryPlayersAdapter(
          * @param skore
          * @param poradoveCislo
          */
+        @SuppressLint("SetTextI18n")
         fun nastavHodnoty(skore: HistoryPlayerModelClass, poradoveCislo: Int) {
             pocetBodov.text = skore.score.toString()
-            poradoveCisloText.text = poradoveCislo.toString() + "."
+            poradoveCisloText.text = "$poradoveCislo."
             datum.text = skore.date
 
 

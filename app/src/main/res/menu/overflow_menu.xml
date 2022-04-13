@@ -8,8 +8,4 @@
         android:id="@+id/option_2"
         android:title="Slovenčina"
         tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/option_3"
-        android:title="3"
-        tools:ignore="HardcodedText" />
 </menu>

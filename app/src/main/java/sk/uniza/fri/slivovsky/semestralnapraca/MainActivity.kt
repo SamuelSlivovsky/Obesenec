@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -11,6 +14,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivitySigninBinding
@@ -41,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             MODE_PRIVATE
         )
 
+
         when (background.getString("background", "")) {
             "background1" -> setTheme(R.style.Background1)
             "background2" -> setTheme(R.style.Background2)
@@ -52,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivitySigninBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        hideSystemBars()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -63,6 +69,11 @@ class MainActivity : AppCompatActivity() {
         binding.signinButton.setOnClickListener { signIn() }
     }
 
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -85,6 +96,10 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
+                    val database = Firebase.database
+
+                    val myRef = database.getReference("message")
+                    myRef.setValue("Hello, World!")
                     googleSignInClient.signOut()
                     startActivity(Intent(this@MainActivity, TitleActivity::class.java))
 

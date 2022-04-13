@@ -1,9 +1,11 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.title
 
-
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import sk.uniza.fri.slivovsky.semestralnapraca.LocaleHelper
@@ -15,6 +17,7 @@ import java.util.*
 
 class TitleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTitleBinding
+    @SuppressLint("ApplySharedPref")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val myBackground = intent?.getStringExtra("background")
@@ -22,7 +25,7 @@ class TitleActivity : AppCompatActivity() {
             "background",
             MODE_PRIVATE
         )
-        var back = ""
+        val back: String
 
         if (myBackground == null) {
             back = background.getString("background", "").toString()
@@ -50,10 +53,10 @@ class TitleActivity : AppCompatActivity() {
         binding = ActivityTitleBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        hideSystemBars()
         LocaleHelper.setLocale(this@TitleActivity, LocaleHelper.getLanguage(this@TitleActivity))
         val editor = background.edit()
         editor.putString("background", back)
-        println(back)
         editor.commit()
         replaceFragment(TitleFragment())
         findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -85,5 +88,11 @@ class TitleActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit()
+    }
+
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
 }

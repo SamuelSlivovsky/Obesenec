@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/black"
         android:fontFamily="@font/fredoka"
         android:text="@string/currLang"
         android:textSize="20sp"
@@ -38,84 +39,133 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:checkedButton="@+id/radio_button_1"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currLangTextView">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <RadioButton
             android:id="@+id/radio_button_1"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="60dp"
             android:text="1" />
 
         <RadioButton
             android:id="@+id/radio_button_2"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="60dp"
             android:text="2" />
 
         <RadioButton
             android:id="@+id/radio_button_3"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="60dp"
             android:text="3" />
 
         <RadioButton
             android:id="@+id/radio_button_4"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="60dp"
             android:text="4" />
 
         <RadioButton
             android:id="@+id/radio_button_5"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="60dp"
             android:text="5" />
 
     </RadioGroup>
 
-    <ImageView
-        android:id="@+id/background1"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <ImageView
+            android:id="@+id/background1"
+            android:layout_width="50dp"
+            android:layout_height="90dp"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background1" />
+
+        <ImageView
+            android:id="@+id/background2"
+            android:layout_width="50dp"
+            android:layout_height="90dp"
+            app:layout_constraintStart_toEndOf="@+id/background1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background2" />
+
+        <ImageView
+            android:id="@+id/background3"
+            android:layout_width="50dp"
+            android:layout_height="90dp"
+            app:layout_constraintStart_toEndOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background3" />
+
+        <ImageView
+            android:id="@+id/background4"
+            android:layout_width="50dp"
+            android:layout_height="90dp"
+            app:layout_constraintStart_toEndOf="@+id/background3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background4" />
+
+        <ImageView
+            android:id="@+id/background5"
+            android:layout_width="50dp"
+            android:layout_height="90dp"
+            app:layout_constraintStart_toEndOf="@+id/background4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/currLangTextView"
-        app:srcCompat="@drawable/background1" />
+        android:fontFamily="@font/fredoka"
+        android:text="@string/background"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currLangTextView" />
 
-    <ImageView
-        android:id="@+id/background2"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="92dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/currLangTextView"
-        app:srcCompat="@drawable/background2" />
+    <com.google.android.material.button.MaterialButton
+        android:backgroundTint="#b23b3b"
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/fredoka"
+        android:text="@string/language"
+        android:textSize="20sp"
+        app:cornerRadius="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
-    <ImageView
-        android:id="@+id/background3"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="152dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/currLangTextView"
-        app:srcCompat="@drawable/background3" />
-
-    <ImageView
-        android:id="@+id/background4"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="212dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/currLangTextView"
-        app:srcCompat="@drawable/background4" />
-
-    <ImageView
-        android:id="@+id/background5"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="272dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/currLangTextView"
-        app:srcCompat="@drawable/background5" />
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

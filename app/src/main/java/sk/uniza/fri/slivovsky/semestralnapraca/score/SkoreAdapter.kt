@@ -1,5 +1,6 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.score
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -30,10 +31,10 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Playe
      */
     class SkoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
         val binding = ListItemBinding.bind(itemView)
-        var poradoveCisloText: TextView = binding.poradoveCTextView
-        var menoHraca: TextView = binding.skoreHistoriaTextView
-        var pocetBodov: TextView = binding.bodyTextView
-        var datum: TextView = binding.datumSkoreTextView
+        private var poradoveCisloText: TextView = binding.poradoveCTextView
+        private var menoHraca: TextView = binding.skoreHistoriaTextView
+        private var pocetBodov: TextView = binding.bodyTextView
+        private var datum: TextView = binding.datumSkoreTextView
         var uid: String = ""
         init {
 
@@ -60,12 +61,12 @@ class SkoreAdapter(private val context: Context,private val najHraci: List<Playe
         /**
          * Funkica ktora nastavi textView itemov na hodnoty ziskane z databazy
          *
-         * @param skore Databaza
          * @param poradoveCislo poradove cislo v zozname
          */
+        @SuppressLint("SetTextI18n")
         fun nastavHodnoty(hrac: PlayersModelClass, poradoveCislo: Int) {
             menoHraca.text = hrac.name
-            poradoveCisloText.text = poradoveCislo.toString() + "."
+            poradoveCisloText.text = "$poradoveCislo."
             pocetBodov.text = hrac.score.toString()
             datum.text = hrac.date
             uid = hrac.uid

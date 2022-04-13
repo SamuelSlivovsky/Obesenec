@@ -1,13 +1,18 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.game
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityEndBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +25,7 @@ class EndActivity : AppCompatActivity() {
             "background",
             MODE_PRIVATE
         )
-        when (background.getString("background", "defaultvalue")) {
+        when (background.getString("background", "")) {
             "background1" -> setTheme(R.style.Background1)
             "background2" -> setTheme(R.style.Background2)
             "background3" -> setTheme(R.style.Background3)
@@ -32,12 +37,12 @@ class EndActivity : AppCompatActivity() {
         val view = binding.root
 
         setContentView(view)
-
+        hideSystemBars()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = EndFragment()
 
-        var points = intent.getIntExtra("points", 0)
+        val points = intent.getIntExtra("points", 0)
         val bundle = Bundle()
         bundle.putInt("points", points)
         fragment.arguments = bundle
@@ -45,20 +50,18 @@ class EndActivity : AppCompatActivity() {
         auth = Firebase.auth
         val currUser = auth.currentUser
         val db = Firebase.firestore
-        var bestScore = 0;
+        var bestScore = 0
 
         if (intent.getStringExtra("type") == "easy" || intent.getStringExtra("type") == "medium" || intent.getStringExtra(
                 "type"
             ) == "hard"
         ) {
-
-
             db.collection("scoreboard" + intent.getStringExtra("type"))
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         if (document.id == currUser!!.uid) {
-                            bestScore = (document.data.get("score") as Number).toInt()
+                            bestScore = (document.data["score"] as Number).toInt()
                         }
 
                     }
@@ -73,11 +76,12 @@ class EndActivity : AppCompatActivity() {
                             )
                         )
 
-                        db.collection("scoreboard"+ intent.getStringExtra("type")).document(currUser.uid).set(user)
+                        db.collection("scoreboard" + intent.getStringExtra("type"))
+                            .document(currUser.uid).set(user)
                     }
                 }
 
-                .addOnFailureListener { exception ->
+                .addOnFailureListener {
 
                 }
             val user = hashMapOf(
@@ -90,7 +94,14 @@ class EndActivity : AppCompatActivity() {
 
             db.collection("history" + currUser!!.uid).add(user)
         }
-
-
+    }
+    private fun hideSystemBars() {
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@EndActivity, TitleActivity::class.java))
     }
 }
