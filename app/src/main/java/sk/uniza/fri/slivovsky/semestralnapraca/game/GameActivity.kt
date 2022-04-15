@@ -59,6 +59,7 @@ class GameActivity : AppCompatActivity() {
     private var maxLevel = 0
     private var firstGame = false
     private var uhadnute = false
+    private var currLevel = 0
 
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
@@ -104,7 +105,6 @@ class GameActivity : AppCompatActivity() {
         isCompet = intent.getBooleanExtra("compet", true)
         //init words
         if (!isCompet) {
-            binding.scoreTextView.visibility = View.INVISIBLE
             docRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
@@ -120,6 +120,8 @@ class GameActivity : AppCompatActivity() {
                                     powerUpLife = (list["life"] as? Number)!!.toInt()
                                     howManyPowerUps()
                                     lives = (list["currLife"] as? Number)!!.toInt()
+                                    currLevel = (list["level"] as? Number)!!.toInt()
+                                    binding.scoreTextView.text = "Level: " + list["level"].toString()
                                 }
                             }
 
@@ -381,6 +383,18 @@ class GameActivity : AppCompatActivity() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.timerTextView.stop()
+        lastPause = SystemClock.elapsedRealtime()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.timerTextView.base = binding.timerTextView.base + SystemClock.elapsedRealtime() - lastPause
+        binding.timerTextView.start()
+    }
+
     private fun hideSystemBars() {
         val windowInsetsController =
             ViewCompat.getWindowInsetsController(window.decorView) ?: return
@@ -393,7 +407,13 @@ class GameActivity : AppCompatActivity() {
      */
     @SuppressLint("SetTextI18n")
     fun updateScore() {
-        binding.scoreTextView.text = getString(R.string.gameScore) + points
+        currLevel++
+        if(isCompet){
+            binding.scoreTextView.text = getString(R.string.gameScore) + points
+        }else{
+            binding.scoreTextView.text = "Level: " + currLevel
+        }
+
     }
 
     /**
@@ -459,10 +479,10 @@ class GameActivity : AppCompatActivity() {
 
 
         val cas = when (intent.getStringExtra("type")) {
-            "easy" -> 60000
-            "medium" -> 40000
-            "hard" -> 20000
-            else -> 60000
+            "easy" -> 180000
+            "medium" -> 120000
+            "hard" -> 60000
+            else -> 180000
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             binding.timerTextView.isCountDown = true

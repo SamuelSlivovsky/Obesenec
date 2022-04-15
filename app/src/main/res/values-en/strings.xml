@@ -34,4 +34,14 @@
     <string name="language">Language</string>
     <string name="background">Background choice</string>
     <string name="welcome">Welcome</string>
+    <string name="powerUpMenuTutorial">Button which opens your powerUps menu</string>
+    <string name="powerUpTimeTutorial">PowerUp that stops time for 10 seconds</string>
+    <string name="powerUpShowTutorial">PowerUp that submits one or more of the same letter that is in the word</string>
+    <string name="powerUpLivesTutorial">PowerUp that gives you 1 life</string>
+    <string name="hangmanImageTutorial">Here you can see visual progress of hangman</string>
+    <string name="livesImageTutorial">Current lives</string>
+    <string name="timerTutorial">Remaining time</string>
+    <string name="scoreTutorial">Current score</string>
+    <string name="wordTutorial">Progress of the word that you are guessing</string>
+    <string name="submitTutorial">Buttons for submitting letters</string>
 </resources>

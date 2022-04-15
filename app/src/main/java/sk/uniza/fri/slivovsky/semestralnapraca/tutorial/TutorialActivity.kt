@@ -2,6 +2,7 @@ package sk.uniza.fri.slivovsky.semestralnapraca.tutorial
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -43,18 +44,22 @@ class TutorialActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         hideSystemBars()
-        binding.powerUpButton.setOnClickListener {  showToast("Button which opens your powerUps menu")}
-        binding.powerUpTimeButton.setOnClickListener {  showToast("PowerUp ktory pozastavi casomieru na 10 sekund")}
-        binding.showPowerUpButton.setOnClickListener {  showToast("PowerUp ktory za vas doplni jedno alebo viacero rovnakych pismen ktore sa nachadzaju v slove")}
-        binding.livesPowerUpButton.setOnClickListener {  showToast("PowerUp ktory vam prida 1 zivot")}
-        binding.hangmanImageView.setOnClickListener {  showToast("Tu sa ukazuje vizualny priebeh vasho obesenca")}
-        binding.livesImageView.setOnClickListener {  showToast("Pocet aktualnych zivotov")}
-        binding.timerTextView.setOnClickListener {  showToast("Zostavajuci cas")}
-        binding.scoreTextView.setOnClickListener {  showToast("Zobrazenie vasho aktualneho skore")}
-        binding.wordToFindSlovoText.setOnClickListener {  showToast("Tu sa zobrazuju priebeh hladaneho slova")}
-        binding.submitAbutton.setOnClickListener {  showToast("Pomocou podobnych tlacidiel budete mat moznost hadat pismena")}
+        binding.powerUpButton.setOnClickListener {  showToast(getString(R.string.powerUpMenuTutorial))}
+        binding.powerUpTimeButton.setOnClickListener {  showToast(getString(R.string.powerUpTimeTutorial))}
+        binding.showPowerUpButton.setOnClickListener {  showToast(getString(R.string.powerUpShowTutorial))}
+        binding.livesPowerUpButton.setOnClickListener {  showToast(getString(R.string.powerUpLivesTutorial))}
+        binding.hangmanImageView.setOnClickListener {  showToast(getString(R.string.hangmanImageTutorial))}
+        binding.livesImageView.setOnClickListener {  showToast(getString(R.string.livesImageTutorial))}
+        binding.timerTextView.setOnClickListener {  showToast(getString(R.string.timerTutorial))}
+        binding.scoreTextView.setOnClickListener {  showToast(getString(R.string.scoreTutorial))}
+        binding.wordToFindSlovoText.setOnClickListener {  showToast(getString(R.string.wordTutorial))}
+        binding.submitAbutton.setOnClickListener {  showToast(getString(R.string.submitTutorial))}
         binding.backButton.setOnClickListener {
             startActivity(Intent(this@TutorialActivity, TitleActivity::class.java))
+        }
+        binding.questionMarkButtonn.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+            startActivity(i)
         }
 
     }

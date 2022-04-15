@@ -34,6 +34,17 @@
     <string name="language">Jazyk</string>
     <string name="background">Výber pozadia</string>
     <string name="welcome">Vitaj</string>
+    <string name="powerUpMenuTutorial">Toto tlačidlo otvorí menu vylepšení</string>
+    <string name="powerUpTimeTutorial">Vylepšenie ktory pozastavi casomieru na 10 sekund</string>
+    <string name="powerUpShowTutorial">Vylepšenie ktoré za vás doplní jedno alebo viacero rovnakých písmen ktoré sa nachádzajú v slove</string>
+    <string name="powerUpLivesTutorial">Vylepšenie ktoré vám pridá 1 život</string>
+    <string name="hangmanImageTutorial">Tu sa ukazuje vizualny priebeh vasho obesenca</string>
+    <string name="livesImageTutorial">Pocet aktualnych zivotov</string>
+    <string name="timerTutorial">Zostavajuci cas</string>
+    <string name="scoreTutorial">Zobrazenie vasho aktualneho skore</string>
+    <string name="wordTutorial">Tu sa zobrazuju priebeh hladaneho slova</string>
+    <string name="submitTutorial">Pomocou podobnych tlacidiel budete mat moznost hadat pismena</string>
+
 
 
 </resources>

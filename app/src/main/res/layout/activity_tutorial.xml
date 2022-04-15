@@ -18,6 +18,15 @@
             tools:context=".game.HraFragment">
 
             <ImageView
+                android:id="@+id/questionMarkButtonn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/question_mark" />
+
+            <ImageView
                 android:id="@+id/backButton"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
@@ -35,23 +44,6 @@
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
-                tools:targetApi="24" />
-
-            <Chronometer
-                android:id="@+id/timer2TextView"
-                android:layout_width="77dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/fredoka"
-                android:lineSpacingExtra="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
                 tools:targetApi="24" />
