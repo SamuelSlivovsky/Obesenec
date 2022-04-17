@@ -21,6 +21,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityGameBinding
+import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
 import java.io.File
 import java.io.InputStream
 import java.util.*
@@ -127,6 +128,7 @@ class GameActivity : AppCompatActivity() {
                                     lives = (list["currLife"] as? Number)!!.toInt()
                                     currLevel = (list["level"] as? Number)!!.toInt()
                                     binding.scoreTextView.text = "Level: " + list["level"].toString()
+                                    maxLevel = (list["maxLevel"] as? Number)!!.toInt()
                                 }
                             }
 
@@ -305,19 +307,8 @@ class GameActivity : AppCompatActivity() {
                             "time" to powerUpTime,
                             "life" to powerUpLife,
                             "currLife" to lives,
+                            "maxLevel" to maxLevel
                         )
-                        if (maxLevel > 0) {
-                            wordsColl = hashMapOf(
-                                "words" to wordsBefore,
-                                "level" to 1 + previousPoints,
-                                "powerUps" to pocetPowerUpov,
-                                "show" to powerUpShow,
-                                "time" to powerUpTime,
-                                "life" to powerUpLife,
-                                "currLife" to lives,
-                                "maxLevel" to maxLevel
-                            )
-                        }
                         db.collection("words" + currUser.uid)
                             .document(intent.getStringExtra("docName").toString()).set(wordsColl)
                     }
@@ -358,26 +349,19 @@ class GameActivity : AppCompatActivity() {
                         "time" to powerUpTime,
                         "life" to powerUpLife,
                         "currLife" to lives,
+                        "maxLevel" to maxLevel
                     )
-                    if (maxLevel > 0) {
-                        wordsColl = hashMapOf(
-                            "words" to wordsBefore,
-                            "level" to if (!lost) 1 + previousPoints else previousPoints,
-                            "powerUps" to pocetPowerUpov,
-                            "show" to powerUpShow,
-                            "time" to powerUpTime,
-                            "life" to powerUpLife,
-                            "currLife" to lives,
-                            "maxLevel" to maxLevel
-                        )
-                    }
 
                     db.collection("words" + currUser.uid)
                         .document(intent.getStringExtra("docName").toString()).set(wordsColl)
                 }
             }
 
-            val intent = Intent(this@GameActivity, EndActivity::class.java)
+            val intent:Intent = if(!isCompet){
+                Intent(this@GameActivity, TitleActivity::class.java)
+            }else{
+                Intent(this@GameActivity, EndActivity::class.java)
+            }
             intent.putExtra("points", points)
             intent.putExtra("type", gameType)
             startActivity(intent)
