@@ -8,6 +8,20 @@
     android:padding="8dp">
 
     <TextView
+        android:id="@+id/modeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/fredoka"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/datum_historiaTextView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/skore_historiaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

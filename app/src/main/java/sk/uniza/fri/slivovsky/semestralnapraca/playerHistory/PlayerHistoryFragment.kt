@@ -65,7 +65,7 @@ class PlayerHistoryFragment : Fragment() {
                     list.add(
                         HistoryPlayerModelClass(
                             (document.data.getValue("score") as Number).toInt(),
-                            document.data.getValue("date").toString()
+                            document.data.getValue("date").toString(), document.data.getValue("mode").toString()
                         )
                     )
                 }

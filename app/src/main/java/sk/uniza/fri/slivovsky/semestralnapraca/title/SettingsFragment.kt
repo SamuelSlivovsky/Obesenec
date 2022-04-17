@@ -96,6 +96,21 @@ class SettingsFragment : Fragment() {
 
         }
 
+        binding.switch1.isChecked =
+            activity?.getSharedPreferences("anims",AppCompatActivity.MODE_PRIVATE)?.getString("anims","") == "y"
+        binding.switch1.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked){
+                val intent = Intent(context, TitleActivity::class.java)
+                intent.putExtra("anims", "y")
+                startActivity(intent)
+            }else{
+                val intent = Intent(context, TitleActivity::class.java)
+                intent.putExtra("anims", "n")
+                startActivity(intent)
+            }
+
+        }
+
 
     }
 

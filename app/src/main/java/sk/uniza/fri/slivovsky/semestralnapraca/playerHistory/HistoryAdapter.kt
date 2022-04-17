@@ -35,6 +35,7 @@ class HistoryAdapter(
         var poradoveCisloText: TextView = binding.poradoveCTextView
         var pocetBodov: TextView = binding.skoreHistoriaTextView
         var datum: TextView = binding.datumHistoriaTextView2
+        var mode: TextView = binding.modeTextView
 
 
         /**
@@ -48,7 +49,7 @@ class HistoryAdapter(
             pocetBodov.text = skore.score.toString()
             poradoveCisloText.text = "$poradoveCislo."
             datum.text = skore.date
-
+            mode.text = skore.mode
 
         }
     }

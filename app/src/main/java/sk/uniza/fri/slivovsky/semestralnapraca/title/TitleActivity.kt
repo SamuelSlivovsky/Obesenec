@@ -20,12 +20,27 @@ class TitleActivity : AppCompatActivity() {
     @SuppressLint("ApplySharedPref")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val anim = getSharedPreferences("anims", MODE_PRIVATE)
+        val anims = intent?.getStringExtra("anims")
+        val isAnim: String
+            if (anims == null){
+                if (anim.getString("anims","").toString() == ""){
+                    isAnim = "y"
+                }else{
+                isAnim = anim.getString("anims","").toString()
+                }
+            }else{
+
+                isAnim = anims
+            }
+
         val myBackground = intent?.getStringExtra("background")
         val background = getSharedPreferences(
             "background",
             MODE_PRIVATE
         )
         val back: String
+
 
         if (myBackground == null) {
             back = background.getString("background", "").toString()
@@ -56,8 +71,11 @@ class TitleActivity : AppCompatActivity() {
         hideSystemBars()
         LocaleHelper.setLocale(this@TitleActivity, LocaleHelper.getLanguage(this@TitleActivity))
         val editor = background.edit()
+        val editor2 = anim.edit()
         editor.putString("background", back)
+        editor2.putString("anims", isAnim)
         editor.commit()
+        editor2.commit()
         replaceFragment(TitleFragment())
         findViewById<BottomNavigationView>(R.id.bottom_navigation)
             .setOnNavigationItemSelectedListener { item ->

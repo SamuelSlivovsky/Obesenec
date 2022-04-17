@@ -57,7 +57,7 @@ class TutorialActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             startActivity(Intent(this@TutorialActivity, TitleActivity::class.java))
         }
-        binding.questionMarkButtonn.setOnClickListener {
+        binding.questionMarkButton.setOnClickListener {
             val i = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
             startActivity(i)
         }

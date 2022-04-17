@@ -25,6 +25,7 @@ import java.io.File
 import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.max
 import kotlin.properties.Delegates
 
 
@@ -57,10 +58,9 @@ class GameActivity : AppCompatActivity() {
     private var wordsBefore = mutableListOf<String>()
     private var isCompet = false
     private var maxLevel = 0
-    private var firstGame = false
     private var uhadnute = false
     private var currLevel = 0
-
+    private var anim = ""
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
      * zabezpecuje vytvorenie fragmentu
@@ -83,6 +83,11 @@ class GameActivity : AppCompatActivity() {
             "background5" -> setTheme(R.style.Background5)
 
         }
+        val anims = getSharedPreferences(
+            "anims",
+            MODE_PRIVATE
+        )
+        anim = anims.getString("anims","").toString()
         //binding
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
@@ -137,6 +142,7 @@ class GameActivity : AppCompatActivity() {
                                 list.add(it)
                             }
                             words = list
+                            maxLevel = words.size
                             newGame()
 
 
@@ -156,10 +162,6 @@ class GameActivity : AppCompatActivity() {
                     list.add(it)
                 }
                 words = list
-                if (!isCompet) {
-                    maxLevel = words.size
-                    firstGame = true
-                }
                 newGame()
 
 
@@ -441,16 +443,30 @@ class GameActivity : AppCompatActivity() {
 
     @SuppressLint("RestrictedApi", "SetTextI18n")
     private fun updateImage() {
-        if (lives >= 7) {
-            binding.hangmanImageView.setImageResource(R.drawable.hangman0)
-        } else {
-            val resImg = resources.getIdentifier(
-                "hangman${7-lives}", "drawable",
-                getActivity(this@GameActivity)?.packageName
-            )
-            binding.hangmanImageView.setImageResource(resImg)
+        if (anim == "y"){
+            if (lives >= 7) {
+                binding.hangmanImageView.setImageResource(R.drawable.hangman0)
+            } else {
+                val resImg = resources.getIdentifier(
+                    "hangman${7-lives}", "drawable",
+                    getActivity(this@GameActivity)?.packageName
+                )
+                binding.hangmanImageView.setImageResource(resImg)
+            }
+            binding.livesTextView.text = "" + lives
+        }else{
+            if (lives >= 7) {
+                binding.hangmanImageView.setImageResource(R.drawable.hangman0)
+            } else {
+                val resImg = resources.getIdentifier(
+                    "hangman_n${7-lives}", "drawable",
+                    getActivity(this@GameActivity)?.packageName
+                )
+                binding.hangmanImageView.setImageResource(resImg)
+            }
+            binding.livesTextView.text = "" + lives
         }
-        binding.livesTextView.text = "" + lives
+
     }
 
     /**
@@ -594,10 +610,10 @@ class GameActivity : AppCompatActivity() {
             else -> 1
         }
         if (points % hodnota == 0) {
-            when (Random().nextInt(3)) {
-                0 -> powerUpShow++
-                1 -> powerUpTime++
-                2 -> powerUpLife++
+            when (Random().nextInt(100)) {
+                in 0..32 -> powerUpShow++
+                in 33..65  -> powerUpTime++
+                in 66..99 -> powerUpLife++
             }
             binding.showPowerUpButton.isClickable = true
         }

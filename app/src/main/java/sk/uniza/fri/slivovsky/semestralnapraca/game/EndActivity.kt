@@ -89,17 +89,22 @@ class EndActivity : AppCompatActivity() {
                 "date" to SimpleDateFormat(
                     "dd.MM.yyyy",
                     Locale.getDefault()
-                ).format(Calendar.getInstance().time)
+                ).format(Calendar.getInstance().time),
+                "mode" to intent.getStringExtra("type")
             )
 
             db.collection("history" + currUser!!.uid).add(user)
         }
     }
+
     private fun hideSystemBars() {
-        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        val windowInsetsController =
+            ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this@EndActivity, TitleActivity::class.java))

@@ -1,6 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +68,10 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         binding.signinButton.setOnClickListener { signIn() }
+        binding.questionMarkButton.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+            startActivity(i)
+        }
     }
 
     private fun hideSystemBars() {

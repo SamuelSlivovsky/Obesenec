@@ -18,7 +18,7 @@
             tools:context=".game.HraFragment">
 
             <ImageView
-                android:id="@+id/questionMarkButtonn"
+                android:id="@+id/questionMarkButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="24dp"

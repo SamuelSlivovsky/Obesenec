@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HANGMAN</string>
+    <string name="app_name">Hangman</string>
     <string name="title">HANGMAN</string>
     <!-- Strings used for fragments for navigation -->
     <string name="play_buttoon">PLAY</string>
@@ -7,6 +7,8 @@
     <string name="top10">TOP 10 PLAYERS</string>
     <string name="historyScore"> SCORE HISTORY</string>
     <string name="umiestnenie"> Pl.</string>
+    <string name="date"> Date</string>
+    <string name="login"> Please log in</string>
     <string name="name"> Name</string>
     <string name="settings"> Settings</string>
     <string name="score"> Score</string>
@@ -44,4 +46,6 @@
     <string name="scoreTutorial">Current score</string>
     <string name="wordTutorial">Progress of the word that you are guessing</string>
     <string name="submitTutorial">Buttons for submitting letters</string>
+    <string name="logout">Sign out</string>
+    <string name="anim">Animations</string>
 </resources>

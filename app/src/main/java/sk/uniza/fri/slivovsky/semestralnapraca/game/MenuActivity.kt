@@ -232,6 +232,7 @@ class MenuActivity : AppCompatActivity() {
         val currUser = auth.currentUser
         val db = Firebase.firestore
         var level = 1
+        var maxLevel = 0
         val docRef = db.collection("words" + currUser!!.uid)
             .document(docName)
         //init words
@@ -243,16 +244,24 @@ class MenuActivity : AppCompatActivity() {
                         for (doc in result) {
                             if (doc.id == docName) {
                                 level = (doc["level"] as Number).toInt()
+                                maxLevel = if((doc["maxLevel"] as Number).toInt() > 0){
+                                    (doc["maxLevel"] as Number).toInt()
+                                }else{
+                                    ((doc["words"]) as MutableList<String>).size
+                                }
                             }
                         }
-                        binding.playButton.text =
-                            getString(R.string.play_buttoon) + " LEVEL " + level.toString()
-
+                        if(level > 0) {
+                            binding.playButton.text =
+                                getString(R.string.play_buttoon) + " LEVEL " + level.toString() + "/" + maxLevel
+                        }else{
+                            binding.playButton.text =
+                                getString(R.string.play_buttoon) + " LEVEL 1/" + maxLevel
+                        }
                     }
                 }
             } else {
-                binding.playButton.text =
-                    getString(R.string.play_buttoon) + " LEVEL " + level.toString()
+
             }
         }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OBESENEC</string>
+    <string name="app_name">Obesenec</string>
     <string name="title">BESENEC</string>
     <!-- Strings used for fragments for navigation -->
     <string name="play_buttoon">HRAJ</string>
@@ -7,6 +7,8 @@
     <string name="top10">TOP 10 HRÁČOV</string>
     <string name="historyScore"> HISTÓRIA SKÓRE</string>
     <string name="umiestnenie"> Um.</string>
+    <string name="date"> Dátum</string>
+    <string name="login"> Prihláste sa prosím</string>
     <string name="settings"> Nastavenia</string>
     <string name="name"> Meno</string>
     <string name="score"> Skóre</string>
@@ -44,6 +46,8 @@
     <string name="scoreTutorial">Zobrazenie vasho aktualneho skore</string>
     <string name="wordTutorial">Tu sa zobrazuju priebeh hladaneho slova</string>
     <string name="submitTutorial">Pomocou podobnych tlacidiel budete mat moznost hadat pismena</string>
+    <string name="logout">Odhlásiť sa</string>
+    <string name="anim">Animácie</string>
 
 
 
