@@ -111,8 +111,8 @@
                 android:id="@+id/scoreTextView"
                 android:layout_width="119dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/fredoka"
                 android:text="@string/gameScore"
                 android:textAlignment="viewStart"
@@ -120,7 +120,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tutroialTextView" />
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/hangmanImageView"
@@ -271,7 +271,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.045"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/tutroialTextView">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/powerUpButton"
@@ -290,9 +290,9 @@
                     android:layout_width="25dp"
                     android:layout_height="24dp"
                     android:layout_gravity="top|right"
-                    android:fontFamily="@font/fredoka"
                     android:background="@drawable/badge_tvar"
                     android:elevation="8dp"
+                    android:fontFamily="@font/fredoka"
                     android:gravity="center"
                     android:text="0"
                     android:textColor="@color/white"
@@ -307,14 +307,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.387"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tutroialTextView"
                 app:srcCompat="@drawable/srdce" />
 
             <TextView
                 android:id="@+id/livesTextView"
                 android:layout_width="63dp"
                 android:layout_height="27dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/fredoka"
                 android:text="6"
@@ -323,7 +323,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/livesImageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tutroialTextView" />
 
             <TextView
 
@@ -340,6 +340,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hangmanImageView" />
+
+            <TextView
+                android:id="@+id/tutroialTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="@string/interactiveTutorial"
+                android:textSize="30sp"
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -236,6 +236,7 @@ class MenuActivity : AppCompatActivity() {
         val docRef = db.collection("words" + currUser!!.uid)
             .document(docName)
         //init words
+        println(docRef)
         docRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document = task.result
@@ -253,12 +254,15 @@ class MenuActivity : AppCompatActivity() {
                         }
                         if(level > 0) {
                             binding.playButton.text =
-                                getString(R.string.play_buttoon) + " LEVEL " + level.toString() + "/" + maxLevel
+                                getString(R.string.play_buttoon) +" " + getString(R.string.levelMenu)+ " "+ level.toString() + "/" + maxLevel
                         }else{
                             binding.playButton.text =
-                                getString(R.string.play_buttoon) + " LEVEL 1/" + maxLevel
+                                getString(R.string.play_buttoon) + " " + getString(R.string.levelMenu) + " 1/" + maxLevel
                         }
                     }
+                }else{
+                    binding.playButton.text =
+                        getString(R.string.play_buttoon) + " " + getString(R.string.levelMenu) + " 1"
                 }
             } else {
 

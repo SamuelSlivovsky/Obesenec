@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.signinButton.setOnClickListener { signIn() }
         binding.questionMarkButton.setOnClickListener {
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://obesenec.000webhostapp.com"))
             startActivity(i)
         }
     }

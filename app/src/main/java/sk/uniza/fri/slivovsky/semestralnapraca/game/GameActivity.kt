@@ -1,6 +1,7 @@
 package sk.uniza.fri.slivovsky.semestralnapraca.game
 
 import android.annotation.SuppressLint
+import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
@@ -127,7 +128,7 @@ class GameActivity : AppCompatActivity() {
                                     howManyPowerUps()
                                     lives = (list["currLife"] as? Number)!!.toInt()
                                     currLevel = (list["level"] as? Number)!!.toInt()
-                                    binding.scoreTextView.text = "Level: " + list["level"].toString()
+                                    binding.scoreTextView.text = getString(R.string.level)+ list["level"].toString()
                                     maxLevel = (list["maxLevel"] as? Number)!!.toInt()
                                 }
                             }
@@ -143,6 +144,7 @@ class GameActivity : AppCompatActivity() {
                             inputStream.bufferedReader().forEachLine {
                                 list.add(it)
                             }
+                            binding.scoreTextView.text = getString(R.string.level) + "1"
                             words = list
                             maxLevel = words.size
                             newGame()
@@ -165,7 +167,6 @@ class GameActivity : AppCompatActivity() {
                 }
                 words = list
                 newGame()
-
 
             }.addOnFailureListener {
                 println("haha no file")
@@ -364,6 +365,13 @@ class GameActivity : AppCompatActivity() {
             }
             intent.putExtra("points", points)
             intent.putExtra("type", gameType)
+            startActivity(intent)
+        }
+
+        binding.searchButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_WEB_SEARCH)
+            val term = wordToFind
+            intent.putExtra(SearchManager.QUERY, term)
             startActivity(intent)
         }
 
@@ -948,15 +956,18 @@ class GameActivity : AppCompatActivity() {
         binding.wordToFindSlovoText.visibility = View.INVISIBLE
         if (isCompet) {
             binding.spoilWordSlovoText.text = getString(R.string.competLoss) + " " + wordToFind
+            binding.searchButton.visibility = View.VISIBLE
 
         } else {
             binding.spoilWordSlovoText.text = getString(R.string.nonCompetLoss)
+            binding.searchButton.visibility = View.INVISIBLE
         }
         binding.pauseLayout.visibility = View.VISIBLE
         binding.continueButton.visibility = View.INVISIBLE
         hideAllButtonns()
         binding.powerUpButton.isEnabled = false
         binding.powerUpLayout.visibility = View.INVISIBLE
+
     }
 
     /**

@@ -37,18 +37,21 @@
     <string name="background">Výber pozadia</string>
     <string name="welcome">Vitaj</string>
     <string name="powerUpMenuTutorial">Toto tlačidlo otvorí menu vylepšení</string>
-    <string name="powerUpTimeTutorial">Vylepšenie ktory pozastavi casomieru na 10 sekund</string>
+    <string name="powerUpTimeTutorial">Vylepšenie ktoré pozastaví časomieru na 10 sekúnd</string>
     <string name="powerUpShowTutorial">Vylepšenie ktoré za vás doplní jedno alebo viacero rovnakých písmen ktoré sa nachádzajú v slove</string>
     <string name="powerUpLivesTutorial">Vylepšenie ktoré vám pridá 1 život</string>
-    <string name="hangmanImageTutorial">Tu sa ukazuje vizualny priebeh vasho obesenca</string>
-    <string name="livesImageTutorial">Pocet aktualnych zivotov</string>
-    <string name="timerTutorial">Zostavajuci cas</string>
-    <string name="scoreTutorial">Zobrazenie vasho aktualneho skore</string>
-    <string name="wordTutorial">Tu sa zobrazuju priebeh hladaneho slova</string>
-    <string name="submitTutorial">Pomocou podobnych tlacidiel budete mat moznost hadat pismena</string>
+    <string name="hangmanImageTutorial">Tu sa ukazuje vizuálny priebeh vášho obesenca</string>
+    <string name="livesImageTutorial">Počet aktuálnych životov</string>
+    <string name="timerTutorial">Zostávajúci čas</string>
+    <string name="scoreTutorial">Zobrazenie vášho aktuálneho skóre</string>
+    <string name="wordTutorial">Tu sa zobrazuje priebeh hľadaného slova</string>
+    <string name="submitTutorial">Pomocou podobných tlačidiel budete mať možnosť hádať písmená</string>
     <string name="logout">Odhlásiť sa</string>
     <string name="anim">Animácie</string>
-
+    <string name="word">Slovo ?</string>
+    <string name="level">Úroveň: </string>
+    <string name="levelMenu">ÚROVEŇ </string>
+    <string name="interactiveTutorial">Interaktívny tutoriál</string>
 
 
 </resources>

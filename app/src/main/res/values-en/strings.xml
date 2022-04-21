@@ -48,4 +48,8 @@
     <string name="submitTutorial">Buttons for submitting letters</string>
     <string name="logout">Sign out</string>
     <string name="anim">Animations</string>
+    <string name="word">Word ?</string>
+    <string name="level">Level: </string>
+    <string name="levelMenu">LEVEL </string>
+    <string name="interactiveTutorial">Interactive tutorial</string>
 </resources>

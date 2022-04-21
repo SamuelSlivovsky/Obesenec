@@ -35,7 +35,7 @@ class HistoryPlayersAdapter(
         private var poradoveCisloText: TextView = binding.poradoveCTextView
         private var pocetBodov: TextView = binding.skoreHistoriaTextView
         private var datum: TextView = binding.datumHistoriaTextView2
-
+        var mode: TextView = binding.modeTextView
 
         /**
          * Funkica ktora nastavi textView itemov na hodnoty ziskane z databazy
@@ -48,7 +48,7 @@ class HistoryPlayersAdapter(
             pocetBodov.text = skore.score.toString()
             poradoveCisloText.text = "$poradoveCislo."
             datum.text = skore.date
-
+            mode.text = skore.mode
 
         }
     }

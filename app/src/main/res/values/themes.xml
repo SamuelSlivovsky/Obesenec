@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SemestralnaPraca" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SemestralnaPraca" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#002f6c</item>
         <item name="colorPrimaryVariant">#74a6cc</item>
@@ -25,7 +25,7 @@
         <item name="android:windowBackground">@drawable/background1</item>
     </style>
 
-    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="SplashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/white</item>

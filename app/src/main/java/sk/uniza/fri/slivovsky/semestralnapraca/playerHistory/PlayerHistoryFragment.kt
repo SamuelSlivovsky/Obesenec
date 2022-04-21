@@ -62,10 +62,16 @@ class PlayerHistoryFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val mode: String = when(document.data.getValue("mode").toString()){
+                        "easy" -> getString(R.string.easy)
+                        "medium" -> getString(R.string.medium)
+                        "hard"-> getString(R.string.hard)
+                        else -> ""
+                    }
                     list.add(
                         HistoryPlayerModelClass(
                             (document.data.getValue("score") as Number).toInt(),
-                            document.data.getValue("date").toString(), document.data.getValue("mode").toString()
+                            document.data.getValue("date").toString(), mode
                         )
                     )
                 }
