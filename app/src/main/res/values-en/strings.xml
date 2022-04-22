@@ -27,7 +27,7 @@
     <string name="submit"> Submit</string>
     <string name="endText">YOUR FINAL SCORE:</string>
     <string name="competLoss">You lost, word to find was</string>
-    <string name="nonCompetLoss">You have failed to guess the word, try adain</string>
+    <string name="nonCompetLoss">You have failed to guess the word, try again</string>
     <string name="diff">Difficulty</string>
     <string name="animals">Animals</string>
     <string name="cities">Capitals</string>
@@ -52,4 +52,9 @@
     <string name="level">Level: </string>
     <string name="levelMenu">LEVEL </string>
     <string name="interactiveTutorial">Interactive tutorial</string>
+    <string name="wordsLang">Words language: </string>
+    <string name="categ">Category</string>
+    <string name="svk">Slovak words</string>
+    <string name="en">English words</string>
+    <string name="chooseWordLang">Words language</string>
 </resources>

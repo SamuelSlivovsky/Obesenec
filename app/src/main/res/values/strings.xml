@@ -52,6 +52,11 @@
     <string name="level">Úroveň: </string>
     <string name="levelMenu">ÚROVEŇ </string>
     <string name="interactiveTutorial">Interaktívny tutoriál</string>
+    <string name="wordsLang">Jazyk slov:</string>
+    <string name="categ">Kategória</string>
+    <string name="svk">Slovenské slová</string>
+    <string name="en">Anglické slová</string>
+    <string name="chooseWordLang">Jazyk slov</string>
 
 
 </resources>

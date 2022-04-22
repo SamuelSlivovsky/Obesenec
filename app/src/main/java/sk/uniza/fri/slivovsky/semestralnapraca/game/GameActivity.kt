@@ -38,7 +38,7 @@ import kotlin.properties.Delegates
 class GameActivity : AppCompatActivity() {
 
     private var words = mutableListOf<String>()
-    private var lastPause:Long = 0
+    private var lastPause: Long = 0
     private lateinit var auth: FirebaseAuth
     private var wordToFind: String? = null
     private var lettersArray: CharArray = charArrayOf()
@@ -63,6 +63,8 @@ class GameActivity : AppCompatActivity() {
     private var uhadnute = false
     private var currLevel = 0
     private var anim = ""
+    private var repeat = false
+
     /**
      * Funkcia oncreate ktora je dedena z Fragment classy,
      * zabezpecuje vytvorenie fragmentu
@@ -89,7 +91,7 @@ class GameActivity : AppCompatActivity() {
             "anims",
             MODE_PRIVATE
         )
-        anim = anims.getString("anims","").toString()
+        anim = anims.getString("anims", "").toString()
         //binding
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
@@ -128,7 +130,8 @@ class GameActivity : AppCompatActivity() {
                                     howManyPowerUps()
                                     lives = (list["currLife"] as? Number)!!.toInt()
                                     currLevel = (list["level"] as? Number)!!.toInt()
-                                    binding.scoreTextView.text = getString(R.string.level)+ list["level"].toString()
+                                    binding.scoreTextView.text =
+                                        getString(R.string.level) + list["level"].toString()
                                     maxLevel = (list["maxLevel"] as? Number)!!.toInt()
                                 }
                             }
@@ -176,7 +179,8 @@ class GameActivity : AppCompatActivity() {
         //init textViews
         binding.timer2TextView.setOnChronometerTickListener {
             if (binding.timer2TextView.text == "00:00") {
-                binding.timerTextView.base = binding.timerTextView.base + SystemClock.elapsedRealtime() - lastPause
+                binding.timerTextView.base =
+                    binding.timerTextView.base + SystemClock.elapsedRealtime() - lastPause
                 binding.timerTextView.start()
                 binding.timer2TextView.visibility = View.INVISIBLE
                 binding.timerTextView.visibility = View.VISIBLE
@@ -288,37 +292,63 @@ class GameActivity : AppCompatActivity() {
         setButtons()
 
         //listener pre button na pokracovanie
-        val pokracovat: Button = view.findViewById(R.id.continueButton)
-        pokracovat.setOnClickListener {
-
+        binding.continueButton.setOnClickListener {
             if (words.isNotEmpty()) {
                 if (!isCompet) {
-                    var previousPoints = 0
-                    db.collection("words" + currUser.uid).get().addOnSuccessListener { result ->
-                        for (document in result) {
-                            if (document.id == intent.getStringExtra("docName"))
-                                previousPoints = (document.data.getValue("level") as Number).toInt()
-                        }
+                    if (!lost) {
+                        var previousPoints = 0
+                        db.collection("words" + currUser.uid).get().addOnSuccessListener { result ->
+                            for (document in result) {
+                                if (document.id == intent.getStringExtra("docName"))
+                                    previousPoints =
+                                        (document.data.getValue("level") as Number).toInt()
+                            }
 
-                        var wordsColl = hashMapOf(
-                            "words" to wordsBefore,
-                            "level" to 1 + previousPoints,
-                            "powerUps" to pocetPowerUpov,
-                            "show" to powerUpShow,
-                            "time" to powerUpTime,
-                            "life" to powerUpLife,
-                            "currLife" to lives,
-                            "maxLevel" to maxLevel
-                        )
-                        db.collection("words" + currUser.uid)
-                            .document(intent.getStringExtra("docName").toString()).set(wordsColl)
+                            val wordsColl = hashMapOf(
+                                "words" to wordsBefore,
+                                "level" to 1 + previousPoints,
+                                "powerUps" to pocetPowerUpov,
+                                "show" to powerUpShow,
+                                "time" to powerUpTime,
+                                "life" to powerUpLife,
+                                "currLife" to lives,
+                                "maxLevel" to maxLevel
+                            )
+                            db.collection("words" + currUser.uid)
+                                .document(intent.getStringExtra("docName").toString())
+                                .set(wordsColl)
+                        }
+                        nextGame = true
+                        newGame()
+                        showAllButtons()
+                        binding.pauseLayout.visibility = View.INVISIBLE
+                        binding.powerUpButton.isEnabled = true
+                    } else {
+                        var previousPoints = 0
+                        db.collection("words" + currUser.uid).get().addOnSuccessListener { result ->
+                            for (document in result) {
+                                if (document.id == intent.getStringExtra("docName"))
+                                    previousPoints =
+                                        (document.data.getValue("level") as Number).toInt()
+                            }
+
+                            val wordsColl = hashMapOf(
+                                "words" to wordsBefore,
+                                "level" to previousPoints,
+                                "powerUps" to pocetPowerUpov,
+                                "show" to powerUpShow,
+                                "time" to powerUpTime,
+                                "life" to powerUpLife,
+                                "currLife" to 7,
+                                "maxLevel" to maxLevel
+                            )
+                            db.collection("words" + currUser.uid)
+                                .document(intent.getStringExtra("docName").toString())
+                                .set(wordsColl)
+                        }
+                        startActivity(intent)
                     }
                 }
-                nextGame = true
-                newGame()
-                showAllButtons()
-                binding.pauseLayout.visibility = View.INVISIBLE
-                binding.powerUpButton.isEnabled = true
             } else {
                 loss()
                 binding.spoilWordSlovoText.text =
@@ -358,9 +388,9 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            val intent:Intent = if(!isCompet){
+            val intent: Intent = if (!isCompet) {
                 Intent(this@GameActivity, TitleActivity::class.java)
-            }else{
+            } else {
                 Intent(this@GameActivity, EndActivity::class.java)
             }
             intent.putExtra("points", points)
@@ -385,7 +415,8 @@ class GameActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.timerTextView.base = binding.timerTextView.base + SystemClock.elapsedRealtime() - lastPause
+        binding.timerTextView.base =
+            binding.timerTextView.base + SystemClock.elapsedRealtime() - lastPause
         binding.timerTextView.start()
     }
 
@@ -396,15 +427,16 @@ class GameActivity : AppCompatActivity() {
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
+
     /**
      * Funkcia pre update resp. zvysenie skóre
      */
     @SuppressLint("SetTextI18n")
     fun updateScore() {
         currLevel++
-        if(isCompet){
+        if (isCompet) {
             binding.scoreTextView.text = getString(R.string.gameScore) + points
-        }else{
+        } else {
             binding.scoreTextView.text = "Level: " + currLevel
         }
 
@@ -435,23 +467,23 @@ class GameActivity : AppCompatActivity() {
 
     @SuppressLint("RestrictedApi", "SetTextI18n")
     private fun updateImage() {
-        if (anim == "y"){
+        if (anim == "y") {
             if (lives >= 7) {
                 binding.hangmanImageView.setImageResource(R.drawable.hangman0)
             } else {
                 val resImg = resources.getIdentifier(
-                    "hangman${7-lives}", "drawable",
+                    "hangman${7 - lives}", "drawable",
                     getActivity(this@GameActivity)?.packageName
                 )
                 binding.hangmanImageView.setImageResource(resImg)
             }
             binding.livesTextView.text = "" + lives
-        }else{
+        } else {
             if (lives >= 7) {
                 binding.hangmanImageView.setImageResource(R.drawable.hangman0)
             } else {
                 val resImg = resources.getIdentifier(
-                    "hangman_n${7-lives}", "drawable",
+                    "hangman_n${7 - lives}", "drawable",
                     getActivity(this@GameActivity)?.packageName
                 )
                 binding.hangmanImageView.setImageResource(resImg)
@@ -477,7 +509,10 @@ class GameActivity : AppCompatActivity() {
         binding.livesTextView.text = lives.toString()
         uhadnute = false
         usedLetters.clear()
-        wordToFind = wordToFind()
+        if (!repeat) {
+            wordToFind = wordToFind()
+            repeat = false
+        }
         println(wordToFind)
         lettersArray = CharArray(wordToFind!!.length)
         for (i in lettersArray.indices) {
@@ -604,7 +639,7 @@ class GameActivity : AppCompatActivity() {
         if (points % hodnota == 0) {
             when (Random().nextInt(100)) {
                 in 0..32 -> powerUpShow++
-                in 33..65  -> powerUpTime++
+                in 33..65 -> powerUpTime++
                 in 66..99 -> powerUpLife++
             }
             binding.showPowerUpButton.isClickable = true
@@ -954,16 +989,18 @@ class GameActivity : AppCompatActivity() {
         words = wordsBefore
         binding.spoilWordSlovoText.visibility = View.VISIBLE
         binding.wordToFindSlovoText.visibility = View.INVISIBLE
+        binding.pauseLayout.visibility = View.VISIBLE
         if (isCompet) {
             binding.spoilWordSlovoText.text = getString(R.string.competLoss) + " " + wordToFind
             binding.searchButton.visibility = View.VISIBLE
+            binding.continueButton.visibility = View.INVISIBLE
 
         } else {
             binding.spoilWordSlovoText.text = getString(R.string.nonCompetLoss)
             binding.searchButton.visibility = View.INVISIBLE
+            binding.continueButton.text = "Repeat"
+            binding.continueButton.visibility = View.VISIBLE
         }
-        binding.pauseLayout.visibility = View.VISIBLE
-        binding.continueButton.visibility = View.INVISIBLE
         hideAllButtonns()
         binding.powerUpButton.isEnabled = false
         binding.powerUpLayout.visibility = View.INVISIBLE

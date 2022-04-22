@@ -3,8 +3,11 @@ package sk.uniza.fri.slivovsky.semestralnapraca.game
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.PopupMenu
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -27,6 +30,7 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMenuBinding
     private lateinit var docName: String
+    private lateinit var lang: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val background = getSharedPreferences(
@@ -46,18 +50,35 @@ class MenuActivity : AppCompatActivity() {
 
         setContentView(view)
         hideSystemBars()
-        val items = listOf(
+
+        binding.wordLangButton.setOnClickListener { v: View ->
+            showMenu(v, R.menu.words_lang_overflow_menu)
+        }
+
+        lang = intent.getStringExtra("lang").toString()
+        if (lang == "null"){
+            when(LocaleHelper.getLanguage(this@MenuActivity)){
+                "en"-> lang = "en"
+                "sk"-> lang = "sk"
+            }
+        }
+        val categories = listOf(
             getString(R.string.diff),
             getString(R.string.animals),
             getString(R.string.cities),
             getString(R.string.food)
         )
 
+        when(lang){
+            "en" -> binding.wordsLangTextView.text = getString(R.string.wordsLang )+ " " + getString(R.string.en )
+            "sk" -> binding.wordsLangTextView.text = getString(R.string.wordsLang )+ " " + getString(R.string.svk )
+        }
         binding.backButton.setOnClickListener {
             startActivity(Intent(this@MenuActivity, TitleActivity::class.java))
         }
+
         val arrayAdapter =
-            ArrayAdapter(this@MenuActivity, R.layout.list_item_menu, R.id.menu_item, items)
+            ArrayAdapter(this@MenuActivity, R.layout.list_item_menu, R.id.menu_item, categories)
         binding.menuText.setAdapter(arrayAdapter)
         binding.menuText.setOnItemClickListener { _, _, _, id ->
 
@@ -66,11 +87,11 @@ class MenuActivity : AppCompatActivity() {
                     hideOrShow(true)
                 }
                 1.toLong() -> {
-                    docName = when {
-                        LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                    docName = when (lang) {
+                        "sk" -> {
                             "svkAnimals"
                         }
-                        LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                        "en" -> {
                             "enAnimals"
                         }
                         else -> {
@@ -92,11 +113,11 @@ class MenuActivity : AppCompatActivity() {
                 }
                 2.toLong() -> {
 
-                    docName = when {
-                        LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                    docName = when (lang) {
+                        "sk" -> {
                             "svkCapitalCities"
                         }
-                        LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                        "en" -> {
                             "enCapitalCities"
                         }
                         else -> {
@@ -117,11 +138,11 @@ class MenuActivity : AppCompatActivity() {
                     }
                 }
                 3.toLong() -> {
-                    docName = when {
-                        LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+                    docName = when (lang) {
+                        "sk" -> {
                             "svkFood"
                         }
-                        LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                        "en" -> {
                             "enFood"
                         }
                         else -> {
@@ -147,11 +168,11 @@ class MenuActivity : AppCompatActivity() {
 
         binding.easyButton.setOnClickListener {
 
-            docName = when {
-                LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+            docName = when (lang) {
+                "sk" -> {
                     "svkWordsEasy"
                 }
-                LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                "en" -> {
                     "enWordsEasy"
                 }
                 else -> {
@@ -162,11 +183,11 @@ class MenuActivity : AppCompatActivity() {
         }
         binding.mediumButon.setOnClickListener {
 
-            docName = when {
-                LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+            docName = when (lang) {
+                "sk" -> {
                     "svkWordsMedium"
                 }
-                LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                "en" -> {
                     "enWordsMedium"
                 }
                 else -> {
@@ -177,11 +198,11 @@ class MenuActivity : AppCompatActivity() {
 
         }
         binding.hardButton.setOnClickListener {
-            docName = when {
-                LocaleHelper.getLanguage(this@MenuActivity) == "sk" -> {
+            docName = when (lang) {
+                "sk" -> {
                     "svkWordsHard"
                 }
-                LocaleHelper.getLanguage(this@MenuActivity) == "en" -> {
+                "en" -> {
                     "enWordsHard"
                 }
                 else -> {
@@ -204,10 +225,13 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun hideSystemBars() {
-        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        val windowInsetsController =
+            ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
+
     private fun hideOrShow(compet: Boolean) {
 
         if (compet) {
@@ -245,30 +269,56 @@ class MenuActivity : AppCompatActivity() {
                         for (doc in result) {
                             if (doc.id == docName) {
                                 level = (doc["level"] as Number).toInt()
-                                maxLevel = if((doc["maxLevel"] as Number).toInt() > 0){
+                                maxLevel = if ((doc["maxLevel"] as Number).toInt() > 0) {
                                     (doc["maxLevel"] as Number).toInt()
-                                }else{
+                                } else {
                                     ((doc["words"]) as MutableList<String>).size
                                 }
                             }
                         }
-                        if(level > 0) {
+                        if (level > 0) {
                             binding.playButton.text =
-                                getString(R.string.play_buttoon) +" " + getString(R.string.levelMenu)+ " "+ level.toString() + "/" + maxLevel
-                        }else{
+                                getString(R.string.play_buttoon) + " " + getString(R.string.levelMenu) + " " + level.toString() + "/" + maxLevel
+                        } else {
                             binding.playButton.text =
                                 getString(R.string.play_buttoon) + " " + getString(R.string.levelMenu) + " 1/" + maxLevel
                         }
                     }
-                }else{
+                } else {
                     binding.playButton.text =
                         getString(R.string.play_buttoon) + " " + getString(R.string.levelMenu) + " 1"
                 }
-            } else {
-
             }
         }
 
+    }
+
+    private fun showMenu(v: View, @MenuRes menuRes: Int) {
+        val popup = PopupMenu(this@MenuActivity, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+
+
+            when (menuItem.itemId) {
+                R.id.option_1 -> {
+                    intent.putExtra("lang", "en")
+                    startActivity(intent)
+
+                }
+                R.id.option_2 -> {
+                    intent.putExtra("lang", "sk")
+                    startActivity(intent)
+                }
+            }
+
+            true
+        }
+        popup.setOnDismissListener {
+            // Respond to popup being dismissed.
+        }
+        // Show the popup menu.
+        popup.show()
     }
 
 
