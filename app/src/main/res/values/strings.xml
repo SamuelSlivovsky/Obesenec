@@ -15,7 +15,7 @@
     <string name="gameScore"> skóre:</string>
     <string name="historyPlayer"> Hráč:</string>
     <string name="enterYourName"> Zadaj svoje meno</string>
-    <string name="difficulty"> VYBER SI OBTIAŽNOSŤ</string>
+    <string name="difficulty"> Vyber si obtiažnosť</string>
     <string name="easy"> Ľahká</string>
     <string name="medium"> Stredná</string>
     <string name="hard"> Ťažká</string>
@@ -25,7 +25,7 @@
     <string name="feedback"> Spätná väzba</string>
     <string name="yourFeedback"> Vaša spätná väzba</string>
     <string name="submit"> Odošli</string>
-    <string name="endText">TVOJE VÝSLEDNÉ SKÓRE BOLO:</string>
+    <string name="endText">tvoje výsledné skóre bolo:</string>
     <string name="competLoss">Prehral si, hladane slovo bolo</string>
     <string name="nonCompetLoss">Nepodarilo sa ti uhádnuť správne slovo, skús to znova</string>
     <string name="diff">Obtiažnosť</string>
@@ -58,7 +58,7 @@
     <string name="en">Anglické slová</string>
     <string name="chooseWordLang">Jazyk slov</string>
     <string name="playAgain">Hrať znova</string>
-
+    <string name="allWordsFound">Gratulujem, práve si uhádol posledné slovo v tejto kategórii. Ak chceš hrať ďalej, vyber si inú kategóriu</string>
 
 
 </resources>

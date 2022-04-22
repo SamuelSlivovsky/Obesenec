@@ -56,10 +56,10 @@ class MenuActivity : AppCompatActivity() {
         }
 
         lang = intent.getStringExtra("lang").toString()
-        if (lang == "null"){
-            when(LocaleHelper.getLanguage(this@MenuActivity)){
-                "en"-> lang = "en"
-                "sk"-> lang = "sk"
+        if (lang == "null") {
+            when (LocaleHelper.getLanguage(this@MenuActivity)) {
+                "en" -> lang = "en"
+                "sk" -> lang = "sk"
             }
         }
         val categories = listOf(
@@ -69,9 +69,11 @@ class MenuActivity : AppCompatActivity() {
             getString(R.string.food)
         )
 
-        when(lang){
-            "en" -> binding.wordsLangTextView.text = getString(R.string.wordsLang )+ " " + getString(R.string.en )
-            "sk" -> binding.wordsLangTextView.text = getString(R.string.wordsLang )+ " " + getString(R.string.svk )
+        when (lang) {
+            "en" -> binding.wordsLangTextView.text =
+                getString(R.string.wordsLang) + " " + getString(R.string.en)
+            "sk" -> binding.wordsLangTextView.text =
+                getString(R.string.wordsLang) + " " + getString(R.string.svk)
         }
         binding.backButton.setOnClickListener {
             startActivity(Intent(this@MenuActivity, TitleActivity::class.java))
@@ -282,6 +284,10 @@ class MenuActivity : AppCompatActivity() {
                         } else {
                             binding.playButton.text =
                                 getString(R.string.play_buttoon) + " " + getString(R.string.levelMenu) + " 1/" + maxLevel
+                        }
+
+                        if (level > maxLevel) {
+                            binding.playButton.isEnabled = false
                         }
                     }
                 } else {

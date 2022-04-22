@@ -22,43 +22,48 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/toScoreButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="48dp"
+                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/buttony"
                     android:elevation="20dp"
                     android:fontFamily="@font/fredoka"
                     android:text="@string/score"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:cornerRadius="10dp"
+                    app:cornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/backToMenuButton" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/backToMenuButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/buttony"
                     android:elevation="20dp"
                     android:fontFamily="@font/fredoka"
                     android:text="@string/menu"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:cornerRadius="10dp"
+                    app:cornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/endTextView"
-                android:layout_width="383dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="48dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/fredoka"
                 android:text="@string/endText"
                 android:textAlignment="center"

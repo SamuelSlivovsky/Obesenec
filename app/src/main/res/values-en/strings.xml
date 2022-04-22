@@ -15,7 +15,7 @@
     <string name="gameScore"> score:</string>
     <string name="historyPlayer"> Player:</string>
     <string name="enterYourName"> Enter your name</string>
-    <string name="difficulty"> CHOOSE A DIFFICULTY</string>
+    <string name="difficulty"> Choose a difficulty</string>
     <string name="easy"> Easy</string>
     <string name="medium"> Medium</string>
     <string name="hard"> Hard</string>
@@ -25,7 +25,7 @@
     <string name="feedback"> Feedback</string>
     <string name="yourFeedback"> Your feedback</string>
     <string name="submit"> Submit</string>
-    <string name="endText">YOUR FINAL SCORE:</string>
+    <string name="endText">your final score was:</string>
     <string name="competLoss">You lost, word to find was</string>
     <string name="nonCompetLoss">You have failed to guess the word, try again</string>
     <string name="diff">Difficulty</string>
@@ -58,4 +58,5 @@
     <string name="en">English words</string>
     <string name="chooseWordLang">Words language</string>
     <string name="playAgain">Play again</string>
+    <string name="allWordsFound">Grats, you have found the last word in this category. If you wish to play again, choose another category.</string>
 </resources>

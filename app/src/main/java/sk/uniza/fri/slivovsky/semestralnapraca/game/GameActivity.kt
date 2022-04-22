@@ -350,9 +350,11 @@ class GameActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                loss()
-                binding.spoilWordSlovoText.text =
-                    "Gratulujem, uhádol si všetky slová. Za uhádnutie všetkých slov dostaneš " + pocetPowerUpov + " bonusových bodov"
+                if (!isCompet){
+                    loss()
+                    binding.spoilWordSlovoText.text =
+                        getString(R.string.allWordsFound)
+                }
                 points += pocetPowerUpov
                 updateScore()
             }
