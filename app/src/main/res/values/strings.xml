@@ -57,6 +57,8 @@
     <string name="svk">Slovenské slová</string>
     <string name="en">Anglické slová</string>
     <string name="chooseWordLang">Jazyk slov</string>
+    <string name="playAgain">Hrať znova</string>
+
 
 
 </resources>

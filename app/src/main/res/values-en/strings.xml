@@ -57,4 +57,5 @@
     <string name="svk">Slovak words</string>
     <string name="en">English words</string>
     <string name="chooseWordLang">Words language</string>
+    <string name="playAgain">Play again</string>
 </resources>

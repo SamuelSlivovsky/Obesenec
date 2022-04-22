@@ -998,7 +998,7 @@ class GameActivity : AppCompatActivity() {
         } else {
             binding.spoilWordSlovoText.text = getString(R.string.nonCompetLoss)
             binding.searchButton.visibility = View.INVISIBLE
-            binding.continueButton.text = "Repeat"
+            binding.continueButton.text = getString(R.string.playAgain)
             binding.continueButton.visibility = View.VISIBLE
         }
         hideAllButtonns()
