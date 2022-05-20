@@ -79,6 +79,11 @@ class MainActivity : AppCompatActivity() {
         windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@MainActivity, MainActivity::class.java))
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

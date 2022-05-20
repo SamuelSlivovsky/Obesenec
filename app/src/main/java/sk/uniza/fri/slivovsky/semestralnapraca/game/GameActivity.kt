@@ -20,6 +20,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import sk.uniza.fri.slivovsky.semestralnapraca.MainActivity
 import sk.uniza.fri.slivovsky.semestralnapraca.R
 import sk.uniza.fri.slivovsky.semestralnapraca.databinding.ActivityGameBinding
 import sk.uniza.fri.slivovsky.semestralnapraca.title.TitleActivity
@@ -348,6 +349,12 @@ class GameActivity : AppCompatActivity() {
                         }
                         startActivity(intent)
                     }
+                }else{
+                    nextGame = true
+                    newGame()
+                    showAllButtons()
+                    binding.pauseLayout.visibility = View.INVISIBLE
+                    binding.powerUpButton.isEnabled = true
                 }
             } else {
                 if (!isCompet){
@@ -374,7 +381,7 @@ class GameActivity : AppCompatActivity() {
                     }
                     if (previousPoints == 0) previousPoints = 1
 
-                    var wordsColl = hashMapOf(
+                    val wordsColl = hashMapOf(
                         "words" to wordsBefore,
                         "level" to if (!lost) 1 + previousPoints else previousPoints,
                         "powerUps" to pocetPowerUpov,
@@ -428,6 +435,11 @@ class GameActivity : AppCompatActivity() {
         windowInsetsController.systemBarsBehavior =
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@GameActivity, TitleActivity::class.java))
     }
 
     /**
